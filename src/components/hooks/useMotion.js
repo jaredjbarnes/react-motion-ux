@@ -1,72 +1,9 @@
 import { useState, useEffect } from "react";
-import { Timeline, easings } from "motion-ux";
-
-const isEqual = (a, b) => {
-  return JSON.stringify(a) === JSON.stringify(b);
-};
-
-const clone = obj => {
-  return JSON.parse(JSON.stringify(obj));
-};
-
-const getValues = timeline => {
-  return clone(
-    timeline
-      .getCurrentValues()
-      .keys()
-      .next().value
-  );
-};
-
-const createAnimations = options => {
-  const target = {};
-
-  const animations = Object.keys(options).map(key => {
-    const option = options[key];
-    return {
-      ...option,
-      name: key,
-      target: target,
-      startAt: typeof option.startAt === "number" ? option.startAt : 0,
-      endAt: typeof option.endAt === "number" ? option.endAt : 1,
-      easing: easings[option.easing] || easings.linear
-    };
-  });
-
-  return animations;
-};
-
-const createAdjustedAnimations = (currentValues, oldOptions, options) => {
-  const target = {};
-
-  const animations = Object.keys(options).map(key => {
-    const oldOption = oldOptions[key];
-    const option = options[key];
-    const from = currentValues[key];
-    const controls = Array.isArray(option.controls) ? option.controls : [];
-
-    controls.unshift(oldOption.to);
-
-    const adjustedOption = {
-      ...option,
-      from,
-      controls
-    };
-
-    return {
-      ...adjustedOption,
-      name: key,
-      target: target,
-      startAt:
-        typeof adjustedOption.startAt === "number" ? adjustedOption.startAt : 0,
-      endAt:
-        typeof adjustedOption.endAt === "number" ? adjustedOption.endAt : 1,
-      easing: easings[adjustedOption.easing] || easings.linear
-    };
-  });
-
-  return animations;
-};
+import { Timeline } from "motion-ux";
+import createAnimations from "./createAnimations";
+import createAdjustedAnimations from "./createAnimations";
+import getValues from "./getValues";
+import isEqual from "./isEqual";
 
 const useMotion = (options, duration) => {
   const [state, setState] = useState(null);
@@ -152,7 +89,7 @@ export default useMotion;
 // );
 
 
-// const style = useMorph("currentState", {
+// const style = useMorph("default", {
 //     default: {
 //         transform: "",
 //         border: "",

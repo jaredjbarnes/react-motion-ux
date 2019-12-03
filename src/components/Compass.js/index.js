@@ -80,7 +80,7 @@ const Compass = ({ position: defaultPosition }) => {
     setPosition(defaultPosition);
   }
 
-  const { left, top, border } = useMotion(placement, 1000);
+  const { left, top, border } = useMotion(placement, 3000);
 
   const style = {
     position: "absolute",
