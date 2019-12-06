@@ -22,8 +22,18 @@ const transformOption = value => {
   }
 };
 
+const applyValues = (elementRef, values) => {
+  if (elementRef.current != null && elementRef.current.style != null) {
+    const element = elementRef.current;
+
+    Object.keys(values).forEach(key => {
+      element.style[key] = values[key];
+    });
+  }
+};
+
 const useMotion = (options, duration) => {
-  const [values, setValues] = useState(null);
+  const elementRef = useRef(null);
   const timeline = useRef(null);
   const observer = useRef(null);
   const lastOptions = useRef(null);
@@ -40,7 +50,7 @@ const useMotion = (options, duration) => {
     timeline.current.play();
 
     observer.current = timeline.current.observe("RENDER", () => {
-      setValues(getValues(timeline.current));
+      applyValues(elementRef, getValues(timeline.current));
     });
   }
 
@@ -61,7 +71,7 @@ const useMotion = (options, duration) => {
     });
 
     observer.current = timeline.current.observe("RENDER", () => {
-      setValues(getValues(timeline.current));
+      applyValues(elementRef, getValues(timeline.current));
     });
 
     timeline.current.play();
@@ -76,7 +86,7 @@ const useMotion = (options, duration) => {
 
   lastOptions.current = options;
 
-  return values || getValues(timeline.current);
+  return elementRef;
 };
 
 export default useMotion;

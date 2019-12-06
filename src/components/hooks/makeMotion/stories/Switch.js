@@ -49,8 +49,8 @@ const useHandleStyles = makeMotion(
 const Switch = ({ defaultState } = {}) => {
   defaultState = defaultState || "off";
   const [state, setState] = useState(defaultState);
-  const animatedRailStyles = useRailStyles(state);
-  const animatedHandleStyles = useHandleStyles(state);
+  const railRef = useRailStyles(state);
+  const handleRef = useHandleStyles(state);
 
   useMemo(() => {
     setState(defaultState);
@@ -65,8 +65,8 @@ const Switch = ({ defaultState } = {}) => {
   };
 
   return (
-    <div style={{ ...rail, ...animatedRailStyles }} onClick={onClick}>
-      <div style={{ ...handle, ...animatedHandleStyles }}></div>
+    <div ref={railRef} style={rail} onClick={onClick}>
+      <div ref={handleRef} style={handle}></div>
     </div>
   );
 };

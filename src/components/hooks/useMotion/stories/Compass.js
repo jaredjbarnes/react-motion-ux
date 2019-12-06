@@ -21,12 +21,6 @@ const states = {
   }
 };
 
-const stateNames = Object.keys(states);
-const getRandomState = () => {
-  const index = Math.round(Math.random() * (stateNames.length - 1));
-  return stateNames[index];
-};
-
 const Compass = ({ position: defaultPosition }) => {
   const [position, setPosition] = useState(defaultPosition);
   const placement = states[position];
@@ -35,21 +29,19 @@ const Compass = ({ position: defaultPosition }) => {
     setPosition(defaultPosition);
   }, [defaultPosition]);
 
-  const { transform, border } = useMotion(clone(placement), 2000);
+  const ref = useMotion(clone(placement), 2000);
 
   const style = {
     position: "absolute",
-    transform: transform,
     background: "rgba(239, 240, 242, 1)",
     borderRadius: "50% 50%",
     width: "100px",
-    height: "100px",
-    border: border
+    height: "100px"
   };
 
   return (
     <div style={{ position: "relative", width: "300px", height: "300px" }}>
-      <div style={style}></div>
+      <div ref={ref} style={style}></div>
     </div>
   );
 };

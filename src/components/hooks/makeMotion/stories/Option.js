@@ -72,15 +72,16 @@ const useMiddleBallAnimtedStyles = makeMotion(
 
 const OptionButton = ({ state } = {}) => {
   state = state || "default";
-  const topStyle = useTopBallAnimatedStyles(state);
-  const bottomStyle = useBottomBallAnimtedStyles(state);
-  const middleStyle = useMiddleBallAnimtedStyles(state);
+
+  const topRef = useTopBallAnimatedStyles(state);
+  const bottomRef = useBottomBallAnimtedStyles(state);
+  const middleRef = useMiddleBallAnimtedStyles(state);
 
   return (
     <div style={containerStyles}>
-      <div style={{ ...defaultBallStyles, ...topStyle }}></div>
-      <div style={{ ...defaultBallStyles, ...bottomStyle }}></div>
-      <div style={{ ...defaultBallStyles, ...middleStyle }}></div>
+      <div ref={topRef} style={defaultBallStyles}></div>
+      <div ref={bottomRef} style={defaultBallStyles}></div>
+      <div ref={middleRef} style={defaultBallStyles}></div>
     </div>
   );
 };

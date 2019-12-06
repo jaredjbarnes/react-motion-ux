@@ -31,7 +31,7 @@ const useAnimatedStyles = makeMotion(
 
 const Button = ({ children, onClick }) => {
   const [state, setState] = useState("default");
-  const style = useAnimatedStyles(state);
+  const ref = useAnimatedStyles(state);
 
   const onMouseDown = () => {
     setState("pressed");
@@ -43,7 +43,8 @@ const Button = ({ children, onClick }) => {
 
   return (
     <div
-      style={{ ...defaultStyles, ...style }}
+      style={defaultStyles}
+      ref={ref}
       onClick={onClick}
       onMouseDown={onMouseDown}
       onMouseOut={restore}

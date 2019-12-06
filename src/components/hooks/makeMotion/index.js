@@ -7,9 +7,9 @@ const makeMotion = (states, duration) => {
       return useMotion(map[stateName], duration);
     };
   } else {
-    return (stateName) => {
-        return useMotion(states[stateName], duration);
-      };
+    return stateName => {
+      return useMotion(states[stateName], duration);
+    };
   }
 };
 
