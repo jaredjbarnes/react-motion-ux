@@ -7,6 +7,8 @@ export default options => {
     const option = options[key];
     return {
       ...option,
+      from: option.value,
+      to: option.value,
       name: key,
       target: target,
       startAt: typeof option.startAt === "number" ? option.startAt : 0,

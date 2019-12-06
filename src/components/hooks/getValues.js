@@ -4,7 +4,7 @@ export default timeline => {
   return clone(
     timeline
       .getCurrentValues()
-      .keys()
+      .values()
       .next().value
   );
 };

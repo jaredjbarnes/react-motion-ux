@@ -9,23 +9,21 @@ export default (currentValues, lastOptions, newOptions) => {
     const from = currentValues[key];
     const controls = Array.isArray(option.controls) ? option.controls : [];
 
-    controls.unshift(oldOption.to);
-
-    const adjustedOption = {
-      ...option,
-      from,
-      controls
-    };
+    controls.unshift(oldOption.value);
+    controls.push(option.value);
 
     return {
-      ...adjustedOption,
+      ...option,
       name: key,
       target: target,
+      to: option.value,
+      from,
+      controls,
       startAt:
-        typeof adjustedOption.startAt === "number" ? adjustedOption.startAt : 0,
+        typeof option.startAt === "number" ? option.startAt : 0,
       endAt:
-        typeof adjustedOption.endAt === "number" ? adjustedOption.endAt : 1,
-      easing: easings[adjustedOption.easing] || easings.linear
+        typeof option.endAt === "number" ? option.endAt : 1,
+      easing: easings[option.easing] || easings.linear
     };
   });
 
