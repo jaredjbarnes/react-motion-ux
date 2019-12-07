@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Timeline } from "motion-ux";
 import createAnimations from "./createAnimations";
 import createAdjustedAnimations from "./createAdjustedAnimations";
@@ -15,7 +15,7 @@ const transformOption = value => {
   if (typeof value === "string") {
     return {
       value: value,
-      easing: "easeOutExpo"
+      easing: "expo"
     };
   } else {
     return value;
@@ -62,8 +62,7 @@ const useMotion = (options, duration) => {
       options
     );
 
-    observer.current.dispose();
-    timeline.current.stop();
+    timeline.current.dispose();
 
     timeline.current = new Timeline({
       animations: animations,
@@ -79,8 +78,7 @@ const useMotion = (options, duration) => {
 
   useEffect(() => {
     return () => {
-      timeline.current.stop();
-      observer.current.dispose();
+      timeline.current.dispose();
     };
   }, []);
 

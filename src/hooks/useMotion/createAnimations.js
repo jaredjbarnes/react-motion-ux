@@ -1,4 +1,4 @@
-import { easings } from "motion-ux";
+import easeOut from "./easeIn.js";
 
 export default options => {
   const target = {};
@@ -13,7 +13,7 @@ export default options => {
       target: target,
       startAt: typeof option.startAt === "number" ? option.startAt : 0,
       endAt: typeof option.endAt === "number" ? option.endAt : 1,
-      easing: easings[option.easing] || easings.linear
+      easing: easeOut[option.easing] || easeOut.expo
     };
   });
 
