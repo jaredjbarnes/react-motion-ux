@@ -3,6 +3,7 @@ import Switch from "./Switch";
 import Button from "./Button";
 import Option from "./Option";
 import OptionButton from "./OptionButton";
+import Menu from "./Menu";
 
 export default {
   component: null,
@@ -39,5 +40,9 @@ export const OptionDemo = () => {
 };
 
 export const OptionButtonDemo = () => {
-    return <OptionButton></OptionButton>;
-  };
+  return <OptionButton></OptionButton>;
+};
+
+export const MenuDemo = () => {
+  return <Menu />;
+};

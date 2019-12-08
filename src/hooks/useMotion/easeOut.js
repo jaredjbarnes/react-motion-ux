@@ -1,7 +1,7 @@
 import { easings } from "motion-ux";
 
 export default {
-  quad: easings.easeOutExpo,
+  quad: easings.easeOutQuad,
   cubic: easings.easeOutCubic,
   quart: easings.easeOutQuart,
   quint: easings.easeOutQuint,
@@ -9,7 +9,7 @@ export default {
   expo: easings.easeOutExpo,
   circ: easings.easeOutCirc,
   elastic: easings.easeOutElastic,
-  spring: easings.easeOutBack,
+  settle: easings.easeOutBack,
   bounce: easings.easeOutBounce,
   linear: easings.linear
 };

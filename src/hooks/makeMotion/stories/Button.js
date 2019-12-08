@@ -3,7 +3,7 @@ import makeMotion from "../index";
 
 const defaultStyles = {
   cursor: "pointer",
-  display: "inline-flex",
+  display: "flex",
   width: "50px",
   height: "50px",
   boxSizing: "border-box",
@@ -29,30 +29,38 @@ const useAnimatedStyles = makeMotion(
   500
 );
 
-const Button = ({ children, onClick }) => {
-  const [state, setState] = useState("default");
-  const ref = useAnimatedStyles(state);
+const Button = React.forwardRef(
+  ({ children, onClick, className, style = {} }, ref) => {
+    const [state, setState] = useState("default");
+    const animatedRef = useAnimatedStyles(state);
 
-  const onMouseDown = () => {
-    setState("pressed");
-  };
+    const onMouseDown = () => {
+      setState("pressed");
+    };
 
-  const restore = () => {
-    setState("default");
-  };
+    const restore = () => {
+      setState("default");
+    };
 
-  return (
-    <div
-      style={defaultStyles}
-      ref={ref}
-      onClick={onClick}
-      onMouseDown={onMouseDown}
-      onMouseOut={restore}
-      onMouseUp={restore}
-    >
-      {children}
-    </div>
-  );
-};
+    return (
+      <div
+        ref={ref}
+        style={{ display: "inline-block", ...style }}
+        className={className}
+      >
+        <div
+          style={defaultStyles}
+          ref={animatedRef}
+          onClick={onClick}
+          onMouseDown={onMouseDown}
+          onMouseOut={restore}
+          onMouseUp={restore}
+        >
+          {children}
+        </div>
+      </div>
+    );
+  }
+);
 
 export default Button;

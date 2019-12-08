@@ -14,8 +14,7 @@ const transformOptions = options => {
 const transformOption = value => {
   if (typeof value === "string") {
     return {
-      value: value,
-      easing: "expo"
+      value: value
     };
   } else {
     return value;
@@ -35,7 +34,6 @@ const applyValues = (elementRef, values) => {
 const useMotion = (options, duration) => {
   const elementRef = useRef(null);
   const timeline = useRef(null);
-  const observer = useRef(null);
   const lastOptions = useRef(null);
 
   transformOptions(options);
@@ -47,19 +45,18 @@ const useMotion = (options, duration) => {
       duration: duration
     });
 
-    timeline.current.play();
-
-    observer.current = timeline.current.observe("RENDER", () => {
+    timeline.current.observe("RENDER", () => {
       applyValues(elementRef, getValues(timeline.current));
     });
+
+    timeline.current.play();
   }
 
   if (isDifferent && lastOptions.current != null) {
-    const currentValues = getValues(timeline.current);
     const animations = createAdjustedAnimations(
-      currentValues,
+      timeline.current,
       lastOptions.current,
-      options
+      options,
     );
 
     timeline.current.dispose();
@@ -69,7 +66,7 @@ const useMotion = (options, duration) => {
       duration: duration
     });
 
-    observer.current = timeline.current.observe("RENDER", () => {
+    timeline.current.observe("RENDER", () => {
       applyValues(elementRef, getValues(timeline.current));
     });
 

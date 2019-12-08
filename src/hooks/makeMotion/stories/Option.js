@@ -70,20 +70,33 @@ const useMiddleBallAnimtedStyles = makeMotion(
   500
 );
 
-const OptionButton = ({ state } = {}) => {
-  state = state || "default";
+const OptionButton = React.forwardRef(
+  ({ state, style, className } = {}, ref) => {
+    state = state || "default";
 
-  const topRef = useTopBallAnimatedStyles(state);
-  const bottomRef = useBottomBallAnimtedStyles(state);
-  const middleRef = useMiddleBallAnimtedStyles(state);
+    const topRef = useTopBallAnimatedStyles(state);
+    const bottomRef = useBottomBallAnimtedStyles(state);
+    const middleRef = useMiddleBallAnimtedStyles(state);
 
-  return (
-    <div style={containerStyles}>
-      <div ref={topRef} style={defaultBallStyles}></div>
-      <div ref={bottomRef} style={defaultBallStyles}></div>
-      <div ref={middleRef} style={defaultBallStyles}></div>
-    </div>
-  );
-};
+    return (
+      <div
+        ref={ref}
+        style={{
+          display: "inline-block",
+          width: "30px",
+          height: "30px",
+          ...style
+        }}
+        className={className}
+      >
+        <div style={containerStyles}>
+          <div ref={topRef} style={defaultBallStyles}></div>
+          <div ref={bottomRef} style={defaultBallStyles}></div>
+          <div ref={middleRef} style={defaultBallStyles}></div>
+        </div>
+      </div>
+    );
+  }
+);
 
 export default OptionButton;

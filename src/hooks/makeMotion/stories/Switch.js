@@ -71,4 +71,4 @@ const Switch = ({ defaultState } = {}) => {
   );
 };
 
-export default Switch;
+export default React.forwardRef(Switch);

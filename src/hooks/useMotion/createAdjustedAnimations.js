@@ -1,7 +1,10 @@
 import easeOut from "./easeOut.js";
+import getValues from "../getValues";
 
-export default (currentValues, lastOptions, newOptions) => {
+export default (timeline, lastOptions, newOptions) => {
   const target = {};
+  const currentValues = getValues(timeline);
+  const shouldRedirect = timeline.progress !== 1;
 
   const animations = Object.keys(newOptions).map(key => {
     const oldOption = lastOptions[key];
@@ -9,8 +12,9 @@ export default (currentValues, lastOptions, newOptions) => {
     const from = currentValues[key];
     const controls = Array.isArray(option.controls) ? option.controls : [];
 
-    controls.unshift(oldOption.value);
-    controls.push(option.value);
+    if (shouldRedirect) {
+      controls.unshift(oldOption.value);
+    }
 
     return {
       ...option,

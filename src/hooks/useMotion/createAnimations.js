@@ -1,4 +1,4 @@
-import easeOut from "./easeIn.js";
+import easeOut from "./easeOut.js";
 
 export default options => {
   const target = {};
