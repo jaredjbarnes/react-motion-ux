@@ -21,17 +21,35 @@ const transformOption = value => {
   }
 };
 
-const applyValues = (elementRef, values) => {
-  if (elementRef.current != null && elementRef.current.style != null) {
-    const element = elementRef.current;
+const defaultApplyValues = (ref, values) => {
+  if (ref.current != null) {
+    const element = ref.current;
 
     Object.keys(values).forEach(key => {
-      element.style[key] = values[key];
+      element[key] = values[key];
     });
   }
 };
 
-const useMotion = (options, duration) => {
+const assertAnimatingTheSameProperties = (optionsA, optionsB) => {
+  const keysA = Object.keys(optionsA);
+  const keysB = Object.keys(optionsB);
+
+  keysA.sort();
+  keysB.sort();
+
+  const areTheSame = keysA.join("|") === keysB.join("|");
+
+  if (!areTheSame) {
+    throw new Error(
+      `Invalid Arguments: useMotion cannot transition between css properties that don't match between states: ${JSON.stringify(
+        optionsA
+      )}, ${JSON.stringify(optionsB)}`
+    );
+  }
+};
+
+const useMotion = (options, duration, applyValues = defaultApplyValues) => {
   const elementRef = useRef(null);
   const timeline = useRef(null);
   const lastOptions = useRef(null);
@@ -56,7 +74,7 @@ const useMotion = (options, duration) => {
     const animations = createAdjustedAnimations(
       timeline.current,
       lastOptions.current,
-      options,
+      options
     );
 
     timeline.current.dispose();

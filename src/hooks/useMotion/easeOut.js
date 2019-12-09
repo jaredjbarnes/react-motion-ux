@@ -9,7 +9,7 @@ export default {
   expo: easings.easeOutExpo,
   circ: easings.easeOutCirc,
   elastic: easings.easeOutElastic,
-  settle: easings.easeOutBack,
+  overshoot: easings.easeOutBack,
   bounce: easings.easeOutBounce,
   linear: easings.linear
 };

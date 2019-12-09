@@ -1,5 +1,5 @@
 import React from "react";
-import makeMotion from "../index";
+import makeElementMotion from "../index";
 
 const defaultBallStyles = {
   position: "absolute",
@@ -18,7 +18,7 @@ const containerStyles = {
   height: "30px"
 };
 
-const useTopBallAnimatedStyles = makeMotion(
+const useTopBallAnimatedStyles = makeElementMotion(
   {
     default: {
       transform: "translate(12px, 3px) rotate(0deg)",
@@ -35,10 +35,10 @@ const useTopBallAnimatedStyles = makeMotion(
       backgroundColor: "rgba(200, 50, 50, 1)"
     }
   },
-  500
+  300
 );
 
-const useBottomBallAnimtedStyles = makeMotion(
+const useBottomBallAnimtedStyles = makeElementMotion(
   {
     default: {
       transform: "translate(12px, 21px) rotate(0deg)",
@@ -55,10 +55,10 @@ const useBottomBallAnimtedStyles = makeMotion(
       backgroundColor: "rgba(200, 50, 50, 1)"
     }
   },
-  500
+  300
 );
 
-const useMiddleBallAnimtedStyles = makeMotion(
+const useMiddleBallAnimtedStyles = makeElementMotion(
   {
     default: {
       opacity: "1"
@@ -67,7 +67,7 @@ const useMiddleBallAnimtedStyles = makeMotion(
       opacity: "0"
     }
   },
-  500
+  300
 );
 
 const OptionButton = React.forwardRef(

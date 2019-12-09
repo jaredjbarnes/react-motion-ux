@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Compass from "./Compass";
+import PipelinePath from "./PipelinePath";
 
 export default {
   component: null,
@@ -16,6 +17,10 @@ let initialPositions = new Array(20).fill("up");
 initialPositions = initialPositions.map(() => {
   return getRandomState();
 });
+
+const generatedValue = max => {
+  return Math.round(Math.random() * max);
+};
 
 export const Default = () => {
   const [positions, setPositions] = useState(initialPositions);
@@ -84,6 +89,49 @@ export const Default = () => {
         Left
       </button>
       {compasses}
+    </div>
+  );
+};
+
+export const PipelinePathDemo = () => {
+  return (
+    <PipelinePath
+      originX={0}
+      originY={0}
+      destinationX={100}
+      destinationY={100}
+    />
+  );
+};
+
+export const AnimatedPipelinePath = () => {
+  const [state, setState] = useState({
+    originX: 300,
+    originY: 300,
+    destinationX: 100,
+    destinationY: 100
+  });
+
+  const interval = setInterval(() => {
+    const state = {
+      originX: generatedValue(300),
+      originY: generatedValue(300),
+      destinationX: generatedValue(300),
+      destinationY: generatedValue(300)
+    };
+
+    setState(state);
+  }, 2000);
+
+  useEffect(() => {
+    return () => {
+      clearInterval(interval);
+    };
+  });
+
+  return (
+    <div style={{ position: "relative", width: "800px", height: "800px" }}>
+      <PipelinePath {...state} />
     </div>
   );
 };

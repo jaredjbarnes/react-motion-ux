@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import makeMotion from "../index";
+import makeElementMotion from "../index";
 
 const rail = {
   borderRadius: "15px",
@@ -22,7 +22,7 @@ const handle = {
   boxShadow: "0px 3px 5px rgba(0,0,0,0.2)"
 };
 
-const useRailStyles = makeMotion(
+const useRailStyles = makeElementMotion(
   {
     on: {
       backgroundColor: "rgba(0, 116, 217, 1)"
@@ -31,10 +31,10 @@ const useRailStyles = makeMotion(
       backgroundColor: "rgba(200, 200, 200, 1)"
     }
   },
-  800
+  300
 );
 
-const useHandleStyles = makeMotion(
+const useHandleStyles = makeElementMotion(
   {
     on: {
       transform: "translate(100%, 0%)"
@@ -43,7 +43,7 @@ const useHandleStyles = makeMotion(
       transform: "translate(0%, 0%)"
     }
   },
-  800
+  300
 );
 
 const Switch = ({ defaultState } = {}) => {

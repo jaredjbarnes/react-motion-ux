@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import makeMotion from "../index";
+import makeElementMotion from "../index";
 
 const defaultStyles = {
   cursor: "pointer",
@@ -15,7 +15,7 @@ const defaultStyles = {
     "radial-gradient(circle, rgba(240,240,240,1) 0%, rgba(230,230,230,1) 100%)"
 };
 
-const useAnimatedStyles = makeMotion(
+const useAnimatedStyles = makeElementMotion(
   {
     default: {
       transform: "scale(1)",

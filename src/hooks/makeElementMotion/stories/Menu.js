@@ -1,7 +1,7 @@
 import OptionButton from "./OptionButton";
 import Button from "./Button";
 import React, { useState } from "react";
-import makeMotion from "../index";
+import makeElementMotion from "../index";
 
 const wrapper = {
   display: "inline-block",
@@ -23,7 +23,7 @@ const option = {
   left: "0px"
 };
 
-const useOneOptionMotion = makeMotion(
+const useOneOptionMotion = makeElementMotion(
   {
     opened: {
       transform: {
@@ -37,10 +37,10 @@ const useOneOptionMotion = makeMotion(
       opacity: "0"
     }
   },
-  300
+  400
 );
 
-const useTwoOptionMotion = makeMotion(
+const useTwoOptionMotion = makeElementMotion(
   {
     opened: {
       transform: {
@@ -58,10 +58,10 @@ const useTwoOptionMotion = makeMotion(
       opacity: "0"
     }
   },
-  300
+  400
 );
 
-const useThreeOptionMotion = makeMotion(
+const useThreeOptionMotion = makeElementMotion(
   {
     opened: {
       transform: {
@@ -78,7 +78,7 @@ const useThreeOptionMotion = makeMotion(
       opacity: "0"
     }
   },
-  300
+  400
 );
 
 const Menu = React.forwardRef((props = {}, ref) => {

@@ -21,6 +21,16 @@ const states = {
   }
 };
 
+const applyStyleValues = (elementRef, values) => {
+  if (elementRef.current != null && elementRef.current.style != null) {
+    const element = elementRef.current;
+
+    Object.keys(values).forEach(key => {
+      element.style[key] = values[key];
+    });
+  }
+};
+
 const Compass = ({ position: defaultPosition }) => {
   const [position, setPosition] = useState(defaultPosition);
   const placement = states[position];
@@ -29,7 +39,7 @@ const Compass = ({ position: defaultPosition }) => {
     setPosition(defaultPosition);
   }, [defaultPosition]);
 
-  const ref = useMotion(clone(placement), 2000);
+  const ref = useMotion(clone(placement), 2000, applyStyleValues);
 
   const style = {
     position: "absolute",
