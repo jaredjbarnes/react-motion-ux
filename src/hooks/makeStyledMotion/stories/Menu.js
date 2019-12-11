@@ -1,7 +1,7 @@
 import OptionButton from "./OptionButton";
 import Button from "./Button";
 import React, { useState } from "react";
-import makeElementMotion from "../index";
+import makeStyledMotion from "../index";
 
 const wrapper = {
   display: "inline-block",
@@ -9,21 +9,18 @@ const wrapper = {
 };
 
 const menuContainer = {
-  display: "inline-flex",
-  position: "relative",
-  width: "255px",
-  height: "100px",
-  justifyContent: "center",
-  alignItems: "center"
+  display: "block",
+  position: "relative"
 };
 
 const option = {
+  display: "block",
   position: "absolute",
   top: "0px",
   left: "0px"
 };
 
-const useOneOptionMotion = makeElementMotion(
+const useOneOptionMotion = makeStyledMotion(
   {
     opened: {
       transform: {
@@ -40,7 +37,7 @@ const useOneOptionMotion = makeElementMotion(
   400
 );
 
-const useTwoOptionMotion = makeElementMotion(
+const useTwoOptionMotion = makeStyledMotion(
   {
     opened: {
       transform: {
@@ -61,7 +58,7 @@ const useTwoOptionMotion = makeElementMotion(
   400
 );
 
-const useThreeOptionMotion = makeElementMotion(
+const useThreeOptionMotion = makeStyledMotion(
   {
     opened: {
       transform: {
@@ -96,12 +93,10 @@ const Menu = React.forwardRef((props = {}, ref) => {
   };
 
   return (
-    <div ref={ref} style={wrapper}>
+    <div ref={ref} style={{ ...wrapper, ...props.style }}>
       <div style={menuContainer}>
         <div style={{ position: "relative" }}>
-          <Button ref={oneRef} style={option}>
-            1
-          </Button>
+          {state === "opened" ? <Menu ref={oneRef} style={option} /> : null}
           <Button ref={twoRef} style={option}>
             2
           </Button>

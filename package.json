@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "motion-ux": "^1.0.24"
+    "motion-ux": "^1.0.26"
   },
   "devDependencies": {
     "@storybook/react": "5.2.5",

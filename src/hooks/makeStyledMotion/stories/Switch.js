@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import makeElementMotion from "../index";
+import makeStyledMotion from "../index";
 
 const rail = {
   borderRadius: "15px",
@@ -22,7 +22,7 @@ const handle = {
   boxShadow: "0px 3px 5px rgba(0,0,0,0.2)"
 };
 
-const useRailStyles = makeElementMotion(
+const useRailStyles = makeStyledMotion(
   {
     on: {
       backgroundColor: "rgba(0, 116, 217, 1)"
@@ -34,7 +34,7 @@ const useRailStyles = makeElementMotion(
   300
 );
 
-const useHandleStyles = makeElementMotion(
+const useHandleStyles = makeStyledMotion(
   {
     on: {
       transform: "translate(100%, 0%)"

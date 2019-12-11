@@ -1,5 +1,5 @@
 import React from "react";
-import makeElementMotion from "../index";
+import makeStyledMotion from "../index";
 
 const defaultBallStyles = {
   position: "absolute",
@@ -18,7 +18,7 @@ const containerStyles = {
   height: "30px"
 };
 
-const useTopBallAnimatedStyles = makeElementMotion(
+const useTopBallAnimatedStyles = makeStyledMotion(
   {
     default: {
       transform: "translate(12px, 3px) rotate(0deg)",
@@ -38,7 +38,7 @@ const useTopBallAnimatedStyles = makeElementMotion(
   300
 );
 
-const useBottomBallAnimtedStyles = makeElementMotion(
+const useBottomBallAnimtedStyles = makeStyledMotion(
   {
     default: {
       transform: "translate(12px, 21px) rotate(0deg)",
@@ -58,7 +58,7 @@ const useBottomBallAnimtedStyles = makeElementMotion(
   300
 );
 
-const useMiddleBallAnimtedStyles = makeElementMotion(
+const useMiddleBallAnimtedStyles = makeStyledMotion(
   {
     default: {
       opacity: "1"

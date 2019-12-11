@@ -10,8 +10,8 @@ const applyStyleValues = (elementRef, values) => {
   }
 };
 
-const makeElementMotion = (states, duration) => {
+const makeStyledMotion = (states, duration) => {
   return makeMotion(states, duration, applyStyleValues);
 };
 
-export default makeElementMotion;
+export default makeStyledMotion;

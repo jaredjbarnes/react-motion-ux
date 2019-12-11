@@ -135,3 +135,37 @@ export const AnimatedPipelinePath = () => {
     </div>
   );
 };
+
+export const AnimatedPipelinePathWithoutAnimation = () => {
+  const [state, setState] = useState({
+    originX: 300,
+    originY: 300,
+    destinationX: 100,
+    destinationY: 100,
+    animate: false
+  });
+
+  const interval = setInterval(() => {
+    const state = {
+      originX: generatedValue(300),
+      originY: generatedValue(300),
+      destinationX: generatedValue(300),
+      destinationY: generatedValue(300),
+      animate: false
+    };
+
+    setState(state);
+  }, 2000);
+
+  useEffect(() => {
+    return () => {
+      clearInterval(interval);
+    };
+  });
+
+  return (
+    <div style={{ position: "relative", width: "800px", height: "800px" }}>
+      <PipelinePath {...state} />
+    </div>
+  );
+};

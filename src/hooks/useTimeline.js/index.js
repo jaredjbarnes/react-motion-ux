@@ -8,10 +8,10 @@ const useTimeline = options => {
   const isDifferent = !isEqual(options, lastOptions.current);
 
   if (timeline.current == null) {
-    timeline.current = new Timeline();
+    timeline.current = new Timeline(options);
   } else if (isDifferent) {
     timeline.current.dispose();
-    timeline.current = new Timeline();
+    timeline.current = new Timeline(options);
   }
 
   useEffect(() => {

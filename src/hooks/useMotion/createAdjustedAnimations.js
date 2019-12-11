@@ -10,13 +10,15 @@ export default (timeline, lastOptions, newOptions) => {
     const oldOption = lastOptions[key];
     const option = newOptions[key];
     const from = currentValues[key];
-    const controls = Array.isArray(option.controls) ? option.controls : [];
+    const controls = Array.isArray(option.controls)
+      ? option.controls.slice(0)
+      : [];
 
     if (shouldRedirect) {
       controls.unshift(oldOption.value);
     }
 
-    return {
+    const animation = {
       ...option,
       name: key,
       target: target,
@@ -27,6 +29,8 @@ export default (timeline, lastOptions, newOptions) => {
       endAt: typeof option.endAt === "number" ? option.endAt : 1,
       easing: easeOut[option.easing] || easeOut.expo
     };
+
+    return animation;
   });
 
   return animations;

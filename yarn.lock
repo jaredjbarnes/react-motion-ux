@@ -7993,10 +7993,10 @@ mkdirp@0.5.1, mkdirp@0.5.x, mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.1:
   dependencies:
     minimist "0.0.8"
 
-motion-ux@^1.0.24:
-  version "1.0.24"
-  resolved "https://registry.yarnpkg.com/motion-ux/-/motion-ux-1.0.24.tgz#e6ee67b216fd2e7878defe27bafd91a150799f34"
-  integrity sha512-6maSIawhJi4jmA0UFYoWTScthDmyJWfMENzkhr21h/XsH3IE7krW9S2g/bwPBCVJf4XTsW378CKkwhyA1nNOdw==
+motion-ux@^1.0.26:
+  version "1.0.26"
+  resolved "https://registry.yarnpkg.com/motion-ux/-/motion-ux-1.0.26.tgz#c8f505e717e0f3ab42219e24a8c3cc356389dfe8"
+  integrity sha512-ApQnZZKBjePxQQ8SquKwrfzErSaR4SoNWkvLIl/o53Rwfa/Vl6bbOj7nXr6MuMb0bCDwUfpJ+C05aDiuvSyh5w==
   dependencies:
     clarity-pattern-parser "1.0.11"
 

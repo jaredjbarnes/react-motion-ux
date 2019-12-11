@@ -1,0 +1,136 @@
+import React, { useState } from "react";
+import makeStyledMotion from "../index";
+
+const wrapperStyle = {
+  display: "inline-block"
+};
+
+const containerStyle = {
+  display: "block",
+  position: "relative",
+  height: "30px",
+  width: "30px",
+  overflow: "hidden",
+  cursor: "pointer",
+  userSelect: "none"
+};
+
+const lineStyle = {
+  position: "absolute",
+  bottom: "0px",
+  left: "0px",
+  width: "0px",
+  height: "3px",
+  backgroundColor: "#ccc",
+  borderRadius: "2px"
+};
+
+const nameStyle = {
+  position: "absolute",
+  top: 0,
+  left: "32px",
+  fontFamily: "Arial",
+  fontSize: "18px",
+  height: "30px",
+  lineHeight: "30px",
+  boxSizing: "border-box"
+};
+
+const iconContainer = {
+  position: "absolute",
+  width: "30px",
+  height: "30px",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  fontSize: "30px",
+  color: "#ccc"
+};
+
+const useLineStyledMotion = makeStyledMotion(
+  ({ width }) => ({
+    inactive: {
+      width: "0px",
+      left: "0px"
+    },
+    active: {
+      width: `${width}px`,
+      left: "30px"
+    }
+  }),
+  400
+);
+
+const useContainerStyledMotion = makeStyledMotion(
+  ({ width }) => ({
+    inactive: {
+      width: "30px"
+    },
+    active: {
+      width: `${width + 30}px`
+    }
+  }),
+  400
+);
+
+const useNameStyledMotion = makeStyledMotion(
+  {
+    inactive: {
+      transform: { value: "translate(0%, 100%)", startAt: 0, endAt: 0.5 }
+    },
+    active: {
+      transform: "translate(0%, 0%)"
+    }
+  },
+  400
+);
+
+const useIconStyledMotion = makeStyledMotion(
+  ({ color }) => ({
+    inactive: {
+      transform: "scale(1, 1)",
+      color: "rgba(204,204,204,1)"
+    },
+    active: {
+      transform: {
+        value: "scale(1, 1)",
+        controls: ["scale(1,1.75)"],
+        easing: "overshoot"
+      },
+      color: color
+    }
+  }),
+  800
+);
+
+const NamedIcon = ({
+  color: backgroundColor = "rgba(118, 209, 197, 1)",
+  name,
+  width = 100,
+  isActive = false,
+  icon,
+  ...props
+} = {}) => {
+  const state = isActive ? "active" : "inactive";
+
+  const lineRef = useLineStyledMotion(state, { width });
+  const containerRef = useContainerStyledMotion(state, { width });
+  const nameRef = useNameStyledMotion(state, { width });
+  const iconRef = useIconStyledMotion(state, { color: backgroundColor });
+
+  return (
+    <div style={wrapperStyle} {...props}>
+      <div ref={containerRef} style={containerStyle}>
+        <div ref={nameRef} style={{ ...nameStyle, color: backgroundColor }}>
+          {name}
+        </div>
+        <div ref={lineRef} style={{ ...lineStyle, backgroundColor }}></div>
+        <div ref={iconRef} style={iconContainer}>
+          {icon}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default NamedIcon;

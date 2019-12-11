@@ -5,19 +5,19 @@ import createAdjustedAnimations from "./createAdjustedAnimations";
 import getValues from "../getValues";
 import isEqual from "../isEqual";
 
-const transformOptions = options => {
-  Object.keys(options).forEach(key => {
-    options[key] = transformOption(options[key]);
+const transformAnimatedProperties = animatedProperties => {
+  Object.keys(animatedProperties).forEach(key => {
+    animatedProperties[key] = transformStyle(animatedProperties[key]);
   });
 };
 
-const transformOption = value => {
-  if (typeof value === "string") {
-    return {
-      value: value
-    };
-  } else {
+const transformStyle = value => {
+  if (typeof value === "object" && value != null) {
     return value;
+  } else {
+    return {
+      value: value.toString()
+    };
   }
 };
 
@@ -31,9 +31,12 @@ const defaultApplyValues = (ref, values) => {
   }
 };
 
-const assertAnimatingTheSameProperties = (optionsA, optionsB) => {
-  const keysA = Object.keys(optionsA);
-  const keysB = Object.keys(optionsB);
+const assertAnimatingTheSameProperties = (
+  animatedPropertiesA,
+  animatedPropertiesB
+) => {
+  const keysA = Object.keys(animatedPropertiesA);
+  const keysB = Object.keys(animatedPropertiesB);
 
   keysA.sort();
   keysB.sort();
@@ -42,24 +45,31 @@ const assertAnimatingTheSameProperties = (optionsA, optionsB) => {
 
   if (!areTheSame) {
     throw new Error(
-      `Invalid Arguments: useMotion cannot transition between css properties that don't match between states: ${JSON.stringify(
-        optionsA
-      )}, ${JSON.stringify(optionsB)}`
+      `Invalid Arguments: useMotion cannot transition between animatedProperties that don't match between states: ${JSON.stringify(
+        animatedPropertiesA
+      )}, ${JSON.stringify(animatedPropertiesB)}`
     );
   }
 };
 
-const useMotion = (options, duration, applyValues = defaultApplyValues) => {
+const useMotion = (
+  animatedProperties,
+  duration,
+  applyValues = defaultApplyValues
+) => {
   const elementRef = useRef(null);
   const timeline = useRef(null);
-  const lastOptions = useRef(null);
+  const lastAnimatedProperties = useRef(null);
 
-  transformOptions(options);
-  const isDifferent = !isEqual(options, lastOptions.current);
+  transformAnimatedProperties(animatedProperties);
+  const isDifferent = !isEqual(
+    animatedProperties,
+    lastAnimatedProperties.current
+  );
 
   if (timeline.current == null) {
     timeline.current = new Timeline({
-      animations: createAnimations(options),
+      animations: createAnimations(animatedProperties),
       duration: duration
     });
 
@@ -67,14 +77,20 @@ const useMotion = (options, duration, applyValues = defaultApplyValues) => {
       applyValues(elementRef, getValues(timeline.current));
     });
 
+    timeline.current.seek(1);
     timeline.current.play();
   }
 
-  if (isDifferent && lastOptions.current != null) {
+  if (isDifferent && lastAnimatedProperties.current != null) {
+    assertAnimatingTheSameProperties(
+      animatedProperties,
+      lastAnimatedProperties.current
+    );
+
     const animations = createAdjustedAnimations(
       timeline.current,
-      lastOptions.current,
-      options
+      lastAnimatedProperties.current,
+      animatedProperties
     );
 
     timeline.current.dispose();
@@ -85,7 +101,8 @@ const useMotion = (options, duration, applyValues = defaultApplyValues) => {
     });
 
     timeline.current.observe("RENDER", () => {
-      applyValues(elementRef, getValues(timeline.current));
+      const values = getValues(timeline.current);
+      applyValues(elementRef, values);
     });
 
     timeline.current.play();
@@ -97,7 +114,7 @@ const useMotion = (options, duration, applyValues = defaultApplyValues) => {
     };
   }, []);
 
-  lastOptions.current = options;
+  lastAnimatedProperties.current = animatedProperties;
 
   return elementRef;
 };
