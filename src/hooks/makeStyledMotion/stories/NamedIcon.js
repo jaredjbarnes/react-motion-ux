@@ -8,7 +8,7 @@ const wrapperStyle = {
 const containerStyle = {
   display: "block",
   position: "relative",
-  height: "30px",
+  height: "40px",
   width: "30px",
   overflow: "hidden",
   cursor: "pointer",
@@ -31,7 +31,7 @@ const nameStyle = {
   left: "32px",
   fontFamily: "Arial",
   fontSize: "18px",
-  height: "30px",
+  height: "40px",
   lineHeight: "30px",
   boxSizing: "border-box"
 };
@@ -39,7 +39,7 @@ const nameStyle = {
 const iconContainer = {
   position: "absolute",
   width: "30px",
-  height: "30px",
+  height: "40px",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
@@ -76,10 +76,10 @@ const useContainerStyledMotion = makeStyledMotion(
 const useNameStyledMotion = makeStyledMotion(
   {
     inactive: {
-      transform: { value: "translate(0%, 100%)", startAt: 0, endAt: 0.5 }
+      transform: { value: "translate(0px, 40px)", startAt: 0, endAt: 0.5 }
     },
     active: {
-      transform: "translate(0%, 0%)"
+      transform: "translate(0px, 10px)"
     }
   },
   400
@@ -108,7 +108,7 @@ const NamedIcon = ({
   name,
   width = 100,
   isActive = false,
-  icon,
+  children,
   ...props
 } = {}) => {
   const state = isActive ? "active" : "inactive";
@@ -126,7 +126,7 @@ const NamedIcon = ({
         </div>
         <div ref={lineRef} style={{ ...lineStyle, backgroundColor }}></div>
         <div ref={iconRef} style={iconContainer}>
-          {icon}
+          {children}
         </div>
       </div>
     </div>

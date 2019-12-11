@@ -6,6 +6,10 @@ import OptionButton from "./OptionButton";
 import Menu from "./Menu";
 import FadeToNothing from "./FadeToNothing";
 import NamedIcon from "./NamedIcon";
+import HomeIcon from "@material-ui/icons/HomeOutlined";
+import AccessTimeOutlined from "@material-ui/icons/AccessTimeOutlined";
+import SecurityOutlined from "@material-ui/icons/SecurityOutlined";
+import Settings from "@material-ui/icons/Settings";
 
 export default {
   component: null,
@@ -69,7 +73,9 @@ export const NamedIconDemo = () => {
       <button onClick={onActivateClick}>Activate</button>
       <button onClick={onInactivate}>Inactivate</button>
       <br />
-      <NamedIcon isActive={state} name="settings" width={70} />
+      <NamedIcon isActive={state} name="settings" width={70}>
+        <Settings fontSize="large" />
+      </NamedIcon>
     </div>
   );
 };
@@ -92,7 +98,7 @@ export const MultipleNamedIconDemo = () => {
           display: "inline-flex",
           justifyContent: "space-around",
           alignItems: "center",
-          width: "300px",
+          width: "350px",
           height: "100px",
           borderRadius: "10px 10px 50px 50px",
           backgroundColor: "rgba(240,240,240,1)",
@@ -102,39 +108,43 @@ export const MultipleNamedIconDemo = () => {
         <NamedIcon
           isActive={state === "home"}
           name="Home"
-          icon="&#x210d;"
           onClick={() => {
             setState("home");
           }}
-          width={50}
-        />
+          width={53}
+        >
+          <HomeIcon fontSize="large" />
+        </NamedIcon>
         <NamedIcon
           isActive={state === "time"}
           name="Time"
-          icon="&#x1D54B;"
           onClick={() => {
             setState("time");
           }}
           width={43}
-        />
+        >
+          <AccessTimeOutlined fontSize="large" />
+        </NamedIcon>
         <NamedIcon
           isActive={state === "guard"}
           name="Guard"
-          icon="&#x1D53E;"
           onClick={() => {
             setState("guard");
           }}
           width={55}
-        />
+        >
+          <SecurityOutlined fontSize="large" />
+        </NamedIcon>
         <NamedIcon
           isActive={state === "settings"}
-          icon="&#x1D54A;"
           name="Settings"
           onClick={() => {
             setState("settings");
           }}
           width={70}
-        />
+        >
+          <Settings fontSize="large" />
+        </NamedIcon>
       </div>
     </div>
   );
