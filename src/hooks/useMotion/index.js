@@ -2,7 +2,6 @@ import { useEffect, useRef } from "react";
 import { Timeline } from "motion-ux";
 import createAnimations from "./createAnimations";
 import createAdjustedAnimations from "./createAdjustedAnimations";
-import getValues from "../getValues";
 import isEqual from "../isEqual";
 
 const transformAnimatedProperties = animatedProperties => {
@@ -83,8 +82,15 @@ const useMotion = (
     };
   }, []);
 
+  // This will reset useMotion.
   if (animatedProperties == null) {
-    // This will reset useMotion.
+
+    // Stop the current animation, if there is one.
+    if (timeline.current != null) {
+      timeline.current.dispose();
+    }
+
+    // Reset
     lastAnimatedProperties.current = null;
     return objectRef;
   }
@@ -149,8 +155,8 @@ const useMotion = (
       });
     }
 
-    timeline.current.observe("RENDER", ({ values: valuesMap }) => {
-      applyValues(objectRef, getValues(valuesMap));
+    timeline.current.observe("RENDER", ({animations}) => {
+      applyValues(objectRef, animations.useMotion);
     });
 
     timeline.current.observeTime(1, () => {

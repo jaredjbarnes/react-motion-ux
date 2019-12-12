@@ -1,7 +1,7 @@
 import easeOut from "./easeOut.js";
 
 export default (lastProperties, properties) => {
-  const target = {};
+  const name = "useMotion";
 
   const animations = Object.keys(properties).map(key => {
     const property = properties[key];
@@ -11,8 +11,8 @@ export default (lastProperties, properties) => {
       ...property,
       from: lastProperty.value,
       to: property.value,
-      name: key,
-      target: target,
+      property: key,
+      name: name,
       startAt: typeof property.startAt === "number" ? property.startAt : 0,
       endAt: typeof property.endAt === "number" ? property.endAt : 1,
       easing: easeOut[property.easing] || easeOut.expo

@@ -1,9 +1,8 @@
 import easeOut from "./easeOut.js";
-import getValues from "../getValues";
 
 export default (timeline, lastOptions, newOptions) => {
-  const target = {};
-  const currentValues = getValues(timeline.getCurrentValues());
+  const name = 'useMotion';
+  const currentValues = timeline.getCurrentValues()[name];
   const shouldRedirect = timeline.progress !== 1;
 
   const animations = Object.keys(newOptions).map(key => {
@@ -20,8 +19,8 @@ export default (timeline, lastOptions, newOptions) => {
 
     const animation = {
       ...option,
-      name: key,
-      target: target,
+      property: key,
+      name: name,
       to: option.value,
       from,
       controls,
