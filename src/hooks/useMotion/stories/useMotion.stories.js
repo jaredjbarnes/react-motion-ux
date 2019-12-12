@@ -7,6 +7,17 @@ export default {
   title: "useMotion"
 };
 
+const bigHoverStyles = {
+  display: "inline-flex",
+  width: "100px",
+  height: "100px",
+  backgroundColor: "#dedede",
+  border: "1px solid #ccc",
+  alignItems: "center",
+  justifyContent: "center",
+  boxSizing: "border-box"
+};
+
 const stateNames = ["up", "right", "down", "left"];
 const getRandomState = () => {
   const index = Math.round(Math.random() * (stateNames.length - 1));
@@ -20,6 +31,14 @@ initialPositions = initialPositions.map(() => {
 
 const generatedValue = max => {
   return Math.round(Math.random() * max);
+};
+
+const BigHoverButton = ({ style, children, ...props }) => {
+  return (
+    <div {...props} style={{ ...bigHoverStyles, ...style }}>
+      {children}
+    </div>
+  );
 };
 
 export const Default = () => {
@@ -44,50 +63,54 @@ export const Default = () => {
 
   return (
     <div>
-      <button
-        onClick={() => {
-          const newPositions = initialPositions.map(() => {
-            return "up";
-          });
+      <div style={{ display: "inline-block", width: "300px", height: "300px" }}>
+        <BigHoverButton
+          onMouseOver={() => {
+            const newPositions = initialPositions.map(() => {
+              return "up";
+            });
 
-          setPositions(newPositions);
-        }}
-      >
-        Top
-      </button>
-      <button
-        onClick={() => {
-          const newPositions = initialPositions.map(() => {
-            return "right";
-          });
+            setPositions(newPositions);
+          }}
+        >
+          Top
+        </BigHoverButton>
+        <BigHoverButton
+          onMouseOver={() => {
+            const newPositions = initialPositions.map(() => {
+              return "right";
+            });
 
-          setPositions(newPositions);
-        }}
-      >
-        Right
-      </button>
-      <button
-        onClick={() => {
-          const newPositions = initialPositions.map(() => {
-            return "down";
-          });
+            setPositions(newPositions);
+          }}
+        >
+          Right
+        </BigHoverButton>
+        <br />
+        <BigHoverButton
+          onMouseOver={() => {
+            const newPositions = initialPositions.map(() => {
+              return "down";
+            });
 
-          setPositions(newPositions);
-        }}
-      >
-        Bottom
-      </button>
-      <button
-        onClick={() => {
-          const newPositions = initialPositions.map(() => {
-            return "left";
-          });
+            setPositions(newPositions);
+          }}
+        >
+          Bottom
+        </BigHoverButton>
+        <BigHoverButton
+          onMouseOver={() => {
+            const newPositions = initialPositions.map(() => {
+              return "left";
+            });
 
-          setPositions(newPositions);
-        }}
-      >
-        Left
-      </button>
+            setPositions(newPositions);
+          }}
+        >
+          Left
+        </BigHoverButton>
+      </div>
+      <br />
       {compasses}
     </div>
   );

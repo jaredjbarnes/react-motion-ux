@@ -31,6 +31,13 @@ const applyStyleValues = (elementRef, values) => {
   }
 };
 
+const containerStyle = {
+  display: "inline-block",
+  position: "relative",
+  width: "300px",
+  height: "300px"
+};
+
 const Compass = ({ position: defaultPosition }) => {
   const [position, setPosition] = useState(defaultPosition);
   const placement = states[position];
@@ -50,7 +57,7 @@ const Compass = ({ position: defaultPosition }) => {
   };
 
   return (
-    <div style={{ position: "relative", width: "300px", height: "300px" }}>
+    <div style={containerStyle}>
       <div ref={ref} style={style}></div>
     </div>
   );

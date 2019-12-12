@@ -12,21 +12,26 @@ const transformAnimatedProperties = animatedProperties => {
 };
 
 const transformStyle = value => {
+  let objectValue = value;
+
   if (typeof value === "object" && value != null) {
-    return value;
+    objectValue = value;
   } else {
-    return {
-      value: value.toString()
+    objectValue = {
+      value: value
     };
   }
+
+  objectValue.value = objectValue.value.toString();
+  return objectValue;
 };
 
 const defaultApplyValues = (ref, values) => {
   if (ref.current != null) {
-    const element = ref.current;
+    const obj = ref.current;
 
     Object.keys(values).forEach(key => {
-      element[key] = values[key];
+      obj[key] = values[key];
     });
   }
 };
@@ -57,28 +62,60 @@ const useMotion = (
   duration,
   applyValues = defaultApplyValues
 ) => {
-  const elementRef = useRef(null);
+  const objectRef = useRef(null);
   const timeline = useRef(null);
   const lastAnimatedProperties = useRef(null);
+  const animationFrame = useRef(null);
 
   transformAnimatedProperties(animatedProperties);
+
   const isDifferent = !isEqual(
     animatedProperties,
     lastAnimatedProperties.current
   );
 
-  if (timeline.current == null) {
-    timeline.current = new Timeline({
-      animations: createAnimations(animatedProperties),
-      duration: duration
-    });
+  useEffect(() => {
+    return () => {
+      if (timeline.current != null) {
+        timeline.current.dispose();
+      }
+      cancelAnimationFrame(animationFrame.current);
+    };
+  }, []);
 
-    timeline.current.observe("RENDER", () => {
-      applyValues(elementRef, getValues(timeline.current));
-    });
+  if (animatedProperties == null) {
+    // This will reset useMotion.
+    lastAnimatedProperties.current = null;
+    return objectRef;
+  }
 
-    timeline.current.seek(1);
-    timeline.current.play();
+  /* 
+    Since we didn't come from anything just set the values. This will prevent unneeded 
+    chern on the CPU on initialization. This is a little tricky because these refs are 
+    associated with other components, so the ref may not be here when this component mounts.
+    So we try to render every animation frame until this is unmounted or it actually renders 
+    it's initial value.
+  */
+  if (lastAnimatedProperties.current == null) {
+    const values = Object.keys(animatedProperties).reduce((properties, key) => {
+      properties[key] = animatedProperties[key].value;
+      return properties;
+    }, {});
+
+    const updateObject = values => {
+      if (objectRef.current == null) {
+        animationFrame.current = requestAnimationFrame(() => {
+          updateObject(values);
+        });
+      } else {
+        applyValues(objectRef, values);
+      }
+    };
+
+    updateObject(values);
+
+    lastAnimatedProperties.current = animatedProperties;
+    return objectRef;
   }
 
   if (isDifferent && lastAnimatedProperties.current != null) {
@@ -87,36 +124,46 @@ const useMotion = (
       lastAnimatedProperties.current
     );
 
-    const animations = createAdjustedAnimations(
-      timeline.current,
-      lastAnimatedProperties.current,
-      animatedProperties
-    );
+    if (timeline.current == null) {
+      const animations = createAnimations(
+        lastAnimatedProperties.current,
+        animatedProperties
+      );
 
-    timeline.current.dispose();
+      timeline.current = new Timeline({
+        animations: animations,
+        duration: duration
+      });
+    } else {
+      const animations = createAdjustedAnimations(
+        timeline.current,
+        lastAnimatedProperties.current,
+        animatedProperties
+      );
 
-    timeline.current = new Timeline({
-      animations: animations,
-      duration: duration
+      timeline.current.dispose();
+
+      timeline.current = new Timeline({
+        animations: animations,
+        duration: duration
+      });
+    }
+
+    timeline.current.observe("RENDER", ({ values: valuesMap }) => {
+      applyValues(objectRef, getValues(valuesMap));
     });
 
-    timeline.current.observe("RENDER", () => {
-      const values = getValues(timeline.current);
-      applyValues(elementRef, values);
+    timeline.current.observeTime(1, () => {
+      timeline.current = null;
     });
 
     timeline.current.play();
+
+    lastAnimatedProperties.current = animatedProperties;
+    return objectRef;
   }
 
-  useEffect(() => {
-    return () => {
-      timeline.current.dispose();
-    };
-  }, []);
-
-  lastAnimatedProperties.current = animatedProperties;
-
-  return elementRef;
+  return objectRef;
 };
 
 export default useMotion;

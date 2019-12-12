@@ -1,19 +1,21 @@
 import easeOut from "./easeOut.js";
 
-export default options => {
+export default (lastProperties, properties) => {
   const target = {};
 
-  const animations = Object.keys(options).map(key => {
-    const option = options[key];
+  const animations = Object.keys(properties).map(key => {
+    const property = properties[key];
+    const lastProperty = lastProperties[key];
+
     return {
-      ...option,
-      from: option.value,
-      to: option.value,
+      ...property,
+      from: lastProperty.value,
+      to: property.value,
       name: key,
       target: target,
-      startAt: typeof option.startAt === "number" ? option.startAt : 0,
-      endAt: typeof option.endAt === "number" ? option.endAt : 1,
-      easing: easeOut[option.easing] || easeOut.expo
+      startAt: typeof property.startAt === "number" ? property.startAt : 0,
+      endAt: typeof property.endAt === "number" ? property.endAt : 1,
+      easing: easeOut[property.easing] || easeOut.expo
     };
   });
 

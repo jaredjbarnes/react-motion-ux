@@ -3,7 +3,7 @@ import getValues from "../getValues";
 
 export default (timeline, lastOptions, newOptions) => {
   const target = {};
-  const currentValues = getValues(timeline);
+  const currentValues = getValues(timeline.getCurrentValues());
   const shouldRedirect = timeline.progress !== 1;
 
   const animations = Object.keys(newOptions).map(key => {

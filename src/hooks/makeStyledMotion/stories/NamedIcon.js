@@ -95,7 +95,7 @@ const useIconStyledMotion = makeStyledMotion(
       transform: {
         value: "scale(1, 1)",
         controls: ["scale(1,1.75)"],
-        easing: "overshoot"
+        easing: "overshoot",
       },
       color: color
     }
