@@ -1,6 +1,5 @@
 import React from "react";
 import useTransition from "../index";
-import { rgba } from "polished";
 
 const svgStyle = {
   position: "absolute",
@@ -30,23 +29,19 @@ const endKnobStyle = {
   backgroundColor: "rgba(0,0,0,1)",
   borderRadius: "8px 0px 0px 8px",
   height: "15px",
-  width: "15px",
+  width: "15px"
 };
 
-const applyAttributeValues = (ref, values) => {
-  if (ref.current != null && typeof ref.setAttribute != "function") {
-    const element = ref.current;
-
+const applyAttributeValues = (element, values) => {
+  if (element != null && typeof element.setAttribute === "function") {
     Object.keys(values).forEach(key => {
       element.setAttribute(key, values[key]);
     });
   }
 };
 
-const applyStyles = (ref, values) => {
-  if (ref.current != null && ref.current.style != null) {
-    const element = ref.current;
-
+const applyStyles = (element, values) => {
+  if (element != null && element.style != null) {
     Object.keys(values).forEach(key => {
       element.style[key] = values[key];
     });

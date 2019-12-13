@@ -5233,10 +5233,8 @@ const transformStyle = value => {
   return objectValue;
 };
 
-const defaultApplyValues = (ref, values) => {
-  if (ref.current != null) {
-    const obj = ref.current;
-
+const defaultApplyValues = (obj, values) => {
+  if (obj != null) {
     Object.keys(values).forEach(key => {
       obj[key] = values[key];
     });
@@ -5322,7 +5320,7 @@ const useTransition = (
           updateObject(values);
         });
       } else {
-        applyValues(objectRef, values);
+        applyValues(objectRef.current, values);
       }
     };
 
@@ -5364,7 +5362,7 @@ const useTransition = (
     }
 
     timeline.current.observe("RENDER", ({animations}) => {
-      applyValues(objectRef, animations.useTransition);
+      applyValues(objectRef.current, animations.useTransition);
     });
 
     timeline.current.observeTime(1, () => {
@@ -8069,10 +8067,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(70);
 
 
-const applyStyleValues = (elementRef, values) => {
-  if (elementRef.current != null && elementRef.current.style != null) {
-    const element = elementRef.current;
-
+const applyStyleValues = (element, values) => {
+  if (element!= null && element.style != null) {
     Object.keys(values).forEach(key => {
       element.style[key] = values[key];
     });
@@ -8147,10 +8143,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(70);
 
 
-const applyValues = (ref, values) => {
-  if (ref.current != null) {
-    const obj = ref.current;
-
+const applyValues = (obj, values) => {
+  if (obj != null) {
     Object.keys(values).forEach(key => {
       obj[key] = values[key];
     });
@@ -8173,10 +8167,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(70);
 
 
-const applyAttributeValues = (ref, values) => {
-  if (ref.current != null && typeof ref.current.setAttribute === "function") {
-    const obj = ref.current;
-
+const applyAttributeValues = (obj, values) => {
+  if (obj != null && typeof obj.setAttribute === "function") {
     Object.keys(values).forEach(key => {
       obj.setAttribute(key, values[key]);
     });

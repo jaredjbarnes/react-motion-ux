@@ -1,9 +1,7 @@
 import makeTransition from "../makeTransition";
 
-const applyStyleValues = (elementRef, values) => {
-  if (elementRef.current != null && elementRef.current.style != null) {
-    const element = elementRef.current;
-
+const applyStyleValues = (element, values) => {
+  if (element!= null && element.style != null) {
     Object.keys(values).forEach(key => {
       element.style[key] = values[key];
     });

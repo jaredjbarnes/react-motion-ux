@@ -1,9 +1,7 @@
 import makeTransition from "../makeTransition";
 
-const applyAttributeValues = (ref, values) => {
-  if (ref.current != null && typeof ref.current.setAttribute === "function") {
-    const obj = ref.current;
-
+const applyAttributeValues = (obj, values) => {
+  if (obj != null && typeof obj.setAttribute === "function") {
     Object.keys(values).forEach(key => {
       obj.setAttribute(key, values[key]);
     });

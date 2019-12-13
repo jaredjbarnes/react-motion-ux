@@ -1,9 +1,7 @@
 import makeTransition from "../makeTransition";
 
-const applyValues = (ref, values) => {
-  if (ref.current != null) {
-    const obj = ref.current;
-
+const applyValues = (obj, values) => {
+  if (obj != null) {
     Object.keys(values).forEach(key => {
       obj[key] = values[key];
     });

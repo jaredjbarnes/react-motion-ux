@@ -25,10 +25,8 @@ const transformStyle = value => {
   return objectValue;
 };
 
-const defaultApplyValues = (ref, values) => {
-  if (ref.current != null) {
-    const obj = ref.current;
-
+const defaultApplyValues = (obj, values) => {
+  if (obj != null) {
     Object.keys(values).forEach(key => {
       obj[key] = values[key];
     });
@@ -114,7 +112,7 @@ const useTransition = (
           updateObject(values);
         });
       } else {
-        applyValues(objectRef, values);
+        applyValues(objectRef.current, values);
       }
     };
 
@@ -156,7 +154,7 @@ const useTransition = (
     }
 
     timeline.current.observe("RENDER", ({animations}) => {
-      applyValues(objectRef, animations.useTransition);
+      applyValues(objectRef.current, animations.useTransition);
     });
 
     timeline.current.observeTime(1, () => {
