@@ -101,8 +101,8 @@ const useTransition = (
     it's initial value.
   */
   if (lastAnimatedProperties.current == null || !animate) {
-    if (timeline.current) {
-      timeline.current.dispose();
+    if (timeline.current != null) {
+      timeline.current.seek(1);
     }
 
     const values = Object.keys(animatedProperties).reduce((properties, key) => {
