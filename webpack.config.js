@@ -1,11 +1,11 @@
-// webpack.config.js
-require('dotenv').config()
+var path = require("path");
 
-module.exports = async ({ config }) => {
-  //ability to turn off HMR with an envar
-  if (process.env.DISABLE_HMR === 'true') {
-    config.entry = config.entry.filter(singleEntry => !singleEntry.includes('/webpack-hot-middleware/'))
+module.exports = {
+  entry: ["./src/index.js"],
+  output: {
+    filename: "main.js",
+    library: "motionUX",
+    libraryTarget: "umd",
+    path: path.resolve(__dirname, "dist")
   }
-
-  return config
-}
+};

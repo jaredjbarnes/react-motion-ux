@@ -1,11 +1,17 @@
-import {Timeline, easings, BezierCurve} from 'motion-ux';
-import useMotion from "./hooks/useMotion";
-import makeStyledMotion from "./hooks/makeStyledMotion";
+import { Timeline, easings, BezierCurve } from "motion-ux";
+import useTransition from "./hooks/useTransition";
+import makeStyledTransition from "./hooks/makeStyledTransition";
+import makePropertyTransition from "./hooks/makePropertyTransition";
+import makeAttributeTransition from "./hooks/makeAttributeTransition";
+import makeTransition from "./hooks/makeTransition";
 
 export {
-    Timeline,
-    easings,
-    BezierCurve,
-    useMotion,
-    makeStyledMotion
-}
+  Timeline,
+  easings,
+  BezierCurve,
+  useTransition,
+  makeStyledTransition,
+  makePropertyTransition,
+  makeAttributeTransition,
+  makeTransition
+};

@@ -6,7 +6,7 @@ The react-motion-ux module offers helpful hooks and access to a powerful animati
 
 ```javascript
 import React, {useState, useEffect} from "react";
-import { makeStyledMotion } from "react-motion-ux";
+import { makeStyledTransition } from "react-motion-ux";
 
 const style = {
     backgroundColor: "rgba(204,204,204,1)",
@@ -15,7 +15,7 @@ const style = {
     borderRadius: "50px"
 };
 
-const useStyledMotion = makeStyledMotion({
+const useStyledMotion = makeStyledTransition({
     on: {},
     off: {}
 }, 1000);

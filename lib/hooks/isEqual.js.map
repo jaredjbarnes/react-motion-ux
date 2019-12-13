@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../src/hooks/isEqual.js"],"names":["a","b","JSON","stringify"],"mappings":";;;;;;;eAAe,kBAACA,CAAD,EAAIC,CAAJ,EAAU;AACvB,SAAOC,IAAI,CAACC,SAAL,CAAeH,CAAf,MAAsBE,IAAI,CAACC,SAAL,CAAeF,CAAf,CAA7B;AACD,C","sourcesContent":["export default (a, b) => {\n  return JSON.stringify(a) === JSON.stringify(b);\n};\n"],"file":"isEqual.js"}
