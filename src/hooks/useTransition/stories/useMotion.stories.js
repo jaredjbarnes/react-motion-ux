@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Compass from "./Compass";
 import PipelinePath from "./PipelinePath";
+import Switch from "../../makeStyledTransition/stories/Switch";
 
 export default {
   component: null,
@@ -43,6 +44,7 @@ const BigHoverButton = ({ style, children, ...props }) => {
 
 export const Default = () => {
   const [positions, setPositions] = useState(initialPositions);
+  const [animate, setAnimate] = useState(true);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -58,11 +60,17 @@ export const Default = () => {
   }, []);
 
   const compasses = positions.map((position, index) => {
-    return <Compass key={index} position={position} />;
+    return <Compass key={index} position={position} animate={animate} />;
   });
 
   return (
     <div>
+      <Switch
+        onChange={value => {
+          setAnimate(value);
+        }}
+        defaultState="on"
+      />
       <div style={{ display: "inline-block", width: "300px", height: "300px" }}>
         <BigHoverButton
           onMouseOver={() => {

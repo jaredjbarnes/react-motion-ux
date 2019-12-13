@@ -57,7 +57,8 @@ const assertAnimatingTheSameProperties = (
 const useTransition = (
   animatedProperties,
   duration,
-  applyValues = defaultApplyValues
+  applyValues = defaultApplyValues,
+  animate = true
 ) => {
   const objectRef = useRef(null);
   const timeline = useRef(null);
@@ -75,7 +76,6 @@ const useTransition = (
 
   // This will reset useTransition.
   if (animatedProperties == null) {
-
     // Stop the current animation, if there is one.
     if (timeline.current != null) {
       timeline.current.dispose();
@@ -100,7 +100,11 @@ const useTransition = (
     So we try to render every animation frame until this is unmounted or it actually renders 
     it's initial value.
   */
-  if (lastAnimatedProperties.current == null) {
+  if (lastAnimatedProperties.current == null || !animate) {
+    if (timeline.current) {
+      timeline.current.dispose();
+    }
+
     const values = Object.keys(animatedProperties).reduce((properties, key) => {
       properties[key] = animatedProperties[key].value;
       return properties;
@@ -120,9 +124,7 @@ const useTransition = (
 
     lastAnimatedProperties.current = animatedProperties;
     return objectRef;
-  }
-
-  if (isDifferent && lastAnimatedProperties.current != null) {
+  } else if (isDifferent && lastAnimatedProperties.current != null) {
     assertAnimatingTheSameProperties(
       animatedProperties,
       lastAnimatedProperties.current
@@ -153,7 +155,7 @@ const useTransition = (
       });
     }
 
-    timeline.current.observe("RENDER", ({animations}) => {
+    timeline.current.observe("RENDER", ({ animations }) => {
       applyValues(objectRef.current, animations.useTransition);
     });
 

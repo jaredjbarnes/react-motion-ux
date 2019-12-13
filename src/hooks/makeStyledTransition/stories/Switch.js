@@ -46,7 +46,7 @@ const useHandleStyles = makeStyledTransition(
   300
 );
 
-const Switch = ({ defaultState } = {}) => {
+const Switch = ({ defaultState, onChange } = {}) => {
   defaultState = defaultState || "off";
   const [state, setState] = useState(defaultState);
   const railRef = useRailStyles(state);
@@ -56,11 +56,17 @@ const Switch = ({ defaultState } = {}) => {
     setState(defaultState);
   }, [defaultState]);
 
-  const onClick = () => {
+  const onClick = event => {
     if (state === "on") {
       setState("off");
+      if (typeof onChange === "function") {
+        onChange(false, event);
+      }
     } else {
       setState("on");
+      if (typeof onChange === "function") {
+        onChange(true, event);
+      }
     }
   };
 

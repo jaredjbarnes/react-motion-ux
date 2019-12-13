@@ -36,7 +36,7 @@ const containerStyle = {
   height: "300px"
 };
 
-const Compass = ({ position: defaultPosition }) => {
+const Compass = ({ position: defaultPosition, animate }) => {
   const [position, setPosition] = useState(defaultPosition);
   const placement = states[position];
 
@@ -44,7 +44,7 @@ const Compass = ({ position: defaultPosition }) => {
     setPosition(defaultPosition);
   }, [defaultPosition]);
 
-  const ref = useTransition(clone(placement), 2000, applyStyleValues);
+  const ref = useTransition(clone(placement), 2000, applyStyleValues, animate);
 
   const style = {
     position: "absolute",
