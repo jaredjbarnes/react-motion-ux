@@ -16,14 +16,6 @@ export default {
   title: "makeStyledTransition"
 };
 
-export const BlinkDemo = () => {
-  return <Blink />;
-};
-
-export const PulseDemo = () => {
-  return <Pulse />;
-};
-
 export const SwitchDemo = () => {
   return <Switch />;
 };
@@ -90,4 +82,12 @@ export const NamedIconDemo = () => {
 
 export const MultipleNamedIconDemo = () => {
   return <MobileMenu />;
+};
+
+export const BlinkDemo = () => {
+  return <Blink />;
+};
+
+export const PulseDemo = () => {
+  return <Pulse />;
 };
