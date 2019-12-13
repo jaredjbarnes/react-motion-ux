@@ -1,8 +1,7 @@
 {
-  "name": "react-state-transition",
+  "name": "react-motion-ux",
   "version": "0.1.0",
   "main": "lib/index.js",
-  "private": true,
   "dependencies": {
     "motion-ux": "^2.0.6"
   },
