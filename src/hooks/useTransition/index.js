@@ -66,13 +66,6 @@ const useTransition = (
   const lastAnimatedProperties = useRef(null);
   const animationFrame = useRef(null);
 
-  transformAnimatedProperties(animatedProperties);
-
-  const isDifferent = !isEqual(
-    animatedProperties,
-    lastAnimatedProperties.current
-  );
-
   useEffect(() => {
     return () => {
       if (timeline.current != null) {
@@ -94,6 +87,13 @@ const useTransition = (
     lastAnimatedProperties.current = null;
     return objectRef;
   }
+
+  transformAnimatedProperties(animatedProperties);
+
+  const isDifferent = !isEqual(
+    animatedProperties,
+    lastAnimatedProperties.current
+  );
 
   /* 
     Since we didn't come from anything just set the values. This will prevent unneeded 

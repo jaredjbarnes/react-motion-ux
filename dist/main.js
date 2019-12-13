@@ -5274,13 +5274,6 @@ const useTransition = (
   const lastAnimatedProperties = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(null);
   const animationFrame = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(null);
 
-  transformAnimatedProperties(animatedProperties);
-
-  const isDifferent = !Object(_isEqual__WEBPACK_IMPORTED_MODULE_4__["default"])(
-    animatedProperties,
-    lastAnimatedProperties.current
-  );
-
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     return () => {
       if (timeline.current != null) {
@@ -5302,6 +5295,13 @@ const useTransition = (
     lastAnimatedProperties.current = null;
     return objectRef;
   }
+
+  transformAnimatedProperties(animatedProperties);
+
+  const isDifferent = !Object(_isEqual__WEBPACK_IMPORTED_MODULE_4__["default"])(
+    animatedProperties,
+    lastAnimatedProperties.current
+  );
 
   /* 
     Since we didn't come from anything just set the values. This will prevent unneeded 
