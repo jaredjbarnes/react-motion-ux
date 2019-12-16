@@ -5262,13 +5262,21 @@ const assertAnimatingTheSameProperties = (
   }
 };
 
+const assertObjectRef = (ref)=>{
+  if (ref == null){
+    throw new Error("Invalid Arguments: objectRef cannot be null or undefined.");
+  }
+}
+
 const useTransition = (
   animatedProperties,
   duration,
   applyValues = defaultApplyValues,
+  objectRef,
   animate = true
 ) => {
-  const objectRef = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(null);
+  assertObjectRef(objectRef);
+  
   const timeline = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(null);
   const lastAnimatedProperties = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(null);
   const animationFrame = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(null);
@@ -8096,7 +8104,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const makeTransition = (states, duration, applyStyleValues) => {
   if (typeof states === "function") {
-    return (stateName, props) => {
+    return (stateName, props, ref) => {
       if (stateName == null) {
         throw new Error(
           "Invalid Arguments: Did you forget to pass in the state in for a tranistion :)?"
@@ -8112,10 +8120,10 @@ const makeTransition = (states, duration, applyStyleValues) => {
         );
       }
 
-      return Object(_useTransition__WEBPACK_IMPORTED_MODULE_0__["default"])(state, duration, applyStyleValues);
+      return Object(_useTransition__WEBPACK_IMPORTED_MODULE_0__["default"])(state, duration, applyStyleValues, ref);
     };
   } else {
-    return stateName => {
+    return (stateName, ref) => {
       if (stateName == null) {
         throw new Error(
           "Invalid Arguments: Did you forget to pass in the state in for a tranistion :)?"
@@ -8129,7 +8137,7 @@ const makeTransition = (states, duration, applyStyleValues) => {
           `Cannot find styles for the state named: ${stateName}.`
         );
       }
-      return Object(_useTransition__WEBPACK_IMPORTED_MODULE_0__["default"])(state, duration, applyStyleValues);
+      return Object(_useTransition__WEBPACK_IMPORTED_MODULE_0__["default"])(state, duration, applyStyleValues, ref);
     };
   }
 };

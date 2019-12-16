@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import makeStyledTransition from "../index";
 
 const useStyledMotion = makeStyledTransition(
@@ -25,8 +25,9 @@ const useStyledMotion = makeStyledTransition(
 
 const FadeToNothing = () => {
   const [state, setState] = useState("opened");
+  const ref = useRef(null);
   const style = { width: "300px", backgroundColor: "grey", height: "300px" };
-  const ref = useStyledMotion(state);
+  useStyledMotion(state, ref);
 
   return (
     <div>

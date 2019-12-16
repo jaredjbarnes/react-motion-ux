@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useRef } from "react";
 import makeStyledTransition from "../index";
 
 const rail = {
@@ -48,9 +48,11 @@ const useHandleStyles = makeStyledTransition(
 
 const Switch = ({ defaultState, onChange } = {}) => {
   defaultState = defaultState || "off";
+  const railRef = useRef(null);
+  const handleRef = useRef(null);
   const [state, setState] = useState(defaultState);
-  const railRef = useRailStyles(state);
-  const handleRef = useHandleStyles(state);
+  useRailStyles(state, railRef);
+  useHandleStyles(state, handleRef);
 
   useMemo(() => {
     setState(defaultState);

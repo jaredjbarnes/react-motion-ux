@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import makeStyledTransition from "../index";
 import useInterval from "../../useInterval";
 
@@ -34,8 +34,10 @@ const useStyledMotion = makeStyledTransition(
 );
 
 const Blink = () => {
+  const ref = useRef(null);
   const [state, setState] = useState("off");
-  const ref = useStyledMotion(state);
+  
+  useStyledMotion(state, ref);
 
   useInterval(() => {
     if (state === "on") {

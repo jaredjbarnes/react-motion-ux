@@ -54,13 +54,21 @@ const assertAnimatingTheSameProperties = (
   }
 };
 
+const assertObjectRef = (ref)=>{
+  if (ref == null){
+    throw new Error("Invalid Arguments: objectRef cannot be null or undefined.");
+  }
+}
+
 const useTransition = (
   animatedProperties,
   duration,
   applyValues = defaultApplyValues,
+  objectRef,
   animate = true
 ) => {
-  const objectRef = useRef(null);
+  assertObjectRef(objectRef);
+  
   const timeline = useRef(null);
   const lastAnimatedProperties = useRef(null);
   const animationFrame = useRef(null);

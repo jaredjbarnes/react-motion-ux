@@ -45,3 +45,7 @@ const MyComponent = () => {
     return <div ref={ref} style={style}></div>
 };
 ```
+
+
+## Notes
+We could make a shore circuit parsing for typical css like units, numbers, hex, rgba, rgb. And allow the harder parsing to be done with the parsing engine. We could use RegEx to check for these possibilities first. Then if they match create an AST that looks like it was parsed. This could be a potentially huge performance gain for simple values.

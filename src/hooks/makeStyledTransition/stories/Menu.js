@@ -1,6 +1,6 @@
 import OptionButton from "./OptionButton";
 import Button from "./Button";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import makeStyledTransition from "../index";
 
 const wrapper = {
@@ -80,9 +80,13 @@ const useThreeOptionMotion = makeStyledTransition(
 
 const Menu = React.forwardRef((props = {}, ref) => {
   const [state, setState] = useState("closed");
-  const oneRef = useOneOptionMotion(state);
-  const twoRef = useTwoOptionMotion(state);
-  const threeRef = useThreeOptionMotion(state);
+  const oneRef = useRef(null);
+  const twoRef = useRef(null);
+  const threeRef = useRef(null);
+
+  useOneOptionMotion(state, oneRef);
+  useTwoOptionMotion(state, twoRef);
+  useThreeOptionMotion(state, threeRef);
 
   const onClick = () => {
     if (state === "opened") {

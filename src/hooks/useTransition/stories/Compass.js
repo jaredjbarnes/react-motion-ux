@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useRef } from "react";
 import useTransition from "../index";
 import clone from "../../clone";
 
@@ -37,6 +37,7 @@ const containerStyle = {
 };
 
 const Compass = ({ position: defaultPosition, animate }) => {
+  const ref = useRef(null);
   const [position, setPosition] = useState(defaultPosition);
   const placement = states[position];
 
@@ -44,7 +45,7 @@ const Compass = ({ position: defaultPosition, animate }) => {
     setPosition(defaultPosition);
   }, [defaultPosition]);
 
-  const ref = useTransition(clone(placement), 2000, applyStyleValues, animate);
+  useTransition(clone(placement), 2000, applyStyleValues, ref, animate);
 
   const style = {
     position: "absolute",

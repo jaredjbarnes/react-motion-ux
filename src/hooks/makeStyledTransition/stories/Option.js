@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import makeStyledTransition from "../index";
 
 const defaultBallStyles = {
@@ -73,10 +73,13 @@ const useMiddleBallAnimtedStyles = makeStyledTransition(
 const OptionButton = React.forwardRef(
   ({ state, style, className } = {}, ref) => {
     state = state || "default";
+    const topRef = useRef(null);
+    const bottomRef = useRef(null);
+    const middleRef = useRef(null);
 
-    const topRef = useTopBallAnimatedStyles(state);
-    const bottomRef = useBottomBallAnimtedStyles(state);
-    const middleRef = useMiddleBallAnimtedStyles(state);
+    useTopBallAnimatedStyles(state, topRef);
+    useBottomBallAnimtedStyles(state, bottomRef);
+    useMiddleBallAnimtedStyles(state, middleRef);
 
     return (
       <div

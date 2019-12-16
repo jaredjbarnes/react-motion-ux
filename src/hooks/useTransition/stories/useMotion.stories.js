@@ -25,7 +25,7 @@ const getRandomState = () => {
   return stateNames[index];
 };
 
-let initialPositions = new Array(20).fill("up");
+let initialPositions = new Array(50).fill("up");
 initialPositions = initialPositions.map(() => {
   return getRandomState();
 });

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef } from "react";
 import makeStyledTransition from "../index";
 
 const wrapperStyle = {
@@ -95,7 +95,7 @@ const useIconStyledMotion = makeStyledTransition(
       transform: {
         value: "scale(1, 1)",
         controls: ["scale(1,1.75)"],
-        easing: "overshoot",
+        easing: "overshoot"
       },
       color: color
     }
@@ -112,11 +112,15 @@ const NamedIcon = ({
   ...props
 } = {}) => {
   const state = isActive ? "active" : "inactive";
+  const lineRef = useRef(null);
+  const containerRef = useRef(null);
+  const nameRef = useRef(null);
+  const iconRef = useRef(null);
 
-  const lineRef = useLineStyledMotion(state, { width });
-  const containerRef = useContainerStyledMotion(state, { width });
-  const nameRef = useNameStyledMotion(state, { width });
-  const iconRef = useIconStyledMotion(state, { color: backgroundColor });
+  useLineStyledMotion(state, { width }, lineRef);
+  useContainerStyledMotion(state, { width }, containerRef);
+  useNameStyledMotion(state, nameRef);
+  useIconStyledMotion(state, { color: backgroundColor }, iconRef);
 
   return (
     <div style={wrapperStyle} {...props}>

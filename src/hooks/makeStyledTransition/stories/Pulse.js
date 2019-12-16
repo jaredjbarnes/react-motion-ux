@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import makeStyledTransition from "../index";
 import useInterval from "../../useInterval";
 
@@ -35,7 +35,9 @@ const useStyledMotion = makeStyledTransition(
 
 const Pulse = () => {
   const [state, setState] = useState("off");
-  const ref = useStyledMotion(state);
+  const ref = useRef(null);
+
+  useStyledMotion(state, ref);
 
   useInterval(() => {
     if (state === "on") {
