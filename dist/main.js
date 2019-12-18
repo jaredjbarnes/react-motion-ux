@@ -395,7 +395,12 @@ function () {
       this.registeredCallbacks.forEach(function (callback) {
         callback();
       });
-      this.animationFrame = requestAnimationFrame(this._tick);
+
+      if (this.registeredCallbacks.size > 0) {
+        this.animationFrame = requestAnimationFrame(this._tick);
+      } else {
+        this.animationFrame = null;
+      }
     }
   }, {
     key: "register",
@@ -410,11 +415,6 @@ function () {
     key: "unregister",
     value: function unregister(callback) {
       this.registeredCallbacks.delete(callback);
-
-      if (this.registeredCallbacks.size <= 0) {
-        cancelAnimationFrame(this.animationFrame);
-        this.animationFrame = null;
-      }
     }
   }, {
     key: "now",
