@@ -1768,7 +1768,7 @@ exports.default = void 0;
 
 var _clarityPatternParser = __webpack_require__(20);
 
-var _divider = _interopRequireDefault(__webpack_require__(43));
+var _divider = _interopRequireDefault(__webpack_require__(44));
 
 var _values = _interopRequireDefault(__webpack_require__(45));
 
@@ -1817,6 +1817,12 @@ Object.defineProperty(exports, "Cursor", {
   enumerable: true,
   get: function get() {
     return _Cursor.default;
+  }
+});
+Object.defineProperty(exports, "RegexValue", {
+  enumerable: true,
+  get: function get() {
+    return _RegexValue.default;
   }
 });
 Object.defineProperty(exports, "AndValue", {
@@ -1932,39 +1938,41 @@ var _ValueNode = _interopRequireDefault(__webpack_require__(24));
 
 var _Cursor = _interopRequireDefault(__webpack_require__(25));
 
-var _AndValue = _interopRequireDefault(__webpack_require__(26));
+var _RegexValue = _interopRequireDefault(__webpack_require__(26));
 
-var _AnyOfThese = _interopRequireDefault(__webpack_require__(31));
+var _AndValue = _interopRequireDefault(__webpack_require__(30));
 
-var _Literal = _interopRequireDefault(__webpack_require__(32));
+var _AnyOfThese = _interopRequireDefault(__webpack_require__(32));
 
-var _NotValue = _interopRequireDefault(__webpack_require__(33));
+var _Literal = _interopRequireDefault(__webpack_require__(33));
 
-var _OptionalValue = _interopRequireDefault(__webpack_require__(30));
+var _NotValue = _interopRequireDefault(__webpack_require__(34));
 
-var _OrValue = _interopRequireDefault(__webpack_require__(34));
+var _OptionalValue = _interopRequireDefault(__webpack_require__(31));
 
-var _RepeatValue = _interopRequireDefault(__webpack_require__(35));
+var _OrValue = _interopRequireDefault(__webpack_require__(35));
 
-var _ValuePattern = _interopRequireDefault(__webpack_require__(27));
+var _RepeatValue = _interopRequireDefault(__webpack_require__(36));
 
-var _AndComposite = _interopRequireDefault(__webpack_require__(36));
+var _ValuePattern = _interopRequireDefault(__webpack_require__(28));
 
-var _CompositePattern = _interopRequireDefault(__webpack_require__(37));
+var _AndComposite = _interopRequireDefault(__webpack_require__(37));
 
-var _OptionalComposite = _interopRequireDefault(__webpack_require__(39));
+var _CompositePattern = _interopRequireDefault(__webpack_require__(38));
 
-var _OrComposite = _interopRequireDefault(__webpack_require__(40));
+var _OptionalComposite = _interopRequireDefault(__webpack_require__(40));
 
-var _RepeatComposite = _interopRequireDefault(__webpack_require__(41));
+var _OrComposite = _interopRequireDefault(__webpack_require__(41));
 
-var _ParseError = _interopRequireDefault(__webpack_require__(29));
+var _RepeatComposite = _interopRequireDefault(__webpack_require__(42));
 
-var _Pattern = _interopRequireDefault(__webpack_require__(28));
+var _ParseError = _interopRequireDefault(__webpack_require__(27));
 
-var _StackInformation = _interopRequireDefault(__webpack_require__(38));
+var _Pattern = _interopRequireDefault(__webpack_require__(29));
 
-var _RecursivePattern = _interopRequireDefault(__webpack_require__(42));
+var _StackInformation = _interopRequireDefault(__webpack_require__(39));
+
+var _RecursivePattern = _interopRequireDefault(__webpack_require__(43));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 //# sourceMappingURL=index.js.map
@@ -2354,15 +2362,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _ValuePattern2 = _interopRequireDefault(__webpack_require__(27));
-
-var _ValueNode = _interopRequireDefault(__webpack_require__(24));
+var _ParseError = _interopRequireDefault(__webpack_require__(27));
 
 var _Cursor = _interopRequireDefault(__webpack_require__(25));
 
-var _ParseError = _interopRequireDefault(__webpack_require__(29));
+var _ValueNode = _interopRequireDefault(__webpack_require__(24));
 
-var _OptionalValue = _interopRequireDefault(__webpack_require__(30));
+var _ValuePattern2 = _interopRequireDefault(__webpack_require__(28));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2384,49 +2390,60 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var AndValue =
+var RegexValue =
 /*#__PURE__*/
 function (_ValuePattern) {
-  _inherits(AndValue, _ValuePattern);
+  _inherits(RegexValue, _ValuePattern);
 
-  function AndValue(name, patterns) {
+  function RegexValue(name, regex) {
     var _this;
 
-    _classCallCheck(this, AndValue);
+    _classCallCheck(this, RegexValue);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(AndValue).call(this, name, patterns));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(RegexValue).call(this, name));
+    _this.regexString = regex;
+    _this.regex = new RegExp("^".concat(regex), "g");
 
     _this._assertArguments();
 
     return _this;
   }
 
-  _createClass(AndValue, [{
+  _createClass(RegexValue, [{
     key: "_assertArguments",
     value: function _assertArguments() {
-      if (this._children.length < 2) {
-        throw new Error("Invalid Argument: AndValue needs to have more than one value pattern.");
+      if (typeof this.regexString !== "string") {
+        throw new Error("Invalid Arguments: The regex argument needs to be a string of regex.");
       }
-    }
-  }, {
-    key: "_reset",
-    value: function _reset(cursor) {
-      this.index = 0;
-      this.nodes = [];
-      this.node = null;
-      this.cursor = cursor;
-      this.mark = this.cursor.mark();
+
+      if (this.regexString.length < 1) {
+        throw new Error("Invalid Arguments: The regex string argument needs to be at least one character long.");
+      }
+
+      if (this.regexString.charAt(0) === "^") {
+        throw new Error("Invalid Arguments: The regex string cannot start with a '^' because it is expected to be in the middle of a string.");
+      }
+
+      if (this.regexString.charAt(this.regexString.length - 1) === "$") {
+        throw new Error("Invalid Arguments: The regex string cannot end with a '$' because it is expected to be in the middle of a string.");
+      }
     }
   }, {
     key: "parse",
     value: function parse(cursor) {
       this._reset(cursor);
 
-      this._assertCursor();
-
-      this._tryPatterns();
+      this._tryPattern();
 
       return this.node;
+    }
+  }, {
+    key: "_reset",
+    value: function _reset(cursor) {
+      this.cursor = cursor;
+      this.regex.lastIndex = 0;
+      this.substring = this.cursor.string.substr(this.cursor.getIndex());
+      this.node = null;
     }
   }, {
     key: "_assertCursor",
@@ -2436,86 +2453,25 @@ function (_ValuePattern) {
       }
     }
   }, {
-    key: "_tryPatterns",
-    value: function _tryPatterns() {
-      while (true) {
-        var pattern = this._children[this.index];
-        var node = pattern.parse(this.cursor);
+    key: "_tryPattern",
+    value: function _tryPattern() {
+      var result = this.regex.exec(this.substring);
 
-        if (this.cursor.hasUnresolvedError()) {
-          break;
-        } else {
-          this.nodes.push(node);
-        }
-
-        if (!this._next()) {
-          this._processValue();
-
-          break;
-        }
-      }
-    }
-  }, {
-    key: "_next",
-    value: function _next() {
-      if (this._hasMorePatterns()) {
-        if (this.cursor.hasNext()) {
-          // If the last result was a failed optional, then don't increment the cursor.
-          if (this.nodes[this.nodes.length - 1] != null) {
-            this.cursor.next();
-          }
-
-          this.index++;
-          return true;
-        } else if (this.nodes[this.nodes.length - 1] == null) {
-          this.index++;
-          return true;
-        }
-
-        this._assertRestOfPatternsAreOptional();
-
-        return false;
+      if (result != null) {
+        var currentIndex = this.cursor.getIndex();
+        var newIndex = currentIndex + this.regex.lastIndex - 1;
+        this.node = new _ValueNode.default(this.name, result[0], currentIndex, newIndex);
+        this.cursor.setIndex(newIndex);
       } else {
-        return false;
+        this._processError();
       }
     }
   }, {
-    key: "_hasMorePatterns",
-    value: function _hasMorePatterns() {
-      return this.index + 1 < this._children.length;
-    }
-  }, {
-    key: "_assertRestOfPatternsAreOptional",
-    value: function _assertRestOfPatternsAreOptional() {
-      var _this2 = this;
-
-      var areTheRestOptional = this.children.every(function (pattern, index) {
-        return index <= _this2.index || pattern instanceof _OptionalValue.default;
-      });
-
-      if (!areTheRestOptional) {
-        var parseError = new _ParseError.default("Could not match ".concat(this.name, " before string ran out."), this.index, this);
-        this.cursor.throwError(parseError);
-      }
-    }
-  }, {
-    key: "_processValue",
-    value: function _processValue() {
-      if (this.cursor.hasUnresolvedError()) {
-        this.node = null;
-      } else {
-        this.nodes = this.nodes.filter(function (node) {
-          return node != null;
-        });
-        var lastNode = this.nodes[this.nodes.length - 1];
-        var startIndex = this.mark.index;
-        var endIndex = lastNode.endIndex;
-        var value = this.nodes.map(function (node) {
-          return node.value;
-        }).join("");
-        this.node = new _ValueNode.default(this.name, value, startIndex, endIndex);
-        this.cursor.setIndex(this.node.endIndex);
-      }
+    key: "_processError",
+    value: function _processError() {
+      var message = "ParseError: Expected regex pattern of '".concat(this.regexString, "' but found '").concat(this.substring, "'.");
+      var parseError = new _ParseError.default(message, this.cursor.getIndex(), this);
+      this.cursor.throwError(parseError);
     }
   }, {
     key: "clone",
@@ -2524,20 +2480,20 @@ function (_ValuePattern) {
         name = this.name;
       }
 
-      return new AndValue(name, this._children);
+      return new RegexValue(name, this.regexString);
     }
   }, {
     key: "getCurrentMark",
     value: function getCurrentMark() {
-      return this.mark;
+      return this.cursor.getIndex();
     }
   }]);
 
-  return AndValue;
+  return RegexValue;
 }(_ValuePattern2.default);
 
-exports.default = AndValue;
-//# sourceMappingURL=AndValue.js.map
+exports.default = RegexValue;
+//# sourceMappingURL=RegexValue.js.map
 
 /***/ }),
 /* 27 */
@@ -2551,7 +2507,34 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _Pattern2 = _interopRequireDefault(__webpack_require__(28));
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var ParseError = function ParseError(message, index, pattern) {
+  _classCallCheck(this, ParseError);
+
+  this.message = message;
+  this.name = 'ParseError';
+  this.index = index;
+  this.pattern = pattern;
+  this.stack = [];
+};
+
+exports.default = ParseError;
+//# sourceMappingURL=ParseError.js.map
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _Pattern2 = _interopRequireDefault(__webpack_require__(29));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2654,7 +2637,7 @@ exports.default = ValuePattern;
 //# sourceMappingURL=ValuePattern.js.map
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2772,33 +2755,6 @@ exports.default = Pattern;
 //# sourceMappingURL=Pattern.js.map
 
 /***/ }),
-/* 29 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var ParseError = function ParseError(message, index, pattern) {
-  _classCallCheck(this, ParseError);
-
-  this.message = message;
-  this.name = 'ParseError';
-  this.index = index;
-  this.pattern = pattern;
-  this.stack = [];
-};
-
-exports.default = ParseError;
-//# sourceMappingURL=ParseError.js.map
-
-/***/ }),
 /* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2810,7 +2766,195 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _ValuePattern2 = _interopRequireDefault(__webpack_require__(27));
+var _ValuePattern2 = _interopRequireDefault(__webpack_require__(28));
+
+var _ValueNode = _interopRequireDefault(__webpack_require__(24));
+
+var _Cursor = _interopRequireDefault(__webpack_require__(25));
+
+var _ParseError = _interopRequireDefault(__webpack_require__(27));
+
+var _OptionalValue = _interopRequireDefault(__webpack_require__(31));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var AndValue =
+/*#__PURE__*/
+function (_ValuePattern) {
+  _inherits(AndValue, _ValuePattern);
+
+  function AndValue(name, patterns) {
+    var _this;
+
+    _classCallCheck(this, AndValue);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(AndValue).call(this, name, patterns));
+
+    _this._assertArguments();
+
+    return _this;
+  }
+
+  _createClass(AndValue, [{
+    key: "_assertArguments",
+    value: function _assertArguments() {
+      if (this._children.length < 2) {
+        throw new Error("Invalid Argument: AndValue needs to have more than one value pattern.");
+      }
+    }
+  }, {
+    key: "_reset",
+    value: function _reset(cursor) {
+      this.index = 0;
+      this.nodes = [];
+      this.node = null;
+      this.cursor = cursor;
+      this.mark = this.cursor.mark();
+    }
+  }, {
+    key: "parse",
+    value: function parse(cursor) {
+      this._reset(cursor);
+
+      this._tryPatterns();
+
+      return this.node;
+    }
+  }, {
+    key: "_tryPatterns",
+    value: function _tryPatterns() {
+      while (true) {
+        var pattern = this._children[this.index];
+        var node = pattern.parse(this.cursor);
+
+        if (this.cursor.hasUnresolvedError()) {
+          break;
+        } else {
+          this.nodes.push(node);
+        }
+
+        if (!this._next()) {
+          this._processValue();
+
+          break;
+        }
+      }
+    }
+  }, {
+    key: "_next",
+    value: function _next() {
+      if (this._hasMorePatterns()) {
+        if (this.cursor.hasNext()) {
+          // If the last result was a failed optional, then don't increment the cursor.
+          if (this.nodes[this.nodes.length - 1] != null) {
+            this.cursor.next();
+          }
+
+          this.index++;
+          return true;
+        } else if (this.nodes[this.nodes.length - 1] == null) {
+          this.index++;
+          return true;
+        }
+
+        this._assertRestOfPatternsAreOptional();
+
+        return false;
+      } else {
+        return false;
+      }
+    }
+  }, {
+    key: "_hasMorePatterns",
+    value: function _hasMorePatterns() {
+      return this.index + 1 < this._children.length;
+    }
+  }, {
+    key: "_assertRestOfPatternsAreOptional",
+    value: function _assertRestOfPatternsAreOptional() {
+      var _this2 = this;
+
+      var areTheRestOptional = this.children.every(function (pattern, index) {
+        return index <= _this2.index || pattern instanceof _OptionalValue.default;
+      });
+
+      if (!areTheRestOptional) {
+        var parseError = new _ParseError.default("Could not match ".concat(this.name, " before string ran out."), this.index, this);
+        this.cursor.throwError(parseError);
+      }
+    }
+  }, {
+    key: "_processValue",
+    value: function _processValue() {
+      if (this.cursor.hasUnresolvedError()) {
+        this.node = null;
+      } else {
+        this.nodes = this.nodes.filter(function (node) {
+          return node != null;
+        });
+        var lastNode = this.nodes[this.nodes.length - 1];
+        var startIndex = this.mark.index;
+        var endIndex = lastNode.endIndex;
+        var value = this.nodes.map(function (node) {
+          return node.value;
+        }).join("");
+        this.node = new _ValueNode.default(this.name, value, startIndex, endIndex);
+        this.cursor.setIndex(this.node.endIndex);
+      }
+    }
+  }, {
+    key: "clone",
+    value: function clone(name) {
+      if (typeof name !== "string") {
+        name = this.name;
+      }
+
+      return new AndValue(name, this._children);
+    }
+  }, {
+    key: "getCurrentMark",
+    value: function getCurrentMark() {
+      return this.mark;
+    }
+  }]);
+
+  return AndValue;
+}(_ValuePattern2.default);
+
+exports.default = AndValue;
+//# sourceMappingURL=AndValue.js.map
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _ValuePattern2 = _interopRequireDefault(__webpack_require__(28));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2889,7 +3033,7 @@ exports.default = OptionalValue;
 //# sourceMappingURL=OptionalValue.js.map
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2900,9 +3044,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _ValuePattern2 = _interopRequireDefault(__webpack_require__(27));
+var _ValuePattern2 = _interopRequireDefault(__webpack_require__(28));
 
-var _ParseError = _interopRequireDefault(__webpack_require__(29));
+var _ParseError = _interopRequireDefault(__webpack_require__(27));
 
 var _ValueNode = _interopRequireDefault(__webpack_require__(24));
 
@@ -2962,18 +3106,9 @@ function (_ValuePattern) {
     value: function parse(cursor) {
       this._reset(cursor);
 
-      this._assertCursor();
-
       this._tryPattern();
 
       return this.node;
-    }
-  }, {
-    key: "_assertCursor",
-    value: function _assertCursor() {
-      if (!(this.cursor instanceof _Cursor.default)) {
-        throw new Error("Invalid Arguments: Expected a cursor.");
-      }
     }
   }, {
     key: "_reset",
@@ -3028,7 +3163,7 @@ exports.default = AnyOfThese;
 //# sourceMappingURL=AnyOfThese.js.map
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3039,13 +3174,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _ParseError = _interopRequireDefault(__webpack_require__(29));
+var _ParseError = _interopRequireDefault(__webpack_require__(27));
 
 var _Cursor = _interopRequireDefault(__webpack_require__(25));
 
 var _ValueNode = _interopRequireDefault(__webpack_require__(24));
 
-var _ValuePattern2 = _interopRequireDefault(__webpack_require__(27));
+var _ValuePattern2 = _interopRequireDefault(__webpack_require__(28));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3101,8 +3236,6 @@ function (_ValuePattern) {
     value: function parse(cursor) {
       this._reset(cursor);
 
-      this._assertCursor();
-
       this._tryPattern();
 
       return this.node;
@@ -3114,13 +3247,6 @@ function (_ValuePattern) {
       this.mark = this.cursor.mark();
       this.substring = this.cursor.string.substring(this.mark.index, this.mark.index + this.literal.length);
       this.node = null;
-    }
-  }, {
-    key: "_assertCursor",
-    value: function _assertCursor() {
-      if (!(this.cursor instanceof _Cursor.default)) {
-        throw new Error("Invalid Arguments: Expected a cursor.");
-      }
     }
   }, {
     key: "_tryPattern",
@@ -3167,7 +3293,7 @@ exports.default = Literal;
 //# sourceMappingURL=Literal.js.map
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3178,11 +3304,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _ValuePattern2 = _interopRequireDefault(__webpack_require__(27));
+var _ValuePattern2 = _interopRequireDefault(__webpack_require__(28));
 
 var _ValueNode = _interopRequireDefault(__webpack_require__(24));
 
-var _ParseError = _interopRequireDefault(__webpack_require__(29));
+var _ParseError = _interopRequireDefault(__webpack_require__(27));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3303,7 +3429,7 @@ exports.default = NotValue;
 //# sourceMappingURL=NotValue.js.map
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3314,13 +3440,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _ValuePattern2 = _interopRequireDefault(__webpack_require__(27));
+var _ValuePattern2 = _interopRequireDefault(__webpack_require__(28));
 
 var _ValueNode = _interopRequireDefault(__webpack_require__(24));
 
 var _Cursor = _interopRequireDefault(__webpack_require__(25));
 
-var _OptionalValue = _interopRequireDefault(__webpack_require__(30));
+var _OptionalValue = _interopRequireDefault(__webpack_require__(31));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3388,18 +3514,9 @@ function (_ValuePattern) {
     value: function parse(cursor) {
       this._reset(cursor);
 
-      this._assertCursor();
-
       this._tryPattern();
 
       return this.node;
-    }
-  }, {
-    key: "_assertCursor",
-    value: function _assertCursor() {
-      if (!(this.cursor instanceof _Cursor.default)) {
-        throw new Error("Invalid Arguments: Expected a cursor.");
-      }
     }
   }, {
     key: "_tryPattern",
@@ -3447,7 +3564,7 @@ exports.default = OrValue;
 //# sourceMappingURL=OrValue.js.map
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3458,13 +3575,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _ValuePattern2 = _interopRequireDefault(__webpack_require__(27));
+var _ValuePattern2 = _interopRequireDefault(__webpack_require__(28));
 
 var _ValueNode = _interopRequireDefault(__webpack_require__(24));
 
-var _ParseError = _interopRequireDefault(__webpack_require__(29));
+var _ParseError = _interopRequireDefault(__webpack_require__(27));
 
-var _OptionalValue = _interopRequireDefault(__webpack_require__(30));
+var _OptionalValue = _interopRequireDefault(__webpack_require__(31));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3608,7 +3725,7 @@ exports.default = RepeatValue;
 //# sourceMappingURL=RepeatValue.js.map
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3619,19 +3736,19 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _CompositePattern2 = _interopRequireDefault(__webpack_require__(37));
+var _CompositePattern2 = _interopRequireDefault(__webpack_require__(38));
 
 var _CompositeNode = _interopRequireDefault(__webpack_require__(23));
 
 var _Cursor = _interopRequireDefault(__webpack_require__(25));
 
-var _ParseError = _interopRequireDefault(__webpack_require__(29));
+var _ParseError = _interopRequireDefault(__webpack_require__(27));
 
-var _StackInformation = _interopRequireDefault(__webpack_require__(38));
+var _StackInformation = _interopRequireDefault(__webpack_require__(39));
 
-var _OptionalValue = _interopRequireDefault(__webpack_require__(30));
+var _OptionalValue = _interopRequireDefault(__webpack_require__(31));
 
-var _OptionalComposite = _interopRequireDefault(__webpack_require__(39));
+var _OptionalComposite = _interopRequireDefault(__webpack_require__(40));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3808,7 +3925,7 @@ exports.default = AndComposite;
 //# sourceMappingURL=AndComposite.js.map
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3819,7 +3936,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _Pattern2 = _interopRequireDefault(__webpack_require__(28));
+var _Pattern2 = _interopRequireDefault(__webpack_require__(29));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3921,7 +4038,7 @@ exports.default = CompositePattern;
 //# sourceMappingURL=CompositePattern.js.map
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3946,7 +4063,7 @@ exports.default = StackInformation;
 //# sourceMappingURL=StackInformation.js.map
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3957,9 +4074,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _CompositePattern2 = _interopRequireDefault(__webpack_require__(37));
+var _CompositePattern2 = _interopRequireDefault(__webpack_require__(38));
 
-var _Pattern = _interopRequireDefault(__webpack_require__(28));
+var _Pattern = _interopRequireDefault(__webpack_require__(29));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4039,7 +4156,7 @@ exports.default = OptionalComposite;
 //# sourceMappingURL=OptionalComposite.js.map
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4050,17 +4167,17 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _CompositePattern2 = _interopRequireDefault(__webpack_require__(37));
+var _CompositePattern2 = _interopRequireDefault(__webpack_require__(38));
 
 var _Cursor = _interopRequireDefault(__webpack_require__(25));
 
-var _StackInformation = _interopRequireDefault(__webpack_require__(38));
+var _StackInformation = _interopRequireDefault(__webpack_require__(39));
 
-var _OptionalValue = _interopRequireDefault(__webpack_require__(30));
+var _OptionalValue = _interopRequireDefault(__webpack_require__(31));
 
-var _OptionalComposite = _interopRequireDefault(__webpack_require__(39));
+var _OptionalComposite = _interopRequireDefault(__webpack_require__(40));
 
-var _ParseError = _interopRequireDefault(__webpack_require__(29));
+var _ParseError = _interopRequireDefault(__webpack_require__(27));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4190,7 +4307,7 @@ exports.default = OrComposite;
 //# sourceMappingURL=OrComposite.js.map
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4201,13 +4318,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _CompositePattern2 = _interopRequireDefault(__webpack_require__(37));
+var _CompositePattern2 = _interopRequireDefault(__webpack_require__(38));
 
 var _CompositeNode = _interopRequireDefault(__webpack_require__(23));
 
-var _ParseError = _interopRequireDefault(__webpack_require__(29));
+var _ParseError = _interopRequireDefault(__webpack_require__(27));
 
-var _OptionalComposite = _interopRequireDefault(__webpack_require__(39));
+var _OptionalComposite = _interopRequireDefault(__webpack_require__(40));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4348,7 +4465,7 @@ exports.default = RepeatComposite;
 //# sourceMappingURL=RepeatComposite.js.map
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4359,9 +4476,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _Pattern2 = _interopRequireDefault(__webpack_require__(28));
+var _Pattern2 = _interopRequireDefault(__webpack_require__(29));
 
-var _ParseError = _interopRequireDefault(__webpack_require__(29));
+var _ParseError = _interopRequireDefault(__webpack_require__(27));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4456,31 +4573,6 @@ exports.default = RecursivePattern;
 //# sourceMappingURL=RecursivePattern.js.map
 
 /***/ }),
-/* 43 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _clarityPatternParser = __webpack_require__(20);
-
-var _spaces = _interopRequireDefault(__webpack_require__(44));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var comma = new _clarityPatternParser.Literal("comma", ",");
-var optionalSpaces = new _clarityPatternParser.OptionalValue(_spaces.default);
-var divider = new _clarityPatternParser.AndValue("divider", [optionalSpaces, comma, optionalSpaces]);
-var _default = divider;
-exports.default = _default;
-//# sourceMappingURL=divider.js.map
-
-/***/ }),
 /* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4494,11 +4586,10 @@ exports.default = void 0;
 
 var _clarityPatternParser = __webpack_require__(20);
 
-var space = new _clarityPatternParser.Literal("space", " ");
-var spaces = new _clarityPatternParser.RepeatValue("spaces", space);
-var _default = spaces;
+var divider = new _clarityPatternParser.RegexValue("divider", "\\s*[,]\\s*");
+var _default = divider;
 exports.default = _default;
-//# sourceMappingURL=spaces.js.map
+//# sourceMappingURL=divider.js.map
 
 /***/ }),
 /* 45 */
@@ -4516,7 +4607,7 @@ var _clarityPatternParser = __webpack_require__(20);
 
 var _value = _interopRequireDefault(__webpack_require__(46));
 
-var _spaces = _interopRequireDefault(__webpack_require__(44));
+var _spaces = _interopRequireDefault(__webpack_require__(53));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4541,13 +4632,13 @@ var _clarityPatternParser = __webpack_require__(20);
 
 var _unit = _interopRequireDefault(__webpack_require__(47));
 
-var _hex = _interopRequireDefault(__webpack_require__(50));
+var _hex = _interopRequireDefault(__webpack_require__(49));
 
 var _number = _interopRequireDefault(__webpack_require__(48));
 
-var _method = _interopRequireDefault(__webpack_require__(51));
+var _method = _interopRequireDefault(__webpack_require__(50));
 
-var _name = _interopRequireDefault(__webpack_require__(52));
+var _name = _interopRequireDefault(__webpack_require__(51));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4573,14 +4664,9 @@ var _clarityPatternParser = __webpack_require__(20);
 
 var _number = _interopRequireDefault(__webpack_require__(48));
 
-var _letter = _interopRequireDefault(__webpack_require__(49));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-;
-var percent = new _clarityPatternParser.Literal("%", "%");
-var character = new _clarityPatternParser.OrValue("character", [_letter.default, percent]);
-var unitType = new _clarityPatternParser.RepeatValue("unit-type", character);
+var unitType = new _clarityPatternParser.RegexValue("unit-type", "[a-zA-Z]+|%");
 var unit = new _clarityPatternParser.AndComposite("unit", [_number.default, unitType]);
 var _default = unit;
 exports.default = _default;
@@ -4600,25 +4686,7 @@ exports.default = void 0;
 
 var _clarityPatternParser = __webpack_require__(20);
 
-;
-var zero = new _clarityPatternParser.Literal("zero", "0");
-var bigE = new _clarityPatternParser.Literal("big-e", "E");
-var littleE = new _clarityPatternParser.Literal("little-e", "e");
-var plus = new _clarityPatternParser.Literal("plus", "+");
-var minus = new _clarityPatternParser.Literal("minus", "-");
-var period = new _clarityPatternParser.Literal("period", ".");
-var digit = new _clarityPatternParser.AnyOfThese("digit", "0987654321");
-var nonZeroDigit = new _clarityPatternParser.AnyOfThese("non-zero-digit", "987654321");
-var digitSequence = new _clarityPatternParser.RepeatValue("digit-sequence", digit);
-var plusOrMinus = new _clarityPatternParser.OrValue("plus-or-minus", [plus, minus]);
-var optionalPlusOrMinus = new _clarityPatternParser.OptionalValue(plusOrMinus);
-var validDigitSequence = new _clarityPatternParser.AndValue("non-zero-start", [optionalPlusOrMinus, nonZeroDigit, new _clarityPatternParser.OptionalValue(digitSequence)]);
-var e = new _clarityPatternParser.OrValue("e", [bigE, littleE]);
-var integer = new _clarityPatternParser.OrValue("integer", [zero, validDigitSequence]);
-var fraction = new _clarityPatternParser.AndValue("fraction", [optionalPlusOrMinus, digitSequence, period, digitSequence]);
-var float = new _clarityPatternParser.OrValue("float", [fraction, integer]);
-var exponent = new _clarityPatternParser.AndValue("exponent", [float, e, optionalPlusOrMinus, digitSequence]);
-var number = new _clarityPatternParser.OrValue("number", [exponent, fraction, integer]);
+var number = new _clarityPatternParser.RegexValue("number", "[-+]?[0-9]*[.]?[0-9]+([eE][-+]?[0-9]+)?");
 var _default = number;
 exports.default = _default;
 //# sourceMappingURL=number.js.map
@@ -4637,11 +4705,10 @@ exports.default = void 0;
 
 var _clarityPatternParser = __webpack_require__(20);
 
-;
-var letter = new _clarityPatternParser.AnyOfThese("letter", "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
-var _default = letter;
+var hex = new _clarityPatternParser.RegexValue("hex", "#[0-9a-fA-F]{6}|#[0-9a-fA-F]{3}");
+var _default = hex;
 exports.default = _default;
-//# sourceMappingURL=letter.js.map
+//# sourceMappingURL=hex.js.map
 
 /***/ }),
 /* 50 */
@@ -4657,16 +4724,23 @@ exports.default = void 0;
 
 var _clarityPatternParser = __webpack_require__(20);
 
-var letter = new _clarityPatternParser.AnyOfThese("letter", "ABCDEFabcdef");
-var number = new _clarityPatternParser.AnyOfThese("number", "0987654321");
-var pound = new _clarityPatternParser.Literal("pound", "#");
-var character = new _clarityPatternParser.OrValue("character", [letter, number]);
-var sixHex = new _clarityPatternParser.AndValue("six-hex", [pound, character, character, character, character, character, character]);
-var threeHex = new _clarityPatternParser.AndValue("six-hex", [pound, character, character, character]);
-var hex = new _clarityPatternParser.OrValue("hex", [sixHex, threeHex]);
-var _default = hex;
+var _name = _interopRequireDefault(__webpack_require__(51));
+
+var _optionalSpaces = _interopRequireDefault(__webpack_require__(52));
+
+var _divider = _interopRequireDefault(__webpack_require__(44));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var openParen = new _clarityPatternParser.Literal("open-paren", "(");
+var closeParen = new _clarityPatternParser.Literal("close-paren", ")");
+var values = new _clarityPatternParser.RecursivePattern("values");
+var args = new _clarityPatternParser.RepeatComposite("arguments", values, _divider.default);
+var optionalArgs = new _clarityPatternParser.OptionalComposite(args);
+var method = new _clarityPatternParser.AndComposite("method", [_name.default, openParen, _optionalSpaces.default, optionalArgs, _optionalSpaces.default, closeParen]);
+var _default = method;
 exports.default = _default;
-//# sourceMappingURL=hex.js.map
+//# sourceMappingURL=method.js.map
 
 /***/ }),
 /* 51 */
@@ -4682,23 +4756,10 @@ exports.default = void 0;
 
 var _clarityPatternParser = __webpack_require__(20);
 
-var _name = _interopRequireDefault(__webpack_require__(52));
-
-var _optionalSpaces = _interopRequireDefault(__webpack_require__(53));
-
-var _divider = _interopRequireDefault(__webpack_require__(43));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var openParen = new _clarityPatternParser.Literal("open-paren", "(");
-var closeParen = new _clarityPatternParser.Literal("close-paren", ")");
-var values = new _clarityPatternParser.RecursivePattern("values");
-var args = new _clarityPatternParser.RepeatComposite("arguments", values, _divider.default);
-var optionalArgs = new _clarityPatternParser.OptionalComposite(args);
-var method = new _clarityPatternParser.AndComposite("method", [_name.default, openParen, _optionalSpaces.default, optionalArgs, _optionalSpaces.default, closeParen]);
-var _default = method;
+var name = new _clarityPatternParser.RegexValue("name", "[a-zA-Z]+[a-zA-Z0-9_-]*");
+var _default = name;
 exports.default = _default;
-//# sourceMappingURL=method.js.map
+//# sourceMappingURL=name.js.map
 
 /***/ }),
 /* 52 */
@@ -4714,18 +4775,14 @@ exports.default = void 0;
 
 var _clarityPatternParser = __webpack_require__(20);
 
-;
-var letter = new _clarityPatternParser.AnyOfThese("letter", "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
-var digit = new _clarityPatternParser.AnyOfThese("digit", "0987654321");
-var underbar = new _clarityPatternParser.Literal("underbar", "_");
-var dash = new _clarityPatternParser.Literal("dash", "-");
-var character = new _clarityPatternParser.OrValue("character", [letter, digit, new _clarityPatternParser.OrValue("bar", [underbar, dash])]);
-var characterSequence = new _clarityPatternParser.RepeatValue("character-sequence", character);
-var optionalCharacter = new _clarityPatternParser.OptionalValue(characterSequence);
-var name = new _clarityPatternParser.AndValue("name", [letter, optionalCharacter]);
-var _default = name;
+var _spaces = _interopRequireDefault(__webpack_require__(53));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var optionalSpaces = new _clarityPatternParser.OptionalValue(_spaces.default);
+var _default = optionalSpaces;
 exports.default = _default;
-//# sourceMappingURL=name.js.map
+//# sourceMappingURL=optionalSpaces.js.map
 
 /***/ }),
 /* 53 */
@@ -4741,14 +4798,11 @@ exports.default = void 0;
 
 var _clarityPatternParser = __webpack_require__(20);
 
-var _spaces = _interopRequireDefault(__webpack_require__(44));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var optionalSpaces = new _clarityPatternParser.OptionalValue(_spaces.default);
-var _default = optionalSpaces;
+var space = new _clarityPatternParser.Literal("space", " ");
+var spaces = new _clarityPatternParser.RepeatValue("spaces", space);
+var _default = spaces;
 exports.default = _default;
-//# sourceMappingURL=optionalSpaces.js.map
+//# sourceMappingURL=spaces.js.map
 
 /***/ }),
 /* 54 */
