@@ -5316,12 +5316,6 @@ const assertAnimatingTheSameProperties = (
   }
 };
 
-const assertObjectRef = (ref)=>{
-  if (ref == null){
-    throw new Error("Invalid Arguments: objectRef cannot be null or undefined.");
-  }
-}
-
 const useTransition = (
   animatedProperties,
   duration,
@@ -5329,8 +5323,10 @@ const useTransition = (
   objectRef,
   animate = true
 ) => {
-  assertObjectRef(objectRef);
-  
+  if (objectRef == null) {
+    objectRef = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
+  }
+
   const timeline = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(null);
   const lastAnimatedProperties = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(null);
   const animationFrame = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(null);

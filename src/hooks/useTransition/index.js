@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { Timeline } from "motion-ux";
 import createAnimations from "./createAnimations";
 import createAdjustedAnimations from "./createAdjustedAnimations";
@@ -54,12 +54,6 @@ const assertAnimatingTheSameProperties = (
   }
 };
 
-const assertObjectRef = (ref)=>{
-  if (ref == null){
-    throw new Error("Invalid Arguments: objectRef cannot be null or undefined.");
-  }
-}
-
 const useTransition = (
   animatedProperties,
   duration,
@@ -67,8 +61,10 @@ const useTransition = (
   objectRef,
   animate = true
 ) => {
-  assertObjectRef(objectRef);
-  
+  if (objectRef == null) {
+    objectRef = React.createRef();
+  }
+
   const timeline = useRef(null);
   const lastAnimatedProperties = useRef(null);
   const animationFrame = useRef(null);
