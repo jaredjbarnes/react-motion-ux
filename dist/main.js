@@ -8154,7 +8154,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const makeTransition = (states, duration, applyStyleValues) => {
   if (typeof states === "function") {
-    return (stateName, props, ref) => {
+    return (stateName, props, ref, animate) => {
       if (stateName == null) {
         throw new Error(
           "Invalid Arguments: Did you forget to pass in the state in for a tranistion :)?"
@@ -8170,10 +8170,10 @@ const makeTransition = (states, duration, applyStyleValues) => {
         );
       }
 
-      return Object(_useTransition__WEBPACK_IMPORTED_MODULE_0__["default"])(state, duration, applyStyleValues, ref);
+      return Object(_useTransition__WEBPACK_IMPORTED_MODULE_0__["default"])(state, duration, applyStyleValues, ref, animate);
     };
   } else {
-    return (stateName, ref) => {
+    return (stateName, ref, animate) => {
       if (stateName == null) {
         throw new Error(
           "Invalid Arguments: Did you forget to pass in the state in for a tranistion :)?"
@@ -8187,7 +8187,7 @@ const makeTransition = (states, duration, applyStyleValues) => {
           `Cannot find styles for the state named: ${stateName}.`
         );
       }
-      return Object(_useTransition__WEBPACK_IMPORTED_MODULE_0__["default"])(state, duration, applyStyleValues, ref);
+      return Object(_useTransition__WEBPACK_IMPORTED_MODULE_0__["default"])(state, duration, applyStyleValues, ref, animate);
     };
   }
 };
