@@ -161,7 +161,9 @@ const useTransition = (
     }
 
     timeline.current.observe("RENDER", ({ animations }) => {
-      applyValues(objectRef.current, animations.useTransition);
+      if (objectRef.current != null){
+        applyValues(objectRef.current, animations.useTransition);
+      }
     });
 
     timeline.current.observeTime(1, () => {
