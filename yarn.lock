@@ -4139,10 +4139,10 @@ cipher-base@^1.0.0, cipher-base@^1.0.1, cipher-base@^1.0.3:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
 
-clarity-pattern-parser@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/clarity-pattern-parser/-/clarity-pattern-parser-1.1.0.tgz#1fba3f03f60a17eae6e19a330d8c30b5dc9ebc2c"
-  integrity sha512-fhY/x61rZzkxa8Yx9G8kACj8GYk2u1JVJcxjU0WDbzTztljt8k58H6Bg2ZZcPj4XaQtqQX1cf2PipydRJkJgHQ==
+clarity-pattern-parser@1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/clarity-pattern-parser/-/clarity-pattern-parser-1.1.2.tgz#144074078c7a01cb29ee6e16c781676757defb80"
+  integrity sha512-BDz5B/R/ctZ1F1Q7LN1RuuPLaF0dJ79l1bmuW1vvBR5w9nt2QYM8d053A0GPEfZf8peZKnyUxHTGmx/lOOxCjQ==
 
 class-utils@^0.3.5:
   version "0.3.6"
@@ -8806,12 +8806,12 @@ mkdirp@0.5.1, mkdirp@0.5.x, mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.1:
   dependencies:
     minimist "0.0.8"
 
-motion-ux@^2.0.8:
-  version "2.0.8"
-  resolved "https://registry.yarnpkg.com/motion-ux/-/motion-ux-2.0.8.tgz#a8417b81dab493853e9b24f6c58e7ae632a28cd1"
-  integrity sha512-YS2cyqSMPBO0VWpJoUT1ZTUvg4BSiea2L4VpmqSSj5oU54lYVl2fL+GmZGhaJ+yzV0x0Tr8dJjOOQnNDxjQ/bQ==
+motion-ux@^2.0.10:
+  version "2.0.10"
+  resolved "https://registry.yarnpkg.com/motion-ux/-/motion-ux-2.0.10.tgz#188f96c57c582dd49fa058385c8f512eea8f6d47"
+  integrity sha512-ehs+XTLew4wFxrIBSsguYCyfIxKI/LU9Gs4ZJyU/48e1N76wB+ctGdsvfMmYQyoKYZ6fNFBgNrTQJTwiQQ3Ayg==
   dependencies:
-    clarity-pattern-parser "1.1.0"
+    clarity-pattern-parser "1.1.2"
 
 move-concurrently@^1.0.1:
   version "1.0.1"

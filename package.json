@@ -1,9 +1,9 @@
 {
   "name": "react-motion-ux",
-  "version": "0.2.11",
+  "version": "0.2.12",
   "main": "lib/index.js",
   "dependencies": {
-    "motion-ux": "^2.0.8"
+    "motion-ux": "^2.0.10"
   },
   "devDependencies": {
     "@material-ui/core": "^4.7.2",
