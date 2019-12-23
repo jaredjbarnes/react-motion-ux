@@ -2457,9 +2457,9 @@ function (_ValuePattern) {
     value: function _tryPattern() {
       var result = this.regex.exec(this.substring);
 
-      if (result != null) {
+      if (result != null && result.index === 0) {
         var currentIndex = this.cursor.getIndex();
-        var newIndex = currentIndex + this.regex.lastIndex - 1;
+        var newIndex = currentIndex + result[0].length - 1;
         this.node = new _ValueNode.default(this.name, result[0], currentIndex, newIndex);
         this.cursor.setIndex(newIndex);
       } else {
@@ -4666,7 +4666,7 @@ var _number = _interopRequireDefault(__webpack_require__(48));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var unitType = new _clarityPatternParser.RegexValue("unit-type", "[a-zA-Z]+|%");
+var unitType = new _clarityPatternParser.RegexValue("unit-type", "[a-zA-Z%]+");
 var unit = new _clarityPatternParser.AndComposite("unit", [_number.default, unitType]);
 var _default = unit;
 exports.default = _default;
