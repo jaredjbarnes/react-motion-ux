@@ -56,10 +56,6 @@ const PipelinePath = ({
   curveWidth = 100,
   animate = true
 } = defaultValue) => {
-  const ref = useRef(null);
-  const startKnobRef = useRef(null);
-  const endKnobRef = useRef(null);
-
   const controlPoint1 = {
     x: originX + curveWidth,
     y: originY
@@ -70,31 +66,28 @@ const PipelinePath = ({
     y: destinationY
   };
 
-  useTransition(
+  const ref = useTransition(
     {
       d: `M ${originX} ${originY} C ${controlPoint1.x} ${controlPoint1.y}, ${controlPoint2.x} ${controlPoint2.y}, ${destinationX} ${destinationY}`
     },
     animate ? 5000 : 0,
-    applyAttributeValues,
-    ref
+    applyAttributeValues
   );
 
-  useTransition(
+  const startKnobRef = useTransition(
     {
       transform: `translate(${originX - 5}px, ${originY - 5}px)`
     },
     animate ? 5000 : 0,
-    applyStyles,
-    startKnobRef
+    applyStyles
   );
 
-  useTransition(
+  const endKnobRef = useTransition(
     {
       transform: `translate(${destinationX - 8}px, ${destinationY - 16}px)`
     },
     animate ? 5000 : 0,
-    applyStyles,
-    endKnobRef
+    applyStyles
   );
 
   return (

@@ -35,9 +35,7 @@ const useStyledMotion = makeStyledTransition(
 
 const Pulse = () => {
   const [state, setState] = useState("off");
-  const ref = useRef(null);
-
-  useStyledMotion(state, ref);
+  const ref = useStyledMotion(state);
 
   useInterval(() => {
     if (state === "on") {

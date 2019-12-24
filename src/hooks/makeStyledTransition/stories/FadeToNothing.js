@@ -25,9 +25,8 @@ const useStyledMotion = makeStyledTransition(
 
 const FadeToNothing = () => {
   const [state, setState] = useState("opened");
-  const ref = useRef(null);
   const style = { width: "300px", backgroundColor: "grey", height: "300px" };
-  useStyledMotion(state, ref);
+  const ref = useStyledMotion(state);
 
   return (
     <div>

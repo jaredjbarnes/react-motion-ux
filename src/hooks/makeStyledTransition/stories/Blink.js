@@ -34,10 +34,9 @@ const useStyledMotion = makeStyledTransition(
 );
 
 const Blink = () => {
-  const ref = useRef(null);
   const [state, setState] = useState("off");
   
-  useStyledMotion(state, ref);
+  const ref = useStyledMotion(state);
 
   useInterval(() => {
     if (state === "on") {

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useCallback, useState } from "react";
 import { Timeline } from "motion-ux";
 import createAnimations from "./createAnimations";
 import createAdjustedAnimations from "./createAdjustedAnimations";
@@ -58,23 +58,39 @@ const useTransition = (
   animatedProperties,
   duration,
   applyValues = defaultApplyValues,
-  objectRef,
+  ref,
   animate = true
 ) => {
-  if (objectRef == null) {
-    objectRef = React.createRef();
-  }
-
+  const objectRef = useRef(null);
   const timeline = useRef(null);
   const lastAnimatedProperties = useRef(null);
-  const animationFrame = useRef(null);
+  const [values, setValues] = useState(null);
+
+  const callbackRef = useCallback(
+    node => {
+      if (node != null) {
+        if (typeof ref === "function") {
+          ref(node);
+        } else if (
+          typeof ref === "object" &&
+          ref != null &&
+          ref.hasOwnProperty("current")
+        ) {
+          ref.current = node;
+        }
+        objectRef.current = node;
+
+        applyValues(objectRef.current, values);
+      }
+    },
+    [ref, applyValues, values]
+  );
 
   useEffect(() => {
     return () => {
       if (timeline.current != null) {
         timeline.current.dispose();
       }
-      cancelAnimationFrame(animationFrame.current);
     };
   }, []);
 
@@ -97,13 +113,6 @@ const useTransition = (
     lastAnimatedProperties.current
   );
 
-  /* 
-    Since we didn't come from anything just set the values. This will prevent unneeded 
-    chern on the CPU on initialization. This is a little tricky because these refs are 
-    associated with other components, so the ref may not be here when this component mounts.
-    So we try to render every animation frame until this is unmounted or it actually renders 
-    it's initial value.
-  */
   if (lastAnimatedProperties.current == null || !animate) {
     if (timeline.current != null) {
       timeline.current.dispose();
@@ -115,17 +124,11 @@ const useTransition = (
       return properties;
     }, {});
 
-    const updateObject = values => {
-      if (objectRef.current == null) {
-        animationFrame.current = requestAnimationFrame(() => {
-          updateObject(values);
-        });
-      } else {
-        applyValues(objectRef.current, values);
-      }
-    };
-
-    updateObject(values);
+    if (objectRef.current != null) {
+      applyValues(objectRef.current, values);
+    } else {
+      setValues(values);
+    }
 
     lastAnimatedProperties.current = animatedProperties;
     return objectRef;
@@ -161,7 +164,7 @@ const useTransition = (
     }
 
     timeline.current.observe("RENDER", ({ animations }) => {
-      if (objectRef.current != null){
+      if (objectRef.current != null) {
         applyValues(objectRef.current, animations.useTransition);
       }
     });
@@ -176,7 +179,7 @@ const useTransition = (
     return objectRef;
   }
 
-  return objectRef;
+  return callbackRef;
 };
 
 export default useTransition;

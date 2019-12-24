@@ -80,13 +80,9 @@ const useThreeOptionMotion = makeStyledTransition(
 
 const Menu = React.forwardRef((props = {}, ref) => {
   const [state, setState] = useState("closed");
-  const oneRef = useRef(null);
-  const twoRef = useRef(null);
-  const threeRef = useRef(null);
-
-  useOneOptionMotion(state, oneRef);
-  useTwoOptionMotion(state, twoRef);
-  useThreeOptionMotion(state, threeRef);
+  const oneRef = useOneOptionMotion(state);
+  const twoRef = useTwoOptionMotion(state);
+  const threeRef = useThreeOptionMotion(state);
 
   const onClick = () => {
     if (state === "opened") {

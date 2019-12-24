@@ -32,8 +32,7 @@ const useAnimatedStyles = makeStyledTransition(
 const Button = React.forwardRef(
   ({ children, onClick, className, style = {} }, ref) => {
     const [state, setState] = useState("default");
-    const animatedRef = useRef(null);
-    useAnimatedStyles(state, animatedRef);
+    const animatedRef = useAnimatedStyles(state);
 
     const onMouseDown = () => {
       setState("pressed");

@@ -73,13 +73,9 @@ const useMiddleBallAnimtedStyles = makeStyledTransition(
 const OptionButton = React.forwardRef(
   ({ state, style, className } = {}, ref) => {
     state = state || "default";
-    const topRef = useRef(null);
-    const bottomRef = useRef(null);
-    const middleRef = useRef(null);
-
-    useTopBallAnimatedStyles(state, topRef);
-    useBottomBallAnimtedStyles(state, bottomRef);
-    useMiddleBallAnimtedStyles(state, middleRef);
+    const topRef = useTopBallAnimatedStyles(state);
+    const bottomRef = useBottomBallAnimtedStyles(state);
+    const middleRef = useMiddleBallAnimtedStyles(state);
 
     return (
       <div

@@ -1,6 +1,6 @@
 {
   "name": "react-motion-ux",
-  "version": "0.2.13",
+  "version": "0.2.14",
   "main": "lib/index.js",
   "dependencies": {
     "motion-ux": "^2.0.10"

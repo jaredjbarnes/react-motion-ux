@@ -112,15 +112,11 @@ const NamedIcon = ({
   ...props
 } = {}) => {
   const state = isActive ? "active" : "inactive";
-  const lineRef = useRef(null);
-  const containerRef = useRef(null);
-  const nameRef = useRef(null);
-  const iconRef = useRef(null);
 
-  useLineStyledMotion(state, { width }, lineRef);
-  useContainerStyledMotion(state, { width }, containerRef);
-  useNameStyledMotion(state, nameRef);
-  useIconStyledMotion(state, { color: backgroundColor }, iconRef);
+  const lineRef = useLineStyledMotion(state, { width });
+  const containerRef = useContainerStyledMotion(state, { width });
+  const nameRef = useNameStyledMotion(state);
+  const iconRef = useIconStyledMotion(state, { color: backgroundColor });
 
   return (
     <div style={wrapperStyle} {...props}>

@@ -48,11 +48,10 @@ const useHandleStyles = makeStyledTransition(
 
 const Switch = ({ defaultState, onChange } = {}) => {
   defaultState = defaultState || "off";
-  const railRef = useRef(null);
-  const handleRef = useRef(null);
+
   const [state, setState] = useState(defaultState);
-  useRailStyles(state, railRef);
-  useHandleStyles(state, handleRef);
+  const railRef = useRailStyles(state);
+  const handleRef = useHandleStyles(state);
 
   useMemo(() => {
     setState(defaultState);
