@@ -55,7 +55,6 @@ const useTransition = (
 
       state.current.node = node;
 
-      console.log("Mounted");
       // This should run when the element is mounted.
       const values = convertToValues(animatedProperties);
 
@@ -67,7 +66,6 @@ const useTransition = (
   // Clean up timeline to prevent memory leak.
   useEffect(() => {
     return () => {
-      console.log("Unmounted");
       if (state.current.timeline != null) {
         state.current.timeline.dispose();
       }
@@ -149,7 +147,6 @@ const useTransition = (
 
     state.current.timeline.play();
     state.current.lastAnimatedProperties = animatedProperties;
-
   }
 
   return callbackRef;
