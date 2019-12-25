@@ -118,16 +118,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _hooks_useTransition__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(59);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "useTransition", function() { return _hooks_useTransition__WEBPACK_IMPORTED_MODULE_1__["default"]; });
 
-/* harmony import */ var _hooks_makeStyledTransition__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(69);
+/* harmony import */ var _hooks_makeStyledTransition__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(72);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "makeStyledTransition", function() { return _hooks_makeStyledTransition__WEBPACK_IMPORTED_MODULE_2__["default"]; });
 
-/* harmony import */ var _hooks_makePropertyTransition__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(71);
+/* harmony import */ var _hooks_makePropertyTransition__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(74);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "makePropertyTransition", function() { return _hooks_makePropertyTransition__WEBPACK_IMPORTED_MODULE_3__["default"]; });
 
-/* harmony import */ var _hooks_makeAttributeTransition__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(72);
+/* harmony import */ var _hooks_makeAttributeTransition__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(75);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "makeAttributeTransition", function() { return _hooks_makeAttributeTransition__WEBPACK_IMPORTED_MODULE_4__["default"]; });
 
-/* harmony import */ var _hooks_makeTransition__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(70);
+/* harmony import */ var _hooks_makeTransition__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(73);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "makeTransition", function() { return _hooks_makeTransition__WEBPACK_IMPORTED_MODULE_5__["default"]; });
 
 
@@ -5260,66 +5260,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _createAnimations__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(65);
 /* harmony import */ var _createAdjustedAnimations__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(67);
 /* harmony import */ var _isEqual__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(68);
+/* harmony import */ var _transformAnimatedProperties__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(69);
+/* harmony import */ var _objectApplyValues__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(70);
+/* harmony import */ var _assertAnimatingTheSameProperties__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(71);
 
 
 
 
 
 
-const transformAnimatedProperties = animatedProperties => {
-  Object.keys(animatedProperties).forEach(key => {
-    animatedProperties[key] = transformStyle(animatedProperties[key]);
-  });
-};
 
-const transformStyle = value => {
-  let objectValue = value;
 
-  if (typeof value === "object" && value != null) {
-    objectValue = value;
-  } else {
-    objectValue = {
-      value: value
-    };
-  }
-
-  objectValue.value = objectValue.value.toString();
-  return objectValue;
-};
-
-const defaultApplyValues = (obj, values) => {
-  if (obj != null) {
-    Object.keys(values).forEach(key => {
-      obj[key] = values[key];
-    });
-  }
-};
-
-const assertAnimatingTheSameProperties = (
-  animatedPropertiesA,
-  animatedPropertiesB
-) => {
-  const keysA = Object.keys(animatedPropertiesA);
-  const keysB = Object.keys(animatedPropertiesB);
-
-  keysA.sort();
-  keysB.sort();
-
-  const areTheSame = keysA.join("|") === keysB.join("|");
-
-  if (!areTheSame) {
-    throw new Error(
-      `Invalid Arguments: useTransition cannot transition between animatedProperties that don't match between states: ${JSON.stringify(
-        animatedPropertiesA
-      )}, ${JSON.stringify(animatedPropertiesB)}`
-    );
-  }
-};
 
 const useTransition = (
   animatedProperties,
   duration,
-  applyValues = defaultApplyValues,
+  applyValues = _objectApplyValues__WEBPACK_IMPORTED_MODULE_6__["default"],
   ref,
   animate = true
 ) => {
@@ -5368,7 +5324,7 @@ const useTransition = (
     return objectRef;
   }
 
-  transformAnimatedProperties(animatedProperties);
+  Object(_transformAnimatedProperties__WEBPACK_IMPORTED_MODULE_5__["default"])(animatedProperties);
 
   const isDifferent = !Object(_isEqual__WEBPACK_IMPORTED_MODULE_4__["default"])(
     animatedProperties,
@@ -5393,9 +5349,9 @@ const useTransition = (
     }
 
     lastAnimatedProperties.current = animatedProperties;
-    return objectRef;
+    return callbackRef;
   } else if (isDifferent && lastAnimatedProperties.current != null) {
-    assertAnimatingTheSameProperties(
+    Object(_assertAnimatingTheSameProperties__WEBPACK_IMPORTED_MODULE_7__["default"])(
       animatedProperties,
       lastAnimatedProperties.current
     );
@@ -5438,7 +5394,7 @@ const useTransition = (
     timeline.current.play();
 
     lastAnimatedProperties.current = animatedProperties;
-    return objectRef;
+    return callbackRef;
   }
 
   return callbackRef;
@@ -8130,7 +8086,84 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(70);
+const transformAnimatedProperties = animatedProperties => {
+  Object.keys(animatedProperties).forEach(key => {
+    animatedProperties[key] = transformStyle(animatedProperties[key]);
+  });
+};
+
+const transformStyle = value => {
+  let objectValue = value;
+
+  if (typeof value === "object" && value != null) {
+    objectValue = value;
+  } else {
+    objectValue = {
+      value: value
+    };
+  }
+
+  objectValue.value = objectValue.value.toString();
+  return objectValue;
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (transformAnimatedProperties);
+
+
+/***/ }),
+/* 70 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+const objectApplyValues = (obj, values) => {
+  if (obj != null) {
+    Object.keys(values).forEach(key => {
+      obj[key] = values[key];
+    });
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (objectApplyValues);
+
+
+/***/ }),
+/* 71 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+const assertAnimatingTheSameProperties = (
+  animatedPropertiesA,
+  animatedPropertiesB
+) => {
+  const keysA = Object.keys(animatedPropertiesA);
+  const keysB = Object.keys(animatedPropertiesB);
+
+  keysA.sort();
+  keysB.sort();
+
+  const areTheSame = keysA.join("|") === keysB.join("|");
+
+  if (!areTheSame) {
+    throw new Error(
+      `Invalid Arguments: useTransition cannot transition between animatedProperties that don't match between states: ${JSON.stringify(
+        animatedPropertiesA
+      )}, ${JSON.stringify(animatedPropertiesB)}`
+    );
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (assertAnimatingTheSameProperties);
+
+
+/***/ }),
+/* 72 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73);
 
 
 const applyStyleValues = (element, values) => {
@@ -8149,7 +8182,7 @@ const makeStyledTransition = (states, duration) => {
 
 
 /***/ }),
-/* 70 */
+/* 73 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8201,12 +8234,12 @@ const makeTransition = (states, duration, applyStyleValues) => {
 
 
 /***/ }),
-/* 71 */
+/* 74 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(70);
+/* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73);
 
 
 const applyValues = (obj, values) => {
@@ -8225,12 +8258,12 @@ const makePropertyTransition = (states, duration) => {
 
 
 /***/ }),
-/* 72 */
+/* 75 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(70);
+/* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73);
 
 
 const applyAttributeValues = (obj, values) => {

@@ -1,63 +1,16 @@
-import React, { useEffect, useRef, useCallback, useState } from "react";
+import { useEffect, useRef, useCallback, useState } from "react";
 import { Timeline } from "motion-ux";
 import createAnimations from "./createAnimations";
 import createAdjustedAnimations from "./createAdjustedAnimations";
 import isEqual from "../isEqual";
-
-const transformAnimatedProperties = animatedProperties => {
-  Object.keys(animatedProperties).forEach(key => {
-    animatedProperties[key] = transformStyle(animatedProperties[key]);
-  });
-};
-
-const transformStyle = value => {
-  let objectValue = value;
-
-  if (typeof value === "object" && value != null) {
-    objectValue = value;
-  } else {
-    objectValue = {
-      value: value
-    };
-  }
-
-  objectValue.value = objectValue.value.toString();
-  return objectValue;
-};
-
-const defaultApplyValues = (obj, values) => {
-  if (obj != null) {
-    Object.keys(values).forEach(key => {
-      obj[key] = values[key];
-    });
-  }
-};
-
-const assertAnimatingTheSameProperties = (
-  animatedPropertiesA,
-  animatedPropertiesB
-) => {
-  const keysA = Object.keys(animatedPropertiesA);
-  const keysB = Object.keys(animatedPropertiesB);
-
-  keysA.sort();
-  keysB.sort();
-
-  const areTheSame = keysA.join("|") === keysB.join("|");
-
-  if (!areTheSame) {
-    throw new Error(
-      `Invalid Arguments: useTransition cannot transition between animatedProperties that don't match between states: ${JSON.stringify(
-        animatedPropertiesA
-      )}, ${JSON.stringify(animatedPropertiesB)}`
-    );
-  }
-};
+import transformAnimatedProperties from "./transformAnimatedProperties";
+import objectApplyValues from "./objectApplyValues";
+import assertAnimatingTheSameProperties from "./assertAnimatingTheSameProperties";
 
 const useTransition = (
   animatedProperties,
   duration,
-  applyValues = defaultApplyValues,
+  applyValues = objectApplyValues,
   ref,
   animate = true
 ) => {
@@ -131,7 +84,7 @@ const useTransition = (
     }
 
     lastAnimatedProperties.current = animatedProperties;
-    return objectRef;
+    return callbackRef;
   } else if (isDifferent && lastAnimatedProperties.current != null) {
     assertAnimatingTheSameProperties(
       animatedProperties,
@@ -176,7 +129,7 @@ const useTransition = (
     timeline.current.play();
 
     lastAnimatedProperties.current = animatedProperties;
-    return objectRef;
+    return callbackRef;
   }
 
   return callbackRef;
