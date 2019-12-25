@@ -5272,6 +5272,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+const convertToValues = animatedProperties => {
+  return Object.keys(animatedProperties).reduce((properties, key) => {
+    properties[key] = animatedProperties[key].value;
+    return properties;
+  }, {});
+};
+
 const useTransition = (
   animatedProperties,
   duration,
@@ -5279,122 +5286,135 @@ const useTransition = (
   ref,
   animate = true
 ) => {
-  const objectRef = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(null);
-  const timeline = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(null);
-  const lastAnimatedProperties = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(null);
-  const [values, setValues] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null);
+  const state = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])({
+    lastAnimatedProperties: null,
+    animatedProperties,
+    duration,
+    applyValues,
+    ref,
+    animate,
+    timeline: null,
+    node: null
+  });
 
-  const callbackRef = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(
-    node => {
-      if (node != null) {
-        if (typeof ref === "function") {
-          ref(node);
-        } else if (
-          typeof ref === "object" &&
-          ref != null &&
-          ref.hasOwnProperty("current")
-        ) {
-          ref.current = node;
-        }
-        objectRef.current = node;
+  state.current.animatedProperties = animatedProperties;
+  state.current.duration = duration;
+  state.current.applyValues = applyValues;
+  state.current.ref = ref;
+  state.current.animate = animate;
 
-        applyValues(objectRef.current, values);
+  // Keep refs up to date.
+  const callbackRef = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(node => {
+    const { animatedProperties, applyValues, ref } = state.current;
+
+    if (node != null) {
+      if (typeof ref === "function") {
+        ref(node);
+      } else if (
+        typeof ref === "object" &&
+        ref != null &&
+        ref.hasOwnProperty("current")
+      ) {
+        ref.current = node;
       }
-    },
-    [ref, applyValues, values]
-  );
 
+      state.current.node = node;
+
+      console.log("Mounted");
+      // This should run when the element is mounted.
+      const values = convertToValues(animatedProperties);
+
+      applyValues(state.current.node, values);
+      state.current.lastAnimatedProperties = animatedProperties;
+    }
+  }, []);
+
+  // Clean up timeline to prevent memory leak.
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     return () => {
-      if (timeline.current != null) {
-        timeline.current.dispose();
+      console.log("Unmounted");
+      if (state.current.timeline != null) {
+        state.current.timeline.dispose();
       }
     };
   }, []);
 
-  // This will reset useTransition.
   if (animatedProperties == null) {
     // Stop the current animation, if there is one.
-    if (timeline.current != null) {
-      timeline.current.dispose();
+    if (state.current.timeline != null) {
+      state.current.timeline.dispose();
     }
 
     // Reset
-    lastAnimatedProperties.current = null;
-    return objectRef;
+    state.current.lastAnimatedProperties = null;
+    return callbackRef;
   }
 
   Object(_transformAnimatedProperties__WEBPACK_IMPORTED_MODULE_5__["default"])(animatedProperties);
 
   const isDifferent = !Object(_isEqual__WEBPACK_IMPORTED_MODULE_4__["default"])(
     animatedProperties,
-    lastAnimatedProperties.current
+    state.current.lastAnimatedProperties
   );
 
-  if (lastAnimatedProperties.current == null || !animate) {
-    if (timeline.current != null) {
-      timeline.current.dispose();
-      timeline.current = null;
+  if (state.current.lastAnimatedProperties == null || !animate) {
+    if (state.current.timeline != null) {
+      state.current.timeline.dispose();
+      state.current.timeline = null;
     }
 
-    const values = Object.keys(animatedProperties).reduce((properties, key) => {
-      properties[key] = animatedProperties[key].value;
-      return properties;
-    }, {});
+    const values = convertToValues(animatedProperties);
 
-    if (objectRef.current != null) {
-      applyValues(objectRef.current, values);
-    } else {
-      setValues(values);
+    if (state.current.node != null) {
+      applyValues(state.current.node, values);
     }
 
-    lastAnimatedProperties.current = animatedProperties;
+    state.current.lastAnimatedProperties = animatedProperties;
     return callbackRef;
-  } else if (isDifferent && lastAnimatedProperties.current != null) {
+  } else if (isDifferent && state.current.lastAnimatedProperties != null) {
     Object(_assertAnimatingTheSameProperties__WEBPACK_IMPORTED_MODULE_7__["default"])(
       animatedProperties,
-      lastAnimatedProperties.current
+      state.current.lastAnimatedProperties
     );
 
-    if (timeline.current == null) {
+    if (state.current.timeline == null) {
       const animations = Object(_createAnimations__WEBPACK_IMPORTED_MODULE_2__["default"])(
-        lastAnimatedProperties.current,
+        state.current.lastAnimatedProperties,
         animatedProperties
       );
 
-      timeline.current = new motion_ux__WEBPACK_IMPORTED_MODULE_1__["Timeline"]({
+      state.current.timeline = new motion_ux__WEBPACK_IMPORTED_MODULE_1__["Timeline"]({
         animations: animations,
         duration: duration
       });
     } else {
       const animations = Object(_createAdjustedAnimations__WEBPACK_IMPORTED_MODULE_3__["default"])(
-        timeline.current,
-        lastAnimatedProperties.current,
+        state.current.timeline,
+        state.current.lastAnimatedProperties,
         animatedProperties
       );
 
-      timeline.current.dispose();
+      state.current.timeline.dispose();
 
-      timeline.current = new motion_ux__WEBPACK_IMPORTED_MODULE_1__["Timeline"]({
+      state.current.timeline = new motion_ux__WEBPACK_IMPORTED_MODULE_1__["Timeline"]({
         animations: animations,
         duration: duration
       });
     }
 
-    timeline.current.observe("RENDER", ({ animations }) => {
-      if (objectRef.current != null) {
-        applyValues(objectRef.current, animations.useTransition);
+    state.current.timeline.observe("RENDER", ({ animations }) => {
+      if (state.current.node != null) {
+        applyValues(state.current.node, animations.useTransition);
       }
     });
 
-    timeline.current.observeTime(1, () => {
-      timeline.current = null;
+    state.current.timeline.observeTime(1, () => {
+      state.current.timeline.current = null;
     });
 
-    timeline.current.play();
+    state.current.timeline.play();
+    state.current.lastAnimatedProperties = animatedProperties;
 
-    lastAnimatedProperties.current = animatedProperties;
-    return callbackRef;
   }
 
   return callbackRef;

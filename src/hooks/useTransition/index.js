@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback, useState } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import { Timeline } from "motion-ux";
 import createAnimations from "./createAnimations";
 import createAdjustedAnimations from "./createAdjustedAnimations";
@@ -7,6 +7,13 @@ import transformAnimatedProperties from "./transformAnimatedProperties";
 import objectApplyValues from "./objectApplyValues";
 import assertAnimatingTheSameProperties from "./assertAnimatingTheSameProperties";
 
+const convertToValues = animatedProperties => {
+  return Object.keys(animatedProperties).reduce((properties, key) => {
+    properties[key] = animatedProperties[key].value;
+    return properties;
+  }, {});
+};
+
 const useTransition = (
   animatedProperties,
   duration,
@@ -14,122 +21,135 @@ const useTransition = (
   ref,
   animate = true
 ) => {
-  const objectRef = useRef(null);
-  const timeline = useRef(null);
-  const lastAnimatedProperties = useRef(null);
-  const [values, setValues] = useState(null);
+  const state = useRef({
+    lastAnimatedProperties: null,
+    animatedProperties,
+    duration,
+    applyValues,
+    ref,
+    animate,
+    timeline: null,
+    node: null
+  });
 
-  const callbackRef = useCallback(
-    node => {
-      if (node != null) {
-        if (typeof ref === "function") {
-          ref(node);
-        } else if (
-          typeof ref === "object" &&
-          ref != null &&
-          ref.hasOwnProperty("current")
-        ) {
-          ref.current = node;
-        }
-        objectRef.current = node;
+  state.current.animatedProperties = animatedProperties;
+  state.current.duration = duration;
+  state.current.applyValues = applyValues;
+  state.current.ref = ref;
+  state.current.animate = animate;
 
-        applyValues(objectRef.current, values);
+  // Keep refs up to date.
+  const callbackRef = useCallback(node => {
+    const { animatedProperties, applyValues, ref } = state.current;
+
+    if (node != null) {
+      if (typeof ref === "function") {
+        ref(node);
+      } else if (
+        typeof ref === "object" &&
+        ref != null &&
+        ref.hasOwnProperty("current")
+      ) {
+        ref.current = node;
       }
-    },
-    [ref, applyValues, values]
-  );
 
+      state.current.node = node;
+
+      console.log("Mounted");
+      // This should run when the element is mounted.
+      const values = convertToValues(animatedProperties);
+
+      applyValues(state.current.node, values);
+      state.current.lastAnimatedProperties = animatedProperties;
+    }
+  }, []);
+
+  // Clean up timeline to prevent memory leak.
   useEffect(() => {
     return () => {
-      if (timeline.current != null) {
-        timeline.current.dispose();
+      console.log("Unmounted");
+      if (state.current.timeline != null) {
+        state.current.timeline.dispose();
       }
     };
   }, []);
 
-  // This will reset useTransition.
   if (animatedProperties == null) {
     // Stop the current animation, if there is one.
-    if (timeline.current != null) {
-      timeline.current.dispose();
+    if (state.current.timeline != null) {
+      state.current.timeline.dispose();
     }
 
     // Reset
-    lastAnimatedProperties.current = null;
-    return objectRef;
+    state.current.lastAnimatedProperties = null;
+    return callbackRef;
   }
 
   transformAnimatedProperties(animatedProperties);
 
   const isDifferent = !isEqual(
     animatedProperties,
-    lastAnimatedProperties.current
+    state.current.lastAnimatedProperties
   );
 
-  if (lastAnimatedProperties.current == null || !animate) {
-    if (timeline.current != null) {
-      timeline.current.dispose();
-      timeline.current = null;
+  if (state.current.lastAnimatedProperties == null || !animate) {
+    if (state.current.timeline != null) {
+      state.current.timeline.dispose();
+      state.current.timeline = null;
     }
 
-    const values = Object.keys(animatedProperties).reduce((properties, key) => {
-      properties[key] = animatedProperties[key].value;
-      return properties;
-    }, {});
+    const values = convertToValues(animatedProperties);
 
-    if (objectRef.current != null) {
-      applyValues(objectRef.current, values);
-    } else {
-      setValues(values);
+    if (state.current.node != null) {
+      applyValues(state.current.node, values);
     }
 
-    lastAnimatedProperties.current = animatedProperties;
+    state.current.lastAnimatedProperties = animatedProperties;
     return callbackRef;
-  } else if (isDifferent && lastAnimatedProperties.current != null) {
+  } else if (isDifferent && state.current.lastAnimatedProperties != null) {
     assertAnimatingTheSameProperties(
       animatedProperties,
-      lastAnimatedProperties.current
+      state.current.lastAnimatedProperties
     );
 
-    if (timeline.current == null) {
+    if (state.current.timeline == null) {
       const animations = createAnimations(
-        lastAnimatedProperties.current,
+        state.current.lastAnimatedProperties,
         animatedProperties
       );
 
-      timeline.current = new Timeline({
+      state.current.timeline = new Timeline({
         animations: animations,
         duration: duration
       });
     } else {
       const animations = createAdjustedAnimations(
-        timeline.current,
-        lastAnimatedProperties.current,
+        state.current.timeline,
+        state.current.lastAnimatedProperties,
         animatedProperties
       );
 
-      timeline.current.dispose();
+      state.current.timeline.dispose();
 
-      timeline.current = new Timeline({
+      state.current.timeline = new Timeline({
         animations: animations,
         duration: duration
       });
     }
 
-    timeline.current.observe("RENDER", ({ animations }) => {
-      if (objectRef.current != null) {
-        applyValues(objectRef.current, animations.useTransition);
+    state.current.timeline.observe("RENDER", ({ animations }) => {
+      if (state.current.node != null) {
+        applyValues(state.current.node, animations.useTransition);
       }
     });
 
-    timeline.current.observeTime(1, () => {
-      timeline.current = null;
+    state.current.timeline.observeTime(1, () => {
+      state.current.timeline.current = null;
     });
 
-    timeline.current.play();
+    state.current.timeline.play();
+    state.current.lastAnimatedProperties = animatedProperties;
 
-    lastAnimatedProperties.current = animatedProperties;
-    return callbackRef;
   }
 
   return callbackRef;
