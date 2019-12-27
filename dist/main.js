@@ -2284,17 +2284,12 @@ function () {
   }, {
     key: "mark",
     value: function mark() {
-      return new _Mark.default(this, this.index);
+      return this.index;
     }
   }, {
     key: "moveToMark",
     value: function moveToMark(mark) {
-      if (mark instanceof _Mark.default && mark.cursor === this) {
-        this.index = mark.index;
-        return true;
-      } else {
-        throw new Error("Illegal Argument: The mark needs to be an instance of Mark and created by this cursor.");
-      }
+      this.index = mark;
     }
   }, {
     key: "moveToBeginning",
@@ -2446,13 +2441,6 @@ function (_ValuePattern) {
       this.node = null;
     }
   }, {
-    key: "_assertCursor",
-    value: function _assertCursor() {
-      if (!(this.cursor instanceof _Cursor.default)) {
-        throw new Error("Invalid Arguments: Expected a cursor.");
-      }
-    }
-  }, {
     key: "_tryPattern",
     value: function _tryPattern() {
       var result = this.regex.exec(this.substring);
@@ -2461,7 +2449,7 @@ function (_ValuePattern) {
         var currentIndex = this.cursor.getIndex();
         var newIndex = currentIndex + result[0].length - 1;
         this.node = new _ValueNode.default(this.name, result[0], currentIndex, newIndex);
-        this.cursor.setIndex(newIndex);
+        this.cursor.index = newIndex;
       } else {
         this._processError();
       }
@@ -2911,13 +2899,13 @@ function (_ValuePattern) {
           return node != null;
         });
         var lastNode = this.nodes[this.nodes.length - 1];
-        var startIndex = this.mark.index;
+        var startIndex = this.mark;
         var endIndex = lastNode.endIndex;
         var value = this.nodes.map(function (node) {
           return node.value;
         }).join("");
         this.node = new _ValueNode.default(this.name, value, startIndex, endIndex);
-        this.cursor.setIndex(this.node.endIndex);
+        this.cursor.index = this.node.endIndex;
       }
     }
   }, {
@@ -3176,8 +3164,6 @@ exports.default = void 0;
 
 var _ParseError = _interopRequireDefault(__webpack_require__(27));
 
-var _Cursor = _interopRequireDefault(__webpack_require__(25));
-
 var _ValueNode = _interopRequireDefault(__webpack_require__(24));
 
 var _ValuePattern2 = _interopRequireDefault(__webpack_require__(28));
@@ -3245,7 +3231,7 @@ function (_ValuePattern) {
     value: function _reset(cursor) {
       this.cursor = cursor;
       this.mark = this.cursor.mark();
-      this.substring = this.cursor.string.substring(this.mark.index, this.mark.index + this.literal.length);
+      this.substring = this.cursor.string.substring(this.mark, this.mark + this.literal.length);
       this.node = null;
     }
   }, {
@@ -3267,8 +3253,8 @@ function (_ValuePattern) {
   }, {
     key: "_processMatch",
     value: function _processMatch() {
-      this.node = new _ValueNode.default(this.name, this.substring, this.mark.index, this.mark.index + this.literal.length - 1);
-      this.cursor.setIndex(this.node.endIndex);
+      this.node = new _ValueNode.default(this.name, this.substring, this.mark, this.mark + this.literal.length - 1);
+      this.cursor.index = this.node.endIndex;
     }
   }, {
     key: "clone",
@@ -3399,11 +3385,11 @@ function (_ValuePattern) {
     key: "_processMatch",
     value: function _processMatch() {
       if (this.match.length === 0) {
-        var parseError = new _ParseError.default("Didn't find any characters that didn't match the ".concat(this.children[0].name, " pattern."), this.mark.index, this);
+        var parseError = new _ParseError.default("Didn't find any characters that didn't match the ".concat(this.children[0].name, " pattern."), this.mark, this);
         this.cursor.throwError(parseError);
       } else {
-        this.node = new _ValueNode.default(this.name, this.match, this.mark.index, this.mark.index);
-        this.cursor.setIndex(this.node.endIndex);
+        this.node = new _ValueNode.default(this.name, this.match, this.mark, this.mark);
+        this.cursor.index = this.node.endIndex;
       }
     }
   }, {
@@ -3536,7 +3522,7 @@ function (_ValuePattern) {
           }
         } else {
           this.node = new _ValueNode.default(this.name, node.value, node.startIndex, node.endIndex);
-          this.cursor.setIndex(this.node.endIndex);
+          this.cursor.index = this.node.endIndex;
           break;
         }
       }
@@ -3691,7 +3677,7 @@ function (_ValuePattern) {
       this.cursor.resolveError();
 
       if (this.nodes.length === 0) {
-        var parseError = new _ParseError.default("Did not find a repeating match of ".concat(this.name, "."), this.mark.index, this);
+        var parseError = new _ParseError.default("Did not find a repeating match of ".concat(this.name, "."), this.mark, this);
         this.cursor.throwError(parseError);
         this.node = null;
       } else {
@@ -3699,7 +3685,7 @@ function (_ValuePattern) {
           return node.value;
         }).join("");
         this.node = new _ValueNode.default(this.name, value, this.nodes[0].startIndex, this.nodes[this.nodes.length - 1].endIndex);
-        this.cursor.setIndex(this.node.endIndex);
+        this.cursor.index = this.node.endIndex;
       }
     }
   }, {
@@ -3808,18 +3794,9 @@ function (_CompositePattern) {
     value: function parse(cursor) {
       this._reset(cursor);
 
-      this._assertCursor();
-
       this._tryPatterns();
 
       return this.node;
-    }
-  }, {
-    key: "_assertCursor",
-    value: function _assertCursor() {
-      if (!(this.cursor instanceof _Cursor.default)) {
-        throw new Error("Invalid Arguments: Expected a cursor.");
-      }
     }
   }, {
     key: "_tryPatterns",
@@ -3893,11 +3870,11 @@ function (_CompositePattern) {
           return node != null;
         });
         var lastNode = this.nodes[this.nodes.length - 1];
-        var startIndex = this.mark.index;
+        var startIndex = this.mark;
         var endIndex = lastNode.endIndex;
         this.node = new _CompositeNode.default(this.name, startIndex, endIndex);
         this.node.children = this.nodes;
-        this.cursor.setIndex(this.node.endIndex);
+        this.cursor.index = this.node.endIndex;
       } else {
         this.node = null;
       }
@@ -4249,18 +4226,9 @@ function (_CompositePattern) {
     value: function parse(cursor) {
       this._reset(cursor);
 
-      this._assertCursor();
-
       this._tryPattern();
 
       return this.node;
-    }
-  }, {
-    key: "_assertCursor",
-    value: function _assertCursor() {
-      if (!(this.cursor instanceof _Cursor.default)) {
-        throw new Error("Invalid Arguments: Expected a cursor.");
-      }
     }
   }, {
     key: "_tryPattern",
@@ -4279,7 +4247,7 @@ function (_CompositePattern) {
             break;
           }
         } else {
-          this.cursor.setIndex(this.node.endIndex);
+          this.cursor.index = this.node.endIndex;
           break;
         }
       }
@@ -4434,12 +4402,12 @@ function (_CompositePattern) {
       this.cursor.resolveError();
 
       if (this.nodes.length === 0) {
-        this.cursor.throwError(new _ParseError.default("Did not find a repeating match of ".concat(this.name, "."), this.mark.index, this));
+        this.cursor.throwError(new _ParseError.default("Did not find a repeating match of ".concat(this.name, "."), this.mark, this));
         this.node = null;
       } else {
         this.node = new _CompositeNode.default(this.name, this.nodes[0].startIndex, this.nodes[this.nodes.length - 1].endIndex);
         this.node.children = this.nodes;
-        this.cursor.setIndex(this.node.endIndex);
+        this.cursor.index = this.node.endIndex;
       }
     }
   }, {
