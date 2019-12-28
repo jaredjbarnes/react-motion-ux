@@ -16,10 +16,14 @@ const convertToValues = animatedProperties => {
 
 const useTransition = (
   animatedProperties,
-  duration,
-  applyValues = objectApplyValues,
-  ref,
-  animate = true
+  {
+    duration,
+    applyValues = objectApplyValues,
+    ref,
+    animate = true,
+    onComplete,
+    configure
+  } = {}
 ) => {
   const state = useRef({
     lastAnimatedProperties: null,
@@ -135,6 +139,10 @@ const useTransition = (
       });
     }
 
+    if (typeof configure === "function") {
+      configure(state.current.timeline);
+    }
+
     state.current.timeline.observe("RENDER", ({ animations }) => {
       if (state.current.node != null) {
         applyValues(state.current.node, animations.useTransition);
@@ -143,6 +151,9 @@ const useTransition = (
 
     state.current.timeline.observeTime(1, () => {
       state.current.timeline.current = null;
+      if (typeof onComplete === "function") {
+        onComplete();
+      }
     });
 
     state.current.timeline.play();

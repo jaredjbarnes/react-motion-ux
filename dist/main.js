@@ -5249,10 +5249,13 @@ const convertToValues = animatedProperties => {
 
 const useTransition = (
   animatedProperties,
-  duration,
-  applyValues = _objectApplyValues__WEBPACK_IMPORTED_MODULE_6__["default"],
-  ref,
-  animate = true
+  {
+    duration,
+    applyValues = _objectApplyValues__WEBPACK_IMPORTED_MODULE_6__["default"],
+    ref,
+    animate = true,
+    onComplete
+  } = {}
 ) => {
   const state = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])({
     lastAnimatedProperties: null,
@@ -5376,6 +5379,9 @@ const useTransition = (
 
     state.current.timeline.observeTime(1, () => {
       state.current.timeline.current = null;
+      if (typeof onComplete === "function") {
+        onComplete();
+      }
     });
 
     state.current.timeline.play();
@@ -8175,44 +8181,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _useTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(59);
 
 
-const makeTransition = (states, duration, applyStyleValues) => {
-  if (typeof states === "function") {
-    return (stateName, props, ref, animate) => {
-      if (stateName == null) {
-        throw new Error(
-          "Invalid Arguments: Did you forget to pass in the state in for a tranistion :)?"
-        );
-      }
+const makeTransition = (states, duration, applyValues) => {
+  return (stateName, { props, ref, animate, onComplete } = {}) => {
+    if (stateName == null) {
+      throw new Error(
+        "Invalid Arguments: Did you forget to pass in the state in for a tranistion :)?"
+      );
+    }
 
+    let state;
+
+    if (typeof states === "function") {
       const map = states(props);
-      const state = map[stateName];
+      state = map[stateName];
+    } else {
+      state = states[stateName];
+    }
 
-      if (state == null) {
-        throw new Error(
-          `Cannot find styles for the state named: ${stateName}.`
-        );
-      }
+    if (state == null) {
+      throw new Error(`Cannot find styles for the state named: ${stateName}.`);
+    }
 
-      return Object(_useTransition__WEBPACK_IMPORTED_MODULE_0__["default"])(state, duration, applyStyleValues, ref, animate);
-    };
-  } else {
-    return (stateName, ref, animate) => {
-      if (stateName == null) {
-        throw new Error(
-          "Invalid Arguments: Did you forget to pass in the state in for a tranistion :)?"
-        );
-      }
-
-      const state = states[stateName];
-
-      if (state == null) {
-        throw new Error(
-          `Cannot find styles for the state named: ${stateName}.`
-        );
-      }
-      return Object(_useTransition__WEBPACK_IMPORTED_MODULE_0__["default"])(state, duration, applyStyleValues, ref, animate);
-    };
-  }
+    return Object(_useTransition__WEBPACK_IMPORTED_MODULE_0__["default"])(state, {
+      duration,
+      applyValues,
+      ref,
+      animate,
+      onComplete
+    });
+  };
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (makeTransition);

@@ -70,24 +70,30 @@ const PipelinePath = ({
     {
       d: `M ${originX} ${originY} C ${controlPoint1.x} ${controlPoint1.y}, ${controlPoint2.x} ${controlPoint2.y}, ${destinationX} ${destinationY}`
     },
-    animate ? 5000 : 0,
-    applyAttributeValues
+    {
+      duration: animate ? 5000 : 0,
+      applyValues: applyAttributeValues
+    }
   );
 
   const startKnobRef = useTransition(
     {
       transform: `translate(${originX - 5}px, ${originY - 5}px)`
     },
-    animate ? 5000 : 0,
-    applyStyles
+    {
+      duration: animate ? 5000 : 0,
+      applyValues: applyStyles
+    }
   );
 
   const endKnobRef = useTransition(
     {
       transform: `translate(${destinationX - 8}px, ${destinationY - 16}px)`
     },
-    animate ? 5000 : 0,
-    applyStyles
+    {
+      duration: animate ? 5000 : 0,
+      applyValues: applyStyles
+    }
   );
 
   return (
