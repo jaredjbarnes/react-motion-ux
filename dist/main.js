@@ -5254,7 +5254,8 @@ const useTransition = (
     applyValues = _objectApplyValues__WEBPACK_IMPORTED_MODULE_6__["default"],
     ref,
     animate = true,
-    onComplete
+    onComplete,
+    configure
   } = {}
 ) => {
   const state = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])({
@@ -5369,6 +5370,10 @@ const useTransition = (
         animations: animations,
         duration: duration
       });
+    }
+
+    if (typeof configure === "function") {
+      configure(state.current.timeline);
     }
 
     state.current.timeline.observe("RENDER", ({ animations }) => {
@@ -8182,7 +8187,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const makeTransition = (states, duration, applyValues) => {
-  return (stateName, { props, ref, animate, onComplete } = {}) => {
+  return (stateName, { props, ref, animate, onComplete, configure } = {}) => {
     if (stateName == null) {
       throw new Error(
         "Invalid Arguments: Did you forget to pass in the state in for a tranistion :)?"
@@ -8207,7 +8212,8 @@ const makeTransition = (states, duration, applyValues) => {
       applyValues,
       ref,
       animate,
-      onComplete
+      onComplete,
+      configure
     });
   };
 };
