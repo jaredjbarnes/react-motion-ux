@@ -8144,9 +8144,9 @@ const assertAnimatingTheSameProperties = (
 
   if (!areTheSame) {
     throw new Error(
-      `Invalid Arguments: useTransition cannot transition between animatedProperties that don't match between states: ${JSON.stringify(
+      `Invalid Arguments: When transitioning, you need to animate all of the same properties, these have different property sets. From:${JSON.stringify(
         animatedPropertiesA
-      )}, ${JSON.stringify(animatedPropertiesB)}`
+      )}, To:${JSON.stringify(animatedPropertiesB)}`
     );
   }
 };
@@ -8191,7 +8191,9 @@ const makeTransition = (states, duration, applyValues) => {
   return (stateName, { props, ref, animate, onComplete, configure } = {}) => {
     if (stateName == null) {
       throw new Error(
-        "Invalid Arguments: Did you forget to pass in the state in for a tranistion :)?"
+        `Invalid Arguments: Cannot find '${stateName}' within defined states: ${Object.keys(
+          states
+        ).join(", ")}, you may have forgotten to pass the state name in as an argument.`
       );
     }
 
@@ -8205,7 +8207,9 @@ const makeTransition = (states, duration, applyValues) => {
     }
 
     if (state == null) {
-      throw new Error(`Cannot find styles for the state named: ${stateName}.`);
+      throw new Error(`Invalid Arguments: Cannot find '${stateName}' within defined states: ${Object.keys(
+        states
+      ).join(", ")}.`);
     }
 
     return Object(_useTransition__WEBPACK_IMPORTED_MODULE_0__["default"])(state, {
