@@ -8030,7 +8030,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ((timeline, lastOptions, newOptions) => {
-  const name = 'useTransition';
+  const name = "useTransition";
   const currentValues = timeline.getCurrentValues()[name];
   const shouldRedirect = timeline.progress !== 1;
 
@@ -8044,6 +8044,7 @@ __webpack_require__.r(__webpack_exports__);
 
     if (shouldRedirect) {
       controls.unshift(oldOption.value);
+      controls.push(option.value);
     }
 
     const animation = {

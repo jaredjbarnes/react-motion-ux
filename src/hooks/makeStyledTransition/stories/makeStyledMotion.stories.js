@@ -8,8 +8,6 @@ import FadeToNothing from "./FadeToNothing";
 import NamedIcon from "./NamedIcon";
 import Settings from "@material-ui/icons/Settings";
 import MobileMenu from "./MobileMenu";
-import Blink from "./Blink";
-import Pulse from "./Pulse";
 
 export default {
   component: null,
@@ -82,12 +80,4 @@ export const NamedIconDemo = () => {
 
 export const MultipleNamedIconDemo = () => {
   return <MobileMenu />;
-};
-
-export const BlinkDemo = () => {
-  return <Blink />;
-};
-
-export const PulseDemo = () => {
-  return <Pulse />;
 };

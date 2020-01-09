@@ -31,7 +31,7 @@ const useRailStyles = makeStyledTransition(
       backgroundColor: "rgba(200, 200, 200, 1)"
     }
   },
-  300
+  400
 );
 
 const useHandleStyles = makeStyledTransition(
@@ -43,7 +43,7 @@ const useHandleStyles = makeStyledTransition(
       transform: "translate(0%, 0%)"
     }
   },
-  300
+  400
 );
 
 const Switch = ({ defaultState, onChange } = {}) => {

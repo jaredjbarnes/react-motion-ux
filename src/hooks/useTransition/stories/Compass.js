@@ -45,7 +45,7 @@ const Compass = ({ position: defaultPosition, animate }) => {
   }, [defaultPosition]);
 
   const ref = useTransition(clone(placement), {
-    duration: 2000,
+    duration: 3000,
     applyValues: applyStyleValues,
     animate
   });

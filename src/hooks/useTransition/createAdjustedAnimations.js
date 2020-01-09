@@ -1,7 +1,7 @@
 import easeOut from "./easeOut.js";
 
 export default (timeline, lastOptions, newOptions) => {
-  const name = 'useTransition';
+  const name = "useTransition";
   const currentValues = timeline.getCurrentValues()[name];
   const shouldRedirect = timeline.progress !== 1;
 
@@ -15,6 +15,7 @@ export default (timeline, lastOptions, newOptions) => {
 
     if (shouldRedirect) {
       controls.unshift(oldOption.value);
+      controls.push(option.value);
     }
 
     const animation = {
