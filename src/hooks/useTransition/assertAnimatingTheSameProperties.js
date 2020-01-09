@@ -12,9 +12,9 @@ const assertAnimatingTheSameProperties = (
 
   if (!areTheSame) {
     throw new Error(
-      `Invalid Arguments: useTransition cannot transition between animatedProperties that don't match between states: ${JSON.stringify(
+      `Invalid Arguments: When transitioning, you need to animate all of the same properties, these have different property sets. From:${JSON.stringify(
         animatedPropertiesA
-      )}, ${JSON.stringify(animatedPropertiesB)}`
+      )}, To:${JSON.stringify(animatedPropertiesB)}`
     );
   }
 };

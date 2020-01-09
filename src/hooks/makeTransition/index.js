@@ -4,7 +4,9 @@ const makeTransition = (states, duration, applyValues) => {
   return (stateName, { props, ref, animate, onComplete, configure } = {}) => {
     if (stateName == null) {
       throw new Error(
-        "Invalid Arguments: Did you forget to pass in the state in for a tranistion :)?"
+        `Invalid Arguments: Cannot find '${stateName}' within defined states: ${Object.keys(
+          states
+        ).join(", ")}, you may have forgotten to pass the state name in as an argument.`
       );
     }
 
@@ -18,7 +20,9 @@ const makeTransition = (states, duration, applyValues) => {
     }
 
     if (state == null) {
-      throw new Error(`Cannot find styles for the state named: ${stateName}.`);
+      throw new Error(`Invalid Arguments: Cannot find '${stateName}' within defined states: ${Object.keys(
+        states
+      ).join(", ")}.`);
     }
 
     return useTransition(state, {

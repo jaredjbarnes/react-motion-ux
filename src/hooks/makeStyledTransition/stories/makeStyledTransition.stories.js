@@ -8,6 +8,8 @@ import FadeToNothing from "./FadeToNothing";
 import NamedIcon from "./NamedIcon";
 import Settings from "@material-ui/icons/Settings";
 import MobileMenu from "./MobileMenu";
+import makeStyledTransition from "..";
+import TrafficLight from "./TrafficLight";
 
 export default {
   component: null,
@@ -80,4 +82,72 @@ export const NamedIconDemo = () => {
 
 export const MultipleNamedIconDemo = () => {
   return <MobileMenu />;
+};
+
+export const TrafficLightDemo = () => {
+  return <TrafficLight />;
+};
+
+const useStyledTransition = makeStyledTransition(
+  {
+    opened: {
+      opacity: "1"
+    },
+    closed: {
+      opacity: "0"
+    }
+  },
+  1000
+);
+
+export const InvalidStateName = () => {
+  const ref = useStyledTransition("invalid-name");
+  return <div ref={ref}></div>;
+};
+
+export const NullStateName = () => {
+  const ref = useStyledTransition(null);
+  return <div ref={ref}></div>;
+};
+
+const useMissingStyledTransition = makeStyledTransition(
+  {
+    opened: {
+      opacity: "1"
+    },
+    closed: {
+      backgroundColor: "rgba(0,0,0,1)"
+    }
+  },
+  1000
+);
+
+export const NonMatchingProperties = () => {
+  const [state, setState] = useState("opened");
+  const ref = useMissingStyledTransition(state);
+  setTimeout(() => {
+    setState("closed");
+  }, 0);
+  return <div ref={ref}></div>;
+};
+
+const useNonMatchingValuesStyledTransition = makeStyledTransition(
+  {
+    opened: {
+      backgroundColor: "#000"
+    },
+    closed: {
+      backgroundColor: "rgba(0,0,0,1)"
+    }
+  },
+  1000
+);
+
+export const NonMatchingValues = () => {
+  const [state, setState] = useState("opened");
+  const ref = useNonMatchingValuesStyledTransition(state);
+  setTimeout(() => {
+    setState("closed");
+  }, 0);
+  return <div ref={ref}></div>;
 };
