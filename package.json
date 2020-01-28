@@ -20,6 +20,7 @@
     "react-scripts": "3.2.0"
   },
   "scripts": {
+    "storybook": "start-storybook",
     "build": "npx babel src --out-dir lib --source-maps && npx webpack --mode=none --config webpack.config.js && build-storybook -c .storybook -o docs/storybook"
   },
   "eslintConfig": {
