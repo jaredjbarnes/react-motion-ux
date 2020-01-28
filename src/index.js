@@ -4,14 +4,16 @@ import makeStyledTransition from "./hooks/makeStyledTransition";
 import makePropertyTransition from "./hooks/makePropertyTransition";
 import makeAttributeTransition from "./hooks/makeAttributeTransition";
 import makeTransition from "./hooks/makeTransition";
+import applyStyleValues from "./hooks/makeStyledTransition/applyStyleValues";
 
 export {
   Timeline,
   easings,
   BezierCurve,
   useTransition,
+  makeTransition,
   makeStyledTransition,
   makePropertyTransition,
   makeAttributeTransition,
-  makeTransition
+  applyStyleValues
 };

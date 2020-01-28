@@ -121,14 +121,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _hooks_makeStyledTransition__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(72);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "makeStyledTransition", function() { return _hooks_makeStyledTransition__WEBPACK_IMPORTED_MODULE_2__["default"]; });
 
-/* harmony import */ var _hooks_makePropertyTransition__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(74);
+/* harmony import */ var _hooks_makePropertyTransition__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(75);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "makePropertyTransition", function() { return _hooks_makePropertyTransition__WEBPACK_IMPORTED_MODULE_3__["default"]; });
 
-/* harmony import */ var _hooks_makeAttributeTransition__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(75);
+/* harmony import */ var _hooks_makeAttributeTransition__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(77);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "makeAttributeTransition", function() { return _hooks_makeAttributeTransition__WEBPACK_IMPORTED_MODULE_4__["default"]; });
 
 /* harmony import */ var _hooks_makeTransition__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(73);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "makeTransition", function() { return _hooks_makeTransition__WEBPACK_IMPORTED_MODULE_5__["default"]; });
+
+/* harmony import */ var _hooks_makeStyledTransition_applyStyleValues__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(74);
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "applyStyleValues", function() { return _hooks_makeStyledTransition_applyStyleValues__WEBPACK_IMPORTED_MODULE_6__["default"]; });
+
 
 
 
@@ -8161,18 +8165,12 @@ const assertAnimatingTheSameProperties = (
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73);
+/* harmony import */ var _applyStyleValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(74);
 
 
-const applyStyleValues = (element, values) => {
-  if (element!= null && element.style != null) {
-    Object.keys(values).forEach(key => {
-      element.style[key] = values[key];
-    });
-  }
-};
 
 const makeStyledTransition = (states, duration) => {
-  return Object(_makeTransition__WEBPACK_IMPORTED_MODULE_0__["default"])(states, duration, applyStyleValues);
+  return Object(_makeTransition__WEBPACK_IMPORTED_MODULE_0__["default"])(states, duration, _applyStyleValues__WEBPACK_IMPORTED_MODULE_1__["default"]);
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (makeStyledTransition);
@@ -8232,22 +8230,15 @@ const makeTransition = (states, duration, applyValues) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73);
-
-
-const applyValues = (obj, values) => {
-  if (obj != null) {
+const applyStyleValues = (element, values) => {
+  if (element != null && element.style != null) {
     Object.keys(values).forEach(key => {
-      obj[key] = values[key];
+      element.style[key] = values[key];
     });
   }
 };
 
-const makePropertyTransition = (states, duration) => {
-  return Object(_makeTransition__WEBPACK_IMPORTED_MODULE_0__["default"])(states, duration, applyValues);
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (makePropertyTransition);
+/* harmony default export */ __webpack_exports__["default"] = (applyStyleValues);
 
 
 /***/ }),
@@ -8257,8 +8248,58 @@ const makePropertyTransition = (states, duration) => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73);
+/* harmony import */ var _applyValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(76);
 
 
+
+const makePropertyTransition = (states, duration) => {
+  return Object(_makeTransition__WEBPACK_IMPORTED_MODULE_0__["default"])(states, duration, _applyValues__WEBPACK_IMPORTED_MODULE_1__["default"]);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (makePropertyTransition);
+
+
+/***/ }),
+/* 76 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+const applyValues = (obj, values) => {
+  if (obj != null) {
+    Object.keys(values).forEach(key => {
+      obj[key] = values[key];
+    });
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (applyValues);
+
+
+/***/ }),
+/* 77 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73);
+/* harmony import */ var _applyAttributeValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(78);
+
+
+
+const makeAttributeTransition = (states, duration) => {
+  return Object(_makeTransition__WEBPACK_IMPORTED_MODULE_0__["default"])(states, duration, _applyAttributeValues__WEBPACK_IMPORTED_MODULE_1__["default"]);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (makeAttributeTransition);
+
+
+/***/ }),
+/* 78 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
 const applyAttributeValues = (obj, values) => {
   if (obj != null && typeof obj.setAttribute === "function") {
     Object.keys(values).forEach(key => {
@@ -8267,11 +8308,7 @@ const applyAttributeValues = (obj, values) => {
   }
 };
 
-const makeAttributeTransition = (states, duration) => {
-  return Object(_makeTransition__WEBPACK_IMPORTED_MODULE_0__["default"])(states, duration, applyAttributeValues);
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (makeAttributeTransition);
+/* harmony default export */ __webpack_exports__["default"] = (applyAttributeValues);
 
 
 /***/ })

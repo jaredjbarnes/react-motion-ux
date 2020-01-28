@@ -1,12 +1,5 @@
 import makeTransition from "../makeTransition";
-
-const applyAttributeValues = (obj, values) => {
-  if (obj != null && typeof obj.setAttribute === "function") {
-    Object.keys(values).forEach(key => {
-      obj.setAttribute(key, values[key]);
-    });
-  }
-};
+import applyAttributeValues from "./applyAttributeValues";
 
 const makeAttributeTransition = (states, duration) => {
   return makeTransition(states, duration, applyAttributeValues);
