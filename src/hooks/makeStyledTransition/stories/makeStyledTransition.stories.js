@@ -5,6 +5,7 @@ import Option from "./Option";
 import OptionButton from "./OptionButton";
 import Menu from "./Menu";
 import FadeToNothing from "./FadeToNothing";
+import FadeInOnMount from "./FadeInOnMount";
 import NamedIcon from "./NamedIcon";
 import Settings from "@material-ui/icons/Settings";
 import MobileMenu from "./MobileMenu";
@@ -14,6 +15,10 @@ import TrafficLight from "./TrafficLight";
 export default {
   component: null,
   title: "makeStyledTransition"
+};
+
+export const InitialState = ()=>{
+  return <FadeInOnMount />
 };
 
 export const SwitchDemo = () => {

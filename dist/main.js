@@ -5259,7 +5259,8 @@ const useTransition = (
     ref,
     animate = true,
     onComplete,
-    configure
+    configure,
+    initialProperties = null
   } = {}
 ) => {
   const state = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])({
@@ -5272,6 +5273,11 @@ const useTransition = (
     timeline: null,
     node: null
   });
+
+  if (initialProperties != null && state.current.lastAnimatedProperties == null) {
+    Object(_transformAnimatedProperties__WEBPACK_IMPORTED_MODULE_5__["default"])(initialProperties);
+    state.current.lastAnimatedProperties = initialProperties;
+  }
 
   state.current.animatedProperties = animatedProperties;
   state.current.duration = duration;
@@ -8186,7 +8192,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const makeTransition = (states, duration, applyValues) => {
-  return (stateName, { props, ref, animate, onComplete, configure } = {}) => {
+  return (stateName, { props, ref, animate, onComplete, configure, duration: durationOverride } = {}) => {
+    duration = typeof durationOverride === "number" ? durationOverride : duration;
+    
     if (stateName == null) {
       throw new Error(
         `Invalid Arguments: Cannot find '${stateName}' within defined states: ${Object.keys(
@@ -8195,14 +8203,16 @@ const makeTransition = (states, duration, applyValues) => {
       );
     }
 
-    let state;
+    let map;
 
     if (typeof states === "function") {
-      const map = states(props);
-      state = map[stateName];
+      map = states(props);
     } else {
-      state = states[stateName];
+      map = states;
     }
+
+    const state = map[stateName];
+    const initialProperties = map.initial || null;
 
     if (state == null) {
       throw new Error(`Invalid Arguments: Cannot find '${stateName}' within defined states: ${Object.keys(
@@ -8216,7 +8226,8 @@ const makeTransition = (states, duration, applyValues) => {
       ref,
       animate,
       onComplete,
-      configure
+      configure,
+      initialProperties
     });
   };
 };

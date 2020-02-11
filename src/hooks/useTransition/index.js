@@ -22,7 +22,8 @@ const useTransition = (
     ref,
     animate = true,
     onComplete,
-    configure
+    configure,
+    initialProperties = null
   } = {}
 ) => {
   const state = useRef({
@@ -35,6 +36,11 @@ const useTransition = (
     timeline: null,
     node: null
   });
+
+  if (initialProperties != null && state.current.lastAnimatedProperties == null) {
+    transformAnimatedProperties(initialProperties);
+    state.current.lastAnimatedProperties = initialProperties;
+  }
 
   state.current.animatedProperties = animatedProperties;
   state.current.duration = duration;
