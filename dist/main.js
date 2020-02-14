@@ -1112,7 +1112,9 @@ function () {
     _classCallCheck(this, CssValueNodeAnimator);
 
     this.options = options;
-    this.createAnimators();
+    this.createAnimators(); // The nodes become quite the memory hogs, so we need to remove references.
+
+    this.options.controls.length = 0;
   }
 
   _createClass(CssValueNodeAnimator, [{
@@ -1198,7 +1200,9 @@ function () {
       hex: _HexNodeAnimator.default,
       values: ValuesNodeAnimator
     };
-    this.createAnimators();
+    this.createAnimators(); // The nodes become quite the memory hogs, so we need to remove references.
+
+    this.options.controls.length = 0;
   }
 
   _createClass(ValuesNodeAnimator, [{
@@ -1267,11 +1271,14 @@ function () {
   function NumberNodeAnimator(options) {
     _classCallCheck(this, NumberNodeAnimator);
 
+    this.options = options;
     this.animator = new _NumberAnimator.default(_objectSpread({}, options, {
       controls: options.controls.map(function (node) {
         return parseFloat(node.value);
       })
-    }));
+    })); // The nodes become quite the memory hogs, so we need to remove references.
+
+    this.options.controls.length = 0;
   }
 
   _createClass(NumberNodeAnimator, [{
@@ -1479,7 +1486,9 @@ function () {
 
       var values = this.options.controls.map(function (node) {
         return _this.hexToRgb(_this.convertToFullHex(node.value));
-      });
+      }); // The nodes become quite the memory hogs, so we need to remove references.
+
+      this.options.controls.length = 0;
 
       var _values$reduce = values.reduce(function (acc, rgb) {
         acc.reds.push(rgb[0]);
@@ -1603,13 +1612,16 @@ function () {
         return parseInt(node.children[0].value, 10);
       })
     }));
+    this.unit = this.options.controls[0].children[1].value; // The nodes become quite the memory hogs, so we need to remove references.
+
+    this.options.controls.length = 0;
   }
 
   _createClass(UnitNodeAnimator, [{
     key: "render",
     value: function render(progress) {
       var value = this.animator.render(progress);
-      var unit = this.options.controls[0].children[1].value;
+      var unit = this.unit;
       return "".concat(value.toFixed(3)).concat(unit);
     }
   }]);
@@ -1657,6 +1669,9 @@ function () {
     this.options = options;
     this.createArgs();
     this.createAnimators();
+    this.methodName = this.getMethodName(); // The nodes become quite the memory hogs, so we need to remove references.
+
+    this.options.controls.length = 0;
   }
 
   _createClass(MethodNodeAnimator, [{
@@ -1686,9 +1701,16 @@ function () {
       });
     }
   }, {
+    key: "getMethodName",
+    value: function getMethodName() {
+      return this.options.controls[0].children.find(function (node) {
+        return node.name === "name";
+      }).value;
+    }
+  }, {
     key: "render",
     value: function render(progress) {
-      var methodName = this.getMethodName();
+      var methodName = this.methodName;
       var args = this.getArgs(progress);
       return "".concat(methodName, "(").concat(args, ")");
     }
@@ -1698,13 +1720,6 @@ function () {
       return this.animators.map(function (animator) {
         return animator.render(progress);
       }).join(", ");
-    }
-  }, {
-    key: "getMethodName",
-    value: function getMethodName() {
-      return this.options.controls[0].children.find(function (node) {
-        return node.name === "name";
-      }).value;
     }
   }]);
 
@@ -1739,15 +1754,20 @@ function () {
     _classCallCheck(this, NameNodeAnimator);
 
     this.options = options;
+    this.values = this.options.controls.map(function (node) {
+      return node.value;
+    }); // The nodes become quite the memory hogs, so we need to remove references.
+
+    this.options.controls.length = 0;
   }
 
   _createClass(NameNodeAnimator, [{
     key: "render",
     value: function render(progress) {
       if (progress > 0) {
-        return this.options.controls[this.options.controls.length - 1].value;
+        return this.values[this.values.length - 1];
       } else {
-        return this.options.controls[0].value;
+        return this.values[0];
       }
     }
   }]);
@@ -8011,6 +8031,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "bezierCurveEasings", function() { return bezierCurveEasings; });
 /* harmony import */ var motion_ux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 /* harmony import */ var motion_ux__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(motion_ux__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -8028,6 +8049,20 @@ __webpack_require__.r(__webpack_exports__);
   bounce: motion_ux__WEBPACK_IMPORTED_MODULE_0__["easings"].easeOutBounce,
   linear: motion_ux__WEBPACK_IMPORTED_MODULE_0__["easings"].linear
 });
+
+const bezierCurveEasings = {
+  quad: "cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+  cubic: "cubic-bezier(0.215, 0.61, 0.355, 1)",
+  quart: "cubic-bezier(0.165, 0.84, 0.44, 1)",
+  quint: "cubic-bezier(0.23, 1, 0.32, 1)",
+  sine: "cubic-bezier(0.39, 0.575, 0.565, 1)",
+  expo: "cubic-bezier(0.19, 1, 0.22, 1)",
+  circ: "cubic-bezier(0.075, 0.82, 0.165, 1)",
+  elastic: "linear",
+  overshoot: "cubic-bezier(0.175, 0.885, 0.32, 1.275)",
+  bounce: "linear",
+  linear: "linear"
+};
 
 
 /***/ }),
