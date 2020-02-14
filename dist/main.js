@@ -118,20 +118,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _hooks_useTransition__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(59);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "useTransition", function() { return _hooks_useTransition__WEBPACK_IMPORTED_MODULE_1__["default"]; });
 
-/* harmony import */ var _hooks_makeStyledTransition__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(72);
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "makeStyledTransition", function() { return _hooks_makeStyledTransition__WEBPACK_IMPORTED_MODULE_2__["default"]; });
+/* harmony import */ var _hooks_useNativeTransition__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(72);
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "useNativeTransition", function() { return _hooks_useNativeTransition__WEBPACK_IMPORTED_MODULE_2__["default"]; });
 
-/* harmony import */ var _hooks_makePropertyTransition__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(75);
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "makePropertyTransition", function() { return _hooks_makePropertyTransition__WEBPACK_IMPORTED_MODULE_3__["default"]; });
+/* harmony import */ var _hooks_makeStyledTransition__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(73);
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "makeStyledTransition", function() { return _hooks_makeStyledTransition__WEBPACK_IMPORTED_MODULE_3__["default"]; });
 
-/* harmony import */ var _hooks_makeAttributeTransition__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(77);
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "makeAttributeTransition", function() { return _hooks_makeAttributeTransition__WEBPACK_IMPORTED_MODULE_4__["default"]; });
+/* harmony import */ var _hooks_makePropertyTransition__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(76);
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "makePropertyTransition", function() { return _hooks_makePropertyTransition__WEBPACK_IMPORTED_MODULE_4__["default"]; });
 
-/* harmony import */ var _hooks_makeTransition__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(73);
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "makeTransition", function() { return _hooks_makeTransition__WEBPACK_IMPORTED_MODULE_5__["default"]; });
+/* harmony import */ var _hooks_makeAttributeTransition__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(78);
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "makeAttributeTransition", function() { return _hooks_makeAttributeTransition__WEBPACK_IMPORTED_MODULE_5__["default"]; });
 
-/* harmony import */ var _hooks_makeStyledTransition_applyStyleValues__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(74);
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "applyStyleValues", function() { return _hooks_makeStyledTransition_applyStyleValues__WEBPACK_IMPORTED_MODULE_6__["default"]; });
+/* harmony import */ var _hooks_makeTransition__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(74);
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "makeTransition", function() { return _hooks_makeTransition__WEBPACK_IMPORTED_MODULE_6__["default"]; });
+
+/* harmony import */ var _hooks_makeNativeTransition__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(80);
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "makeNativeTransition", function() { return _hooks_makeNativeTransition__WEBPACK_IMPORTED_MODULE_7__["default"]; });
+
+/* harmony import */ var _hooks_makeStyledTransition_applyStyleValues__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(75);
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "applyStyleValues", function() { return _hooks_makeStyledTransition_applyStyleValues__WEBPACK_IMPORTED_MODULE_8__["default"]; });
+
+
 
 
 
@@ -8205,8 +8213,132 @@ const assertAnimatingTheSameProperties = (
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73);
-/* harmony import */ var _applyStyleValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(74);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(60);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _useTransition_transformAnimatedProperties__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(69);
+/* harmony import */ var _useTransition_easeOut__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(66);
+
+
+
+
+const useNativeTransition = (
+  cssProperties,
+  {
+    duration: defaultDuration = 0,
+    ref,
+    onComplete,
+    initialCssProperties = null
+  }
+) => {
+  const [node, setNode] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null);
+  const animationFrameRef = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(null);
+
+  const callbackRef = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(
+    node => {
+      if (node != null) {
+        if (typeof ref === "function") {
+          ref(node);
+        } else if (
+          typeof ref === "object" &&
+          ref != null &&
+          ref.hasOwnProperty("current")
+        ) {
+          ref.current = node;
+        }
+
+        if (initialCssProperties != null) {
+          Object(_useTransition_transformAnimatedProperties__WEBPACK_IMPORTED_MODULE_1__["default"])(initialCssProperties);
+
+          Object.keys(initialCssProperties).forEach(key => {
+            const { value } = initialCssProperties[key];
+            node.style[key] = value;
+          });
+        } else {
+          Object(_useTransition_transformAnimatedProperties__WEBPACK_IMPORTED_MODULE_1__["default"])(cssProperties);
+
+          Object.keys(cssProperties).forEach(key => {
+            const { value } = cssProperties[key];
+            node.style[key] = value;
+          });
+        }
+
+        setNode(node);
+      }
+    },
+    [ref, initialCssProperties, cssProperties]
+  );
+
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    if (cssProperties != null && node != null) {
+        cancelAnimationFrame(animationFrameRef.current);
+        animationFrameRef.current = requestAnimationFrame(()=>{
+            Object(_useTransition_transformAnimatedProperties__WEBPACK_IMPORTED_MODULE_1__["default"])(cssProperties);
+
+            const transition = Object.keys(cssProperties)
+              .map(property => {
+                let {
+                  duration: durationOverride,
+                  easing: easingName,
+                  startAt = 0,
+                  endAt = 1
+                } = cssProperties[property];
+      
+                let delay;
+                let easing =
+                  _useTransition_easeOut__WEBPACK_IMPORTED_MODULE_2__["bezierCurveEasings"][easingName] != null
+                    ? _useTransition_easeOut__WEBPACK_IMPORTED_MODULE_2__["bezierCurveEasings"][easingName]
+                    : _useTransition_easeOut__WEBPACK_IMPORTED_MODULE_2__["bezierCurveEasings"].expo;
+                let duration =
+                  typeof durationOverride === "number"
+                    ? durationOverride
+                    : defaultDuration;
+      
+                startAt = typeof startAt === "number" ? startAt : 0;
+                endAt = typeof endAt === "number" ? endAt : 0;
+      
+                const originalDuration = duration;
+                duration = (endAt - startAt) * originalDuration;
+                delay = `${startAt * originalDuration}`;
+      
+                return `${property} ${duration}ms ${easing} ${delay}ms`;
+              })
+              .join(", ");
+      
+            node.style.transition = transition;
+      
+            Object.keys(cssProperties).forEach(key => {
+              const { value } = cssProperties[key];
+              node.style[key] = value;
+            });
+        });
+    }
+  }, [initialCssProperties, cssProperties, defaultDuration, node]);
+
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    if (node != null) {
+      if (typeof onComplete === "function") {
+        node.addEventListener("transitionend", onComplete);
+      }
+      return () => {
+        node.removeEventListener("transitionend", onComplete);
+      };
+    }
+  }, [node, onComplete]);
+
+  return callbackRef;
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (useNativeTransition);
+
+
+/***/ }),
+/* 73 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(74);
+/* harmony import */ var _applyStyleValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(75);
 
 
 
@@ -8218,7 +8350,7 @@ const makeStyledTransition = (states, duration) => {
 
 
 /***/ }),
-/* 73 */
+/* 74 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8271,7 +8403,7 @@ const makeTransition = (states, duration, applyValues) => {
 
 
 /***/ }),
-/* 74 */
+/* 75 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8288,13 +8420,13 @@ const applyStyleValues = (element, values) => {
 
 
 /***/ }),
-/* 75 */
+/* 76 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73);
-/* harmony import */ var _applyValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(76);
+/* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(74);
+/* harmony import */ var _applyValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(77);
 
 
 
@@ -8306,7 +8438,7 @@ const makePropertyTransition = (states, duration) => {
 
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8323,13 +8455,13 @@ const applyValues = (obj, values) => {
 
 
 /***/ }),
-/* 77 */
+/* 78 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73);
-/* harmony import */ var _applyAttributeValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(78);
+/* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(74);
+/* harmony import */ var _applyAttributeValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(79);
 
 
 
@@ -8341,7 +8473,7 @@ const makeAttributeTransition = (states, duration) => {
 
 
 /***/ }),
-/* 78 */
+/* 79 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8355,6 +8487,52 @@ const applyAttributeValues = (obj, values) => {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (applyAttributeValues);
+
+
+/***/ }),
+/* 80 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _useNativeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(72);
+
+
+const makeNativeTransition = (suppliedStates, duration) => {
+  const getStateCssProperties = (name, props) => {
+    let states;
+
+    if (typeof suppliedStates === "function") {
+      states = suppliedStates(props);
+    } else {
+      states = suppliedStates;
+    }
+
+    const stateNames = Object.keys(states).join(", ");
+    const cssProperties = states[name];
+
+    if (cssProperties == null) {
+      throw new Error(
+        `Invalid Arguments: Cannot find '${name}' within defined states: ${stateNames}.`
+      );
+    }
+
+    if (name == null) {
+      throw new Error(
+        `Invalid Arguments: Cannot find '${name}' within defined states: ${stateNames}, you may have forgotten to pass the state name in as an argument.`
+      );
+    }
+
+    return cssProperties;
+  };
+
+  return (stateName, { props, ...rest } = {}) => {
+    const cssProperties = getStateCssProperties(stateName, props);
+    return Object(_useNativeTransition__WEBPACK_IMPORTED_MODULE_0__["default"])(cssProperties, { duration, ...rest });
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (makeNativeTransition);
 
 
 /***/ })
