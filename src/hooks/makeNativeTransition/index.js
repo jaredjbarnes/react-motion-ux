@@ -1,7 +1,7 @@
 import useNativeTransition from "../useNativeTransition";
 
 const makeNativeTransition = (suppliedStates, duration) => {
-  const getStateCssProperties = (name, props) => {
+  return (name, { props, ...rest } = {}) => {
     let states;
 
     if (typeof suppliedStates === "function") {
@@ -11,6 +11,7 @@ const makeNativeTransition = (suppliedStates, duration) => {
     }
 
     const stateNames = Object.keys(states).join(", ");
+    const initialProperties = states.initial;
     const cssProperties = states[name];
 
     if (cssProperties == null) {
@@ -25,12 +26,11 @@ const makeNativeTransition = (suppliedStates, duration) => {
       );
     }
 
-    return cssProperties;
-  };
-
-  return (stateName, { props, ...rest } = {}) => {
-    const cssProperties = getStateCssProperties(stateName, props);
-    return useNativeTransition(cssProperties, { duration, ...rest });
+    return useNativeTransition(cssProperties, {
+      duration,
+      initialProperties,
+      ...rest
+    });
   };
 };
 

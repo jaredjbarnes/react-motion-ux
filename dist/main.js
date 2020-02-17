@@ -997,6 +997,7 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 var treeUtility = new _TreeUtility.default();
+var treeNormalizer = new _TreeNormalizer.default();
 
 var AnimatorCreator =
 /*#__PURE__*/
@@ -1005,7 +1006,6 @@ function () {
     _classCallCheck(this, AnimatorCreator);
 
     this.animationOptions = animationOptions;
-    this._treeNormalizer = new _TreeNormalizer.default();
 
     this._assertAnimationOptions();
 
@@ -1040,8 +1040,6 @@ function () {
   }, {
     key: "_createAnimators",
     value: function _createAnimators() {
-      var _this = this;
-
       this.animators = this.timelineOptions.map(function (options) {
         var points = [options.from].concat(_toConsumableArray(options.controls), [options.to]);
         var controls;
@@ -1050,7 +1048,7 @@ function () {
 
           var node = _cssValue.default.parse(cursor);
 
-          _this._treeNormalizer.normalize(node);
+          treeNormalizer.normalize(node);
 
           if (cursor.hasUnresolvedError()) {
             throw new Error("Parse Error: could not parse css ".concat(options.controls));
@@ -1668,6 +1666,22 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+var findArguments = function findArguments(node) {
+  return node.name === "arguments";
+};
+
+var filterValues = function filterValues(node) {
+  return node.name === "values";
+};
+
+var findMethodName = function findMethodName(node) {
+  return node.name === "name";
+};
+
+var findArgs = function findArgs(node) {
+  return node.children.find(findArguments).children.filter(filterValues);
+};
+
 var MethodNodeAnimator =
 /*#__PURE__*/
 function () {
@@ -1685,13 +1699,7 @@ function () {
   _createClass(MethodNodeAnimator, [{
     key: "createArgs",
     value: function createArgs() {
-      this.args = this.options.controls.map(function (node) {
-        return node.children.find(function (node) {
-          return node.name === "arguments";
-        }).children.filter(function (node) {
-          return node.name === "values";
-        });
-      });
+      this.args = this.options.controls.map(findArgs);
     }
   }, {
     key: "createAnimators",
@@ -1711,9 +1719,7 @@ function () {
   }, {
     key: "getMethodName",
     value: function getMethodName() {
-      return this.options.controls[0].children.find(function (node) {
-        return node.name === "name";
-      }).value;
+      return this.options.controls[0].children.find(findMethodName).value;
     }
   }, {
     key: "render",
@@ -5082,28 +5088,35 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+var filterOutSpaces = function filterOutSpaces(child) {
+  return child.name !== "spaces";
+};
+
+var filterOutDividers = function filterOutDividers(child) {
+  return child.name !== "divider";
+};
+
 var TreeNormalizer =
 /*#__PURE__*/
 function () {
   function TreeNormalizer() {
     _classCallCheck(this, TreeNormalizer);
 
-    this.removeSpacesVisitor = new _Visitor.default(function (node) {
-      if (Array.isArray(node.children)) {
-        node.children = node.children.filter(function (child) {
-          return child.name !== "spaces";
-        });
-      }
-
-      if (node.name === "css-value") {
-        node.children = node.children.filter(function (child) {
-          return child.name !== "divider";
-        });
-      }
-    });
+    this.removeSpacesVisitor = new _Visitor.default(this.visitNode);
   }
 
   _createClass(TreeNormalizer, [{
+    key: "visitNode",
+    value: function visitNode(node) {
+      if (Array.isArray(node.children)) {
+        node.children = node.children.filter(filterOutSpaces);
+      }
+
+      if (node.name === "css-value") {
+        node.children = node.children.filter(filterOutDividers);
+      }
+    }
+  }, {
     key: "normalize",
     value: function normalize(node) {
       this.removeSpacesVisitor.visitDown(node);
@@ -5142,24 +5155,16 @@ function () {
   function Visitor(callback) {
     _classCallCheck(this, Visitor);
 
-    if (typeof callback === "function") {
-      this.callback = callback;
-    } else {
-      this.callback = emptyFn;
-    }
-
-    this.callback = callback;
+    this.setCallback(callback);
+    this.visitDown = this.visitDown.bind(this);
+    this.visitUp = this.visitUp.bind(this);
   }
 
   _createClass(Visitor, [{
     key: "walkUp",
     value: function walkUp(node) {
-      var _this = this;
-
       if (Array.isArray(node.children)) {
-        node.children.forEach(function (child) {
-          _this.walkUp(child);
-        });
+        node.children.forEach(this.visitUp);
       }
 
       this.callback(node);
@@ -5172,20 +5177,27 @@ function () {
   }, {
     key: "walkDown",
     value: function walkDown(node) {
-      var _this2 = this;
-
       this.callback(node);
 
       if (Array.isArray(node.children)) {
-        node.children.forEach(function (child) {
-          _this2.walkDown(child);
-        });
+        node.children.forEach(this.visitDown);
       }
     }
   }, {
     key: "visitDown",
     value: function visitDown(node) {
       this.walkDown(node);
+    }
+  }, {
+    key: "setCallback",
+    value: function setCallback(callback) {
+      if (typeof callback === "function") {
+        this.callback = callback;
+      } else {
+        this.callback = emptyFn;
+      }
+
+      this.callback = callback;
     }
   }]);
 
@@ -5217,6 +5229,8 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+var visitor = new _Visitor.default();
+
 var TreeUtility =
 /*#__PURE__*/
 function () {
@@ -5229,14 +5243,14 @@ function () {
     value: function areTreeStructuresEqual(nodeA, nodeB) {
       var nodeASequence = [];
       var nodeBSequence = [];
-      var nodeAVisitor = new _Visitor.default(function (node) {
+      visitor.setCallback(function (node) {
         nodeASequence.push(node.name);
       });
-      nodeAVisitor.visitDown(nodeA);
-      var nodeBVisitor = new _Visitor.default(function (node) {
+      visitor.visitDown(nodeA);
+      visitor.setCallback(function (node) {
         nodeBSequence.push(node.name);
       });
-      nodeBVisitor.visitDown(nodeB);
+      visitor.visitDown(nodeB);
       return nodeASequence.join("|") === nodeBSequence.join("|");
     }
   }]);
@@ -8223,15 +8237,9 @@ __webpack_require__.r(__webpack_exports__);
 
 const useNativeTransition = (
   cssProperties,
-  {
-    duration: defaultDuration = 0,
-    ref,
-    onComplete,
-    initialCssProperties = null
-  }
+  { duration: defaultDuration = 0, ref, onComplete, initialProperties = null }
 ) => {
   const [node, setNode] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null);
-  const animationFrameRef = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(null);
 
   const callbackRef = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(
     node => {
@@ -8246,11 +8254,11 @@ const useNativeTransition = (
           ref.current = node;
         }
 
-        if (initialCssProperties != null) {
-          Object(_useTransition_transformAnimatedProperties__WEBPACK_IMPORTED_MODULE_1__["default"])(initialCssProperties);
+        if (initialProperties != null) {
+          Object(_useTransition_transformAnimatedProperties__WEBPACK_IMPORTED_MODULE_1__["default"])(initialProperties);
 
-          Object.keys(initialCssProperties).forEach(key => {
-            const { value } = initialCssProperties[key];
+          Object.keys(initialProperties).forEach(key => {
+            const { value } = initialProperties[key];
             node.style[key] = value;
           });
         } else {
@@ -8265,54 +8273,51 @@ const useNativeTransition = (
         setNode(node);
       }
     },
-    [ref, initialCssProperties, cssProperties]
+    [ref, initialProperties, cssProperties]
   );
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     if (cssProperties != null && node != null) {
-        cancelAnimationFrame(animationFrameRef.current);
-        animationFrameRef.current = requestAnimationFrame(()=>{
-            Object(_useTransition_transformAnimatedProperties__WEBPACK_IMPORTED_MODULE_1__["default"])(cssProperties);
+      Object(_useTransition_transformAnimatedProperties__WEBPACK_IMPORTED_MODULE_1__["default"])(cssProperties);
 
-            const transition = Object.keys(cssProperties)
-              .map(property => {
-                let {
-                  duration: durationOverride,
-                  easing: easingName,
-                  startAt = 0,
-                  endAt = 1
-                } = cssProperties[property];
-      
-                let delay;
-                let easing =
-                  _useTransition_easeOut__WEBPACK_IMPORTED_MODULE_2__["bezierCurveEasings"][easingName] != null
-                    ? _useTransition_easeOut__WEBPACK_IMPORTED_MODULE_2__["bezierCurveEasings"][easingName]
-                    : _useTransition_easeOut__WEBPACK_IMPORTED_MODULE_2__["bezierCurveEasings"].expo;
-                let duration =
-                  typeof durationOverride === "number"
-                    ? durationOverride
-                    : defaultDuration;
-      
-                startAt = typeof startAt === "number" ? startAt : 0;
-                endAt = typeof endAt === "number" ? endAt : 0;
-      
-                const originalDuration = duration;
-                duration = (endAt - startAt) * originalDuration;
-                delay = `${startAt * originalDuration}`;
-      
-                return `${property} ${duration}ms ${easing} ${delay}ms`;
-              })
-              .join(", ");
-      
-            node.style.transition = transition;
-      
-            Object.keys(cssProperties).forEach(key => {
-              const { value } = cssProperties[key];
-              node.style[key] = value;
-            });
-        });
+      const transition = Object.keys(cssProperties)
+        .map(property => {
+          let {
+            duration: durationOverride,
+            easing: easingName,
+            startAt = 0,
+            endAt = 1
+          } = cssProperties[property];
+
+          let delay;
+          let easing =
+            _useTransition_easeOut__WEBPACK_IMPORTED_MODULE_2__["bezierCurveEasings"][easingName] != null
+              ? _useTransition_easeOut__WEBPACK_IMPORTED_MODULE_2__["bezierCurveEasings"][easingName]
+              : _useTransition_easeOut__WEBPACK_IMPORTED_MODULE_2__["bezierCurveEasings"].expo;
+          let duration =
+            typeof durationOverride === "number"
+              ? durationOverride
+              : defaultDuration;
+
+          startAt = typeof startAt === "number" ? startAt : 0;
+          endAt = typeof endAt === "number" ? endAt : 0;
+
+          const originalDuration = duration;
+          duration = (endAt - startAt) * originalDuration;
+          delay = `${startAt * originalDuration}`;
+
+          return `${property} ${duration}ms ${easing} ${delay}ms`;
+        })
+        .join(", ");
+
+      node.style.transition = transition;
+
+      Object.keys(cssProperties).forEach(key => {
+        const { value } = cssProperties[key];
+        node.style[key] = value;
+      });
     }
-  }, [initialCssProperties, cssProperties, defaultDuration, node]);
+  }, [initialProperties, cssProperties, defaultDuration, node]);
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     if (node != null) {
@@ -8499,7 +8504,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const makeNativeTransition = (suppliedStates, duration) => {
-  const getStateCssProperties = (name, props) => {
+  return (name, { props, ...rest } = {}) => {
     let states;
 
     if (typeof suppliedStates === "function") {
@@ -8509,6 +8514,7 @@ const makeNativeTransition = (suppliedStates, duration) => {
     }
 
     const stateNames = Object.keys(states).join(", ");
+    const initialProperties = states.initial;
     const cssProperties = states[name];
 
     if (cssProperties == null) {
@@ -8523,12 +8529,11 @@ const makeNativeTransition = (suppliedStates, duration) => {
       );
     }
 
-    return cssProperties;
-  };
-
-  return (stateName, { props, ...rest } = {}) => {
-    const cssProperties = getStateCssProperties(stateName, props);
-    return Object(_useNativeTransition__WEBPACK_IMPORTED_MODULE_0__["default"])(cssProperties, { duration, ...rest });
+    return Object(_useNativeTransition__WEBPACK_IMPORTED_MODULE_0__["default"])(cssProperties, {
+      duration,
+      initialProperties,
+      ...rest
+    });
   };
 };
 

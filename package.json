@@ -1,9 +1,9 @@
 {
   "name": "react-motion-ux",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "main": "lib/index.js",
   "dependencies": {
-    "motion-ux": "^2.1.1"
+    "motion-ux": "^2.1.5"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.0",

@@ -9515,10 +9515,10 @@ moment@^2.18.1:
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
   integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
 
-motion-ux@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/motion-ux/-/motion-ux-2.1.1.tgz#db1994f6193e219b8285e13a11685c2fbaa34b8f"
-  integrity sha512-LMoLuWCN7WmQYMXkP172Zt4FtMn/OOsuHi/sW5j44EGjbDuWK3eY1Ea+s+gRmPy3m4/DQnBcuGbP9vCQtuDHhg==
+motion-ux@^2.1.5:
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/motion-ux/-/motion-ux-2.1.5.tgz#cac664528374dfb381486e608b7c4d3625383903"
+  integrity sha512-u/QSzDCtZZuDFz4O1BA7lAnavRm03cOVBZ5p+hXDkrUHZLw7LJFmJX5faXuEOtbCKXiMvZyxnI0yU7kbraof+w==
   dependencies:
     clarity-pattern-parser "1.1.3"
 

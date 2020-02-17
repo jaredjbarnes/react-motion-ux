@@ -1,10 +1,12 @@
 import React, { useState, useRef } from "react";
-import useTransition from "../index";
+import useNativeTransition from "../index";
 
 const containerStyle = {
-  position: "relative",
-  width: "100%",
-  height: "100%"
+  position: "absolute",
+  top: "0",
+  left: "0",
+  right: "0",
+  bottom: "0"
 };
 
 const dotStyle = {
@@ -43,10 +45,10 @@ const PointAndClick = () => {
 
   const [state, setState] = useState({
     transform: "translate(0px, 0px)",
-    backgroundColor: "rgba(255,0,0,1)"
+    "background-color": "rgba(255,0,0,1)"
   });
 
-  const ref = useTransition(state, {
+  const ref = useNativeTransition(state, {
     duration: 5000,
     applyValues: applyStyles
   });
@@ -59,7 +61,7 @@ const PointAndClick = () => {
 
     setState({
       transform: `translate(${x}px,${y}px)`,
-      backgroundColor: color
+      "background-color": color
     });
   };
 

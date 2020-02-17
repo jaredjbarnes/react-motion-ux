@@ -109,15 +109,3 @@ export const NullStateName = () => {
   const ref = useStyledTransition(null);
   return <div ref={ref}></div>;
 };
-
-const useMissingStyledTransition = makeStyledTransition(
-  {
-    opened: {
-      opacity: "1"
-    },
-    closed: {
-      backgroundColor: "rgba(0,0,0,1)"
-    }
-  },
-  1000
-);

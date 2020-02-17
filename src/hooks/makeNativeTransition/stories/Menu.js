@@ -1,6 +1,6 @@
 import OptionButton from "./OptionButton";
 import Button from "./Button";
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import makeStyledTransition from "../index";
 
 const wrapper = {
@@ -22,6 +22,13 @@ const option = {
 
 const useOneOptionMotion = makeStyledTransition(
   {
+    initial: {
+      transform: {
+        value: "translate(0px, 0px)",
+        controls: ["translate(0px, 40px)"]
+      },
+      opacity: "0"
+    },
     opened: {
       transform: {
         value: "translate(0px, 60px)",

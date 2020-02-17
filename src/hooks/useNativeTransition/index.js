@@ -1,18 +1,12 @@
-import { useState, useCallback, useEffect, useRef } from "react";
+import { useState, useCallback, useEffect } from "react";
 import transfromAnimatedProperties from "../useTransition/transformAnimatedProperties";
 import { bezierCurveEasings } from "../useTransition/easeOut";
 
 const useNativeTransition = (
   cssProperties,
-  {
-    duration: defaultDuration = 0,
-    ref,
-    onComplete,
-    initialCssProperties = null
-  }
+  { duration: defaultDuration = 0, ref, onComplete, initialProperties = null }
 ) => {
   const [node, setNode] = useState(null);
-  const animationFrameRef = useRef(null);
 
   const callbackRef = useCallback(
     node => {
@@ -27,11 +21,11 @@ const useNativeTransition = (
           ref.current = node;
         }
 
-        if (initialCssProperties != null) {
-          transfromAnimatedProperties(initialCssProperties);
+        if (initialProperties != null) {
+          transfromAnimatedProperties(initialProperties);
 
-          Object.keys(initialCssProperties).forEach(key => {
-            const { value } = initialCssProperties[key];
+          Object.keys(initialProperties).forEach(key => {
+            const { value } = initialProperties[key];
             node.style[key] = value;
           });
         } else {
@@ -46,54 +40,51 @@ const useNativeTransition = (
         setNode(node);
       }
     },
-    [ref, initialCssProperties, cssProperties]
+    [ref, initialProperties, cssProperties]
   );
 
   useEffect(() => {
     if (cssProperties != null && node != null) {
-        cancelAnimationFrame(animationFrameRef.current);
-        animationFrameRef.current = requestAnimationFrame(()=>{
-            transfromAnimatedProperties(cssProperties);
+      transfromAnimatedProperties(cssProperties);
 
-            const transition = Object.keys(cssProperties)
-              .map(property => {
-                let {
-                  duration: durationOverride,
-                  easing: easingName,
-                  startAt = 0,
-                  endAt = 1
-                } = cssProperties[property];
-      
-                let delay;
-                let easing =
-                  bezierCurveEasings[easingName] != null
-                    ? bezierCurveEasings[easingName]
-                    : bezierCurveEasings.expo;
-                let duration =
-                  typeof durationOverride === "number"
-                    ? durationOverride
-                    : defaultDuration;
-      
-                startAt = typeof startAt === "number" ? startAt : 0;
-                endAt = typeof endAt === "number" ? endAt : 0;
-      
-                const originalDuration = duration;
-                duration = (endAt - startAt) * originalDuration;
-                delay = `${startAt * originalDuration}`;
-      
-                return `${property} ${duration}ms ${easing} ${delay}ms`;
-              })
-              .join(", ");
-      
-            node.style.transition = transition;
-      
-            Object.keys(cssProperties).forEach(key => {
-              const { value } = cssProperties[key];
-              node.style[key] = value;
-            });
-        });
+      const transition = Object.keys(cssProperties)
+        .map(property => {
+          let {
+            duration: durationOverride,
+            easing: easingName,
+            startAt = 0,
+            endAt = 1
+          } = cssProperties[property];
+
+          let delay;
+          let easing =
+            bezierCurveEasings[easingName] != null
+              ? bezierCurveEasings[easingName]
+              : bezierCurveEasings.expo;
+          let duration =
+            typeof durationOverride === "number"
+              ? durationOverride
+              : defaultDuration;
+
+          startAt = typeof startAt === "number" ? startAt : 0;
+          endAt = typeof endAt === "number" ? endAt : 0;
+
+          const originalDuration = duration;
+          duration = (endAt - startAt) * originalDuration;
+          delay = `${startAt * originalDuration}`;
+
+          return `${property} ${duration}ms ${easing} ${delay}ms`;
+        })
+        .join(", ");
+
+      node.style.transition = transition;
+
+      Object.keys(cssProperties).forEach(key => {
+        const { value } = cssProperties[key];
+        node.style[key] = value;
+      });
     }
-  }, [initialCssProperties, cssProperties, defaultDuration, node]);
+  }, [initialProperties, cssProperties, defaultDuration, node]);
 
   useEffect(() => {
     if (node != null) {

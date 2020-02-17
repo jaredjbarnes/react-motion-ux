@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Compass from "./Compass";
-import PipelinePath from "./PipelinePath";
 import PointAndClick from "./PointAndClick";
 import Switch from "../../makeStyledTransition/stories/Switch";
 
@@ -121,38 +120,6 @@ export const Default = () => {
       </div>
       <br />
       {compasses}
-    </div>
-  );
-};
-
-export const AnimatedPipelinePath = () => {
-  const [state, setState] = useState({
-    originX: 300,
-    originY: 300,
-    destinationX: 100,
-    destinationY: 100
-  });
-
-  const interval = setInterval(() => {
-    const state = {
-      originX: generatedValue(300),
-      originY: generatedValue(300),
-      destinationX: generatedValue(300),
-      destinationY: generatedValue(300)
-    };
-
-    setState(state);
-  }, 2000);
-
-  useEffect(() => {
-    return () => {
-      clearInterval(interval);
-    };
-  });
-
-  return (
-    <div style={{ position: "relative", width: "800px", height: "800px" }}>
-      <PipelinePath {...state} />
     </div>
   );
 };
