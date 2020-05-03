@@ -1,5 +1,7 @@
 import React, { CSSProperties } from "react";
 
+declare module "react-motion-ux";
+
 type KeyValue = {
   [key: string]: string | number;
 };
