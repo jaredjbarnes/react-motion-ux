@@ -1,42 +1,45 @@
 import React, { CSSProperties } from "react";
 
-declare module "react-motion-ux";
+declare module "react-motion-ux" {
+  export type KeyValue = {
+    [key: string]: string | number;
+  };
 
-type KeyValue = {
-  [key: string]: string | number;
-};
+  export type States = {
+    [key: string]: CSSProperties;
+  };
 
-type States = {
-  [key: string]: CSSProperties;
-};
+  export type TransitionOptions<TElement, TAnimatedProperties> = {
+    duration: number;
+    applyValues?: (obj: any, values: KeyValue) => void;
+    ref?: React.Ref<TElement>;
+    animate?: boolean;
+    onComplete?: () => void;
+    initialProperties?: TAnimatedProperties;
+  };
 
-type TransitionOptions<TElement, TAnimatedProperties> = {
-  duration: number;
-  applyValues?: (obj: any, values: KeyValue) => void;
-  ref?: React.Ref<TElement>;
-  animate?: boolean;
-  onComplete?: () => void;
-  initialProperties?: TAnimatedProperties;
-};
+  export type StyledTranstionOptions<TElement, TAnimatedProperties> = {
+    duration?: number;
+    props?: any;
+    ref?: React.Ref<TElement>;
+    animate?: boolean;
+    onComplete?: () => void;
+    initialProperties?: TAnimatedProperties;
+  };
 
-type StyledTranstionOptions<TElement, TAnimatedProperties> = {
-  duration?: number;
-  props?: any;
-  ref?: React.Ref<TElement>;
-  animate?: boolean;
-  onComplete?: () => void;
-  initialProperties?: TAnimatedProperties;
-};
+  export function useTransition<
+    T = any,
+    TAnimatedProperties = KeyValue
+  >(
+    animatedProperties: TAnimatedProperties,
+    options: TransitionOptions<T, TAnimatedProperties>
+  ): React.Ref<T> | React.RefObject<T>;
 
-export declare function useTransition<T = any, TAnimatedProperties = KeyValue>(
-  animatedProperties: TAnimatedProperties,
-  options: TransitionOptions<T, TAnimatedProperties>
-): React.Ref<T> | React.RefObject<T>;
-
-export declare function makeStyledTransition<TElement>(
-  states: States,
-  duration: number
-): (
-  stateName: string,
-  options?: StyledTranstionOptions<TElement, CSSProperties>
-) => React.Ref<TElement>;
+  export function makeStyledTransition<TElement>(
+    states: States,
+    duration: number
+  ): (
+    stateName: string,
+    options?: StyledTranstionOptions<TElement, CSSProperties>
+  ) => React.Ref<TElement>;
+}
