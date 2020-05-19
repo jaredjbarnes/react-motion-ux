@@ -6,7 +6,18 @@ declare module "react-motion-ux" {
   };
 
   export type States = {
-    [key: string]: CSSProperties;
+    [key: string]: CSSProperties | ComplexCSSProperties;
+  };
+
+  export type ComplexCSSProperties = {
+    [key: string]:
+      | {
+          startAt: number;
+          endAt: number;
+          value: any;
+        }
+      | string
+      | number;
   };
 
   export type TransitionOptions<TElement, TAnimatedProperties> = {
@@ -27,10 +38,7 @@ declare module "react-motion-ux" {
     initialProperties?: TAnimatedProperties;
   };
 
-  export function useTransition<
-    T = any,
-    TAnimatedProperties = KeyValue
-  >(
+  export function useTransition<T = any, TAnimatedProperties = KeyValue>(
     animatedProperties: TAnimatedProperties,
     options: TransitionOptions<T, TAnimatedProperties>
   ): React.Ref<T> | React.RefObject<T>;
@@ -40,6 +48,9 @@ declare module "react-motion-ux" {
     duration: number
   ): (
     stateName: string,
-    options?: StyledTranstionOptions<TElement, CSSProperties>
+    options?: StyledTranstionOptions<
+      TElement,
+      CSSProperties | ComplexCSSProperties
+    >
   ) => React.Ref<TElement>;
 }
