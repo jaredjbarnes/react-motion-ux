@@ -5,6 +5,8 @@ declare module "react-motion-ux" {
     [key: string]: string | number;
   };
 
+  export type StatesGenerator<TProps> = (props:TProps) => States;
+
   export type States = {
     [key: string]: CSSProperties | ComplexCSSProperties;
   };
@@ -43,8 +45,8 @@ declare module "react-motion-ux" {
     options: TransitionOptions<T, TAnimatedProperties>
   ): React.Ref<T> | React.RefObject<T>;
 
-  export function makeStyledTransition<TElement>(
-    states: States,
+  export function makeStyledTransition<TElement, TProps = any>(
+    states: States | StatesGenerator<TProps>,
     duration: number
   ): (
     stateName: string,
