@@ -87,7 +87,7 @@ declare module "react-motion-ux" {
 
   export interface TimeObserver extends Observer {}
 
-  export interface Timeline {
+  export declare class Timeline {
     constructor(options: TimelineOptions);
     static repeatDirections: RepeatDirections;
     duration: number;
