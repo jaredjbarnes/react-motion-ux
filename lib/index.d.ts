@@ -1,7 +1,7 @@
 import React, { CSSProperties } from "react";
 
 declare module "react-motion-ux" {
-  export type easings = {
+  export var easings: {
     easeInQuad(currentTime, startAt, delta, duration): number;
     easeOutQuad(currentTime, startAt, delta, duration): number;
     easeInOutQuad(currentTime, startAt, delta, duration): number;
@@ -69,7 +69,7 @@ declare module "react-motion-ux" {
     clock?: TimelineClock;
   };
 
-  export interface Observer {
+  export class Observer {
     notify(
       event:
         | { type: string }
@@ -85,9 +85,9 @@ declare module "react-motion-ux" {
     dispose();
   }
 
-  export interface TimeObserver extends Observer {}
+  export class TimeObserver extends Observer {}
 
-  export declare class Timeline {
+  export class Timeline {
     constructor(options: TimelineOptions);
     static repeatDirections: RepeatDirections;
     duration: number;

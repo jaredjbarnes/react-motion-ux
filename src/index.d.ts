@@ -1,7 +1,7 @@
 import React, { CSSProperties } from "react";
 
 declare module "react-motion-ux" {
-  export type easings = {
+  export var easings: {
     easeInQuad(currentTime, startAt, delta, duration): number;
     easeOutQuad(currentTime, startAt, delta, duration): number;
     easeInOutQuad(currentTime, startAt, delta, duration): number;
