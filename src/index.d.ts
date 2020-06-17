@@ -2,37 +2,192 @@ import React, { CSSProperties } from "react";
 
 declare module "react-motion-ux" {
   export var easings: {
-    easeInQuad(currentTime, startAt, delta, duration): number;
-    easeOutQuad(currentTime, startAt, delta, duration): number;
-    easeInOutQuad(currentTime, startAt, delta, duration): number;
-    easeInCubic(currentTime, startAt, delta, duration): number;
-    easeOutCubic(currentTime, startAt, delta, duration): number;
-    easeInOutCubic(currentTime, startAt, delta, duration): number;
-    easeInQuart(currentTime, startAt, delta, duration): number;
-    easeOutQuart(currentTime, startAt, delta, duration): number;
-    easeInOutQuart(currentTime, startAt, delta, duration): number;
-    easeInQuint(currentTime, startAt, delta, duration): number;
-    easeOutQuint(currentTime, startAt, delta, duration): number;
-    easeInOutQuint(currentTime, startAt, delta, duration): number;
-    easeInSine(currentTime, startAt, delta, duration): number;
-    easeOutSine(currentTime, startAt, delta, duration): number;
-    easeInOutSine(currentTime, startAt, delta, duration): number;
-    easeInExpo(currentTime, startAt, delta, duration): number;
-    easeOutExpo(currentTime, startAt, delta, duration): number;
-    easeInOutExpo(currentTime, startAt, delta, duration): number;
-    easeInCirc(currentTime, startAt, delta, duration): number;
-    easeOutCirc(currentTime, startAt, delta, duration): number;
-    easeInOutCirc(currentTime, startAt, delta, duration): number;
-    easeInElastic(currentTime, startAt, delta, duration): number;
-    easeOutElastic(currentTime, startAt, delta, duration): number;
-    easeInOutElastic(currentTime, startAt, delta, duration): number;
-    easeInBack(currentTime, startAt, delta, duration): number;
-    easeOutBack(currentTime, startAt, delta, duration): number;
-    easeInOutBack(currentTime, startAt, delta, duration): number;
-    easeInBounce(currentTime, startAt, delta, duration): number;
-    easeOutBounce(currentTime, startAt, delta, duration): number;
-    easeInOutBounce(currentTime, startAt, delta, duration): number;
-    linear(currentTime, startAt, delta, duration): number;
+    easeInQuad(
+      currentTime: number,
+      startAt: number,
+      delta: number,
+      duration: number
+    ): number;
+    easeOutQuad(
+      currentTime: number,
+      startAt: number,
+      delta: number,
+      duration: number
+    ): number;
+    easeInOutQuad(
+      currentTime: number,
+      startAt: number,
+      delta: number,
+      duration: number
+    ): number;
+    easeInCubic(
+      currentTime: number,
+      startAt: number,
+      delta: number,
+      duration: number
+    ): number;
+    easeOutCubic(
+      currentTime: number,
+      startAt: number,
+      delta: number,
+      duration: number
+    ): number;
+    easeInOutCubic(
+      currentTime: number,
+      startAt: number,
+      delta: number,
+      duration: number
+    ): number;
+    easeInQuart(
+      currentTime: number,
+      startAt: number,
+      delta: number,
+      duration: number
+    ): number;
+    easeOutQuart(
+      currentTime: number,
+      startAt: number,
+      delta: number,
+      duration: number
+    ): number;
+    easeInOutQuart(
+      currentTime: number,
+      startAt: number,
+      delta: number,
+      duration: number
+    ): number;
+    easeInQuint(
+      currentTime: number,
+      startAt: number,
+      delta: number,
+      duration: number
+    ): number;
+    easeOutQuint(
+      currentTime: number,
+      startAt: number,
+      delta: number,
+      duration: number
+    ): number;
+    easeInOutQuint(
+      currentTime: number,
+      startAt: number,
+      delta: number,
+      duration: number
+    ): number;
+    easeInSine(
+      currentTime: number,
+      startAt: number,
+      delta: number,
+      duration: number
+    ): number;
+    easeOutSine(
+      currentTime: number,
+      startAt: number,
+      delta: number,
+      duration: number
+    ): number;
+    easeInOutSine(
+      currentTime: number,
+      startAt: number,
+      delta: number,
+      duration: number
+    ): number;
+    easeInExpo(
+      currentTime: number,
+      startAt: number,
+      delta: number,
+      duration: number
+    ): number;
+    easeOutExpo(
+      currentTime: number,
+      startAt: number,
+      delta: number,
+      duration: number
+    ): number;
+    easeInOutExpo(
+      currentTime: number,
+      startAt: number,
+      delta: number,
+      duration: number
+    ): number;
+    easeInCirc(
+      currentTime: number,
+      startAt: number,
+      delta: number,
+      duration: number
+    ): number;
+    easeOutCirc(
+      currentTime: number,
+      startAt: number,
+      delta: number,
+      duration: number
+    ): number;
+    easeInOutCirc(
+      currentTime: number,
+      startAt: number,
+      delta: number,
+      duration: number
+    ): number;
+    easeInElastic(
+      currentTime: number,
+      startAt: number,
+      delta: number,
+      duration: number
+    ): number;
+    easeOutElastic(
+      currentTime: number,
+      startAt: number,
+      delta: number,
+      duration: number
+    ): number;
+    easeInOutElastic(
+      currentTime: number,
+      startAt: number,
+      delta: number,
+      duration: number
+    ): number;
+    easeInBack(
+      currentTime: number,
+      startAt: number,
+      delta: number,
+      duration: number
+    ): number;
+    easeOutBack(
+      currentTime: number,
+      startAt: number,
+      delta: number,
+      duration: number
+    ): number;
+    easeInOutBack(
+      currentTime: number,
+      startAt: number,
+      delta: number,
+      duration: number
+    ): number;
+    easeInBounce(
+      currentTime: number,
+      startAt: number,
+      delta: number,
+      duration: number
+    ): number;
+    easeOutBounce(
+      currentTime: number,
+      startAt: number,
+      delta: number,
+      duration: number
+    ): number;
+    easeInOutBounce(
+      currentTime: number,
+      startAt: number,
+      delta: number,
+      duration: number
+    ): number;
+    linear(
+      currentTime: number,
+      startAt: number,
+      delta: number,
+      duration: number
+    ): number;
   };
 
   export enum RepeatDirections {
@@ -59,7 +214,12 @@ declare module "react-motion-ux" {
     from: number | string;
     startAt: number;
     endAt: number;
-    easing?: () => number;
+    easing?: (
+      currentTime: number,
+      startAt: number,
+      delta: number,
+      duration: number
+    ) => number;
     controls?: string[] | number[];
   };
 
