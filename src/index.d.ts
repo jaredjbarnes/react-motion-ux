@@ -230,16 +230,12 @@ declare module "react-motion-ux" {
   };
 
   export class Observer {
-    notify(
-      event:
-        | { type: string }
-        | {
-            type: "RENDER";
-            animations: AnimatedValues;
-            progress: number;
-            lastProgress: number;
-          }
-    );
+    notify(event: {
+      type: string;
+      animations?: AnimatedValues;
+      progress?: number;
+      lastProgress?: number;
+    });
     stop();
     start();
     dispose();
