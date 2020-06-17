@@ -1,6 +1,6 @@
 {
   "name": "react-motion-ux",
-  "version": "0.4.10",
+  "version": "0.4.11",
   "main": "lib/index.js",
   "dependencies": {
     "motion-ux": "^2.1.5"
@@ -28,7 +28,7 @@
   },
   "scripts": {
     "storybook": "start-storybook -p 9009",
-    "build": "npx babel src --out-dir lib --source-maps && npx webpack --mode=none --config webpack.config.js && build-storybook -c .storybook -o docs/storybook",
+    "build": "npx babel src --out-dir lib --source-maps && npx webpack --mode=none --config webpack.config.js && build-storybook -c .storybook -o docs/storybook && npx copyfiles -f src/index.d.ts lib",
     "build-storybook": "build-storybook"
   },
   "eslintConfig": {
