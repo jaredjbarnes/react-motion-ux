@@ -229,13 +229,15 @@ declare module "react-motion-ux" {
     clock?: TimelineClock;
   };
 
+  export type ObserverEvent = {
+    type: string;
+    animations?: AnimatedValues;
+    progress?: number;
+    lastProgress?: number;
+  };
+
   export class Observer {
-    notify(event: {
-      type: string;
-      animations?: AnimatedValues;
-      progress?: number;
-      lastProgress?: number;
-    });
+    notify(event: ObserverEvent);
     stop();
     start();
     dispose();
@@ -261,12 +263,9 @@ declare module "react-motion-ux" {
     dispose();
     observeTime(
       time: number,
-      callback: (event: { type: string }) => void
+      callback: (event: ObserverEvent) => void
     ): TimeObserver;
-    observe(
-      type: string,
-      callback: (event: { type: string }) => void
-    ): Observer;
+    observe(type: string, callback: (event: ObserverEvent) => void): Observer;
   }
 
   export type KeyValue = {
