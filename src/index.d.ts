@@ -59,8 +59,8 @@ declare module "react-motion-ux" {
     from: number | string;
     startAt: number;
     endAt: number;
-    easing: () => number;
-    controls: string[] | number[];
+    easing?: () => number;
+    controls?: string[] | number[];
   };
 
   export type TimelineOptions = {
