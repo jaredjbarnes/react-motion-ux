@@ -1,7 +1,7 @@
 import React, { CSSProperties } from "react";
 
 declare module "react-motion-ux" {
-  export interface easings {
+  export type easings = {
     easeInQuad(currentTime, startAt, delta, duration): number;
     easeOutQuad(currentTime, startAt, delta, duration): number;
     easeInOutQuad(currentTime, startAt, delta, duration): number;
@@ -33,7 +33,7 @@ declare module "react-motion-ux" {
     easeOutBounce(currentTime, startAt, delta, duration): number;
     easeInOutBounce(currentTime, startAt, delta, duration): number;
     linear(currentTime, startAt, delta, duration): number;
-  }
+  };
 
   export enum RepeatDirections {
     DEFAULT = 0,
