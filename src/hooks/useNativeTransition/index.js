@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
-import transfromAnimatedProperties from "../useTransition/transformAnimatedProperties";
+import transfromAnimatedProperties from "./transformAnimatedProperties";
 import { bezierCurveEasings } from "../useTransition/easeOut";
 
 const useNativeTransition = (
