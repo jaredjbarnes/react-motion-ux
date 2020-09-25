@@ -118,25 +118,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _hooks_useTransition__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(59);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "useTransition", function() { return _hooks_useTransition__WEBPACK_IMPORTED_MODULE_1__["default"]; });
 
-/* harmony import */ var _hooks_useNativeTransition__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(72);
+/* harmony import */ var _hooks_useNativeTransition__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(68);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "useNativeTransition", function() { return _hooks_useNativeTransition__WEBPACK_IMPORTED_MODULE_2__["default"]; });
 
-/* harmony import */ var _hooks_makeStyledTransition__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(73);
+/* harmony import */ var _hooks_makeStyledTransition__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(70);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "makeStyledTransition", function() { return _hooks_makeStyledTransition__WEBPACK_IMPORTED_MODULE_3__["default"]; });
 
-/* harmony import */ var _hooks_makePropertyTransition__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(76);
+/* harmony import */ var _hooks_makePropertyTransition__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(73);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "makePropertyTransition", function() { return _hooks_makePropertyTransition__WEBPACK_IMPORTED_MODULE_4__["default"]; });
 
-/* harmony import */ var _hooks_makeAttributeTransition__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(78);
+/* harmony import */ var _hooks_makeAttributeTransition__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(75);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "makeAttributeTransition", function() { return _hooks_makeAttributeTransition__WEBPACK_IMPORTED_MODULE_5__["default"]; });
 
-/* harmony import */ var _hooks_makeTransition__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(74);
+/* harmony import */ var _hooks_makeTransition__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(71);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "makeTransition", function() { return _hooks_makeTransition__WEBPACK_IMPORTED_MODULE_6__["default"]; });
 
-/* harmony import */ var _hooks_makeNativeTransition__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(80);
+/* harmony import */ var _hooks_makeNativeTransition__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(77);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "makeNativeTransition", function() { return _hooks_makeNativeTransition__WEBPACK_IMPORTED_MODULE_7__["default"]; });
 
-/* harmony import */ var _hooks_makeStyledTransition_applyStyleValues__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(75);
+/* harmony import */ var _hooks_makeStyledTransition_applyStyleValues__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(72);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "applyStyleValues", function() { return _hooks_makeStyledTransition_applyStyleValues__WEBPACK_IMPORTED_MODULE_8__["default"]; });
 
 
@@ -5269,181 +5269,62 @@ exports.default = TreeUtility;
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(60);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var motion_ux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
-/* harmony import */ var motion_ux__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(motion_ux__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _createAnimations__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(65);
-/* harmony import */ var _createAdjustedAnimations__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(67);
-/* harmony import */ var _isEqual__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(68);
-/* harmony import */ var _transformAnimatedProperties__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(69);
-/* harmony import */ var _objectApplyValues__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(70);
-/* harmony import */ var _assertAnimatingTheSameProperties__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(71);
+/* harmony import */ var _objectApplyValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(65);
+/* harmony import */ var _TransitionMediator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(66);
 
 
 
-
-
-
-
-
-
-const convertToValues = animatedProperties => {
-  return Object.keys(animatedProperties).reduce((properties, key) => {
-    properties[key] = animatedProperties[key].value;
-    return properties;
-  }, {});
-};
 
 const useTransition = (
   animatedProperties,
   {
     duration,
-    applyValues = _objectApplyValues__WEBPACK_IMPORTED_MODULE_6__["default"],
+    applyValues = _objectApplyValues__WEBPACK_IMPORTED_MODULE_1__["default"],
     ref,
     animate = true,
     onComplete,
     configure,
-    initialProperties = null
+    initialProperties = null,
   } = {}
 ) => {
-  const state = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])({
-    lastAnimatedProperties: null,
-    animatedProperties,
-    duration,
-    applyValues,
-    ref,
-    animate,
-    timeline: null,
-    node: null
-  });
+  const transitionMediator = Object(react__WEBPACK_IMPORTED_MODULE_0__["useMemo"])(() => {
+    return new _TransitionMediator__WEBPACK_IMPORTED_MODULE_2__["default"]();
+  }, []);
 
-  if (initialProperties != null && state.current.lastAnimatedProperties == null) {
-    Object(_transformAnimatedProperties__WEBPACK_IMPORTED_MODULE_5__["default"])(initialProperties);
-    state.current.lastAnimatedProperties = initialProperties;
-  }
-
-  state.current.animatedProperties = animatedProperties;
-  state.current.duration = duration;
-  state.current.applyValues = applyValues;
-  state.current.ref = ref;
-  state.current.animate = animate;
+  transitionMediator.setInitialProperties(initialProperties);
+  transitionMediator.setDuration(duration);
+  transitionMediator.setRenderCallback(applyValues);
+  transitionMediator.setShouldAnimate(animate);
+  transitionMediator.setOnCompleteCallback(onComplete);
+  transitionMediator.setConfigureCallback(configure);
 
   // Keep refs up to date.
-  const callbackRef = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(node => {
-    const { animatedProperties, applyValues, ref } = state.current;
+  const callbackRef = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(
+    (node) => {
+      if (node != null) {
+        if (typeof ref === "function") {
+          ref(node);
+        } else if (
+          typeof ref === "object" &&
+          ref != null &&
+          ref.hasOwnProperty("current")
+        ) {
+          ref.current = node;
+        }
 
-    if (node != null) {
-      if (typeof ref === "function") {
-        ref(node);
-      } else if (
-        typeof ref === "object" &&
-        ref != null &&
-        ref.hasOwnProperty("current")
-      ) {
-        ref.current = node;
+        transitionMediator.setNode(node);
       }
-
-      state.current.node = node;
-
-      // This should run when the element is mounted.
-      const values = convertToValues(animatedProperties);
-
-      applyValues(state.current.node, values);
-      state.current.lastAnimatedProperties = animatedProperties;
-    }
-  }, []);
-
-  // Clean up timeline to prevent memory leak.
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
-    return () => {
-      if (state.current.timeline != null) {
-        state.current.timeline.dispose();
-      }
-    };
-  }, []);
-
-  if (animatedProperties == null) {
-    // Stop the current animation, if there is one.
-    if (state.current.timeline != null) {
-      state.current.timeline.dispose();
-    }
-
-    // Reset
-    state.current.lastAnimatedProperties = null;
-    return callbackRef;
-  }
-
-  Object(_transformAnimatedProperties__WEBPACK_IMPORTED_MODULE_5__["default"])(animatedProperties);
-
-  const isDifferent = !Object(_isEqual__WEBPACK_IMPORTED_MODULE_4__["default"])(
-    animatedProperties,
-    state.current.lastAnimatedProperties
+    },
+    [transitionMediator, ref]
   );
 
-  if (state.current.lastAnimatedProperties == null || !animate) {
-    if (state.current.timeline != null) {
-      state.current.timeline.dispose();
-      state.current.timeline = null;
-    }
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    return () => {
+      transitionMediator.dispose();
+    };
+  }, [transitionMediator]);
 
-    const values = convertToValues(animatedProperties);
-
-    if (state.current.node != null) {
-      applyValues(state.current.node, values);
-    }
-
-    state.current.lastAnimatedProperties = animatedProperties;
-    return callbackRef;
-  } else if (isDifferent && state.current.lastAnimatedProperties != null) {
-    Object(_assertAnimatingTheSameProperties__WEBPACK_IMPORTED_MODULE_7__["default"])(
-      animatedProperties,
-      state.current.lastAnimatedProperties
-    );
-
-    if (state.current.timeline == null) {
-      const animations = Object(_createAnimations__WEBPACK_IMPORTED_MODULE_2__["default"])(
-        state.current.lastAnimatedProperties,
-        animatedProperties
-      );
-
-      state.current.timeline = new motion_ux__WEBPACK_IMPORTED_MODULE_1__["Timeline"]({
-        animations: animations,
-        duration: duration
-      });
-    } else {
-      const animations = Object(_createAdjustedAnimations__WEBPACK_IMPORTED_MODULE_3__["default"])(
-        state.current.timeline,
-        state.current.lastAnimatedProperties,
-        animatedProperties
-      );
-
-      state.current.timeline.dispose();
-
-      state.current.timeline = new motion_ux__WEBPACK_IMPORTED_MODULE_1__["Timeline"]({
-        animations: animations,
-        duration: duration
-      });
-    }
-
-    if (typeof configure === "function") {
-      configure(state.current.timeline);
-    }
-
-    state.current.timeline.observe("RENDER", ({ animations }) => {
-      if (state.current.node != null) {
-        applyValues(state.current.node, animations.useTransition);
-      }
-    });
-
-    state.current.timeline.observeTime(1, () => {
-      state.current.timeline.current = null;
-      if (typeof onComplete === "function") {
-        onComplete();
-      }
-    });
-
-    state.current.timeline.play();
-    state.current.lastAnimatedProperties = animatedProperties;
-  }
+  transitionMediator.updateAnimationProperties(animatedProperties);
 
   return callbackRef;
 };
@@ -8021,34 +7902,293 @@ module.exports = ReactPropTypesSecret;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _easeOut_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(66);
+const objectApplyValues = (obj, values) => {
+  if (obj != null) {
+    Object.keys(values).forEach(key => {
+      obj[key] = values[key];
+    });
+  }
+};
 
-
-/* harmony default export */ __webpack_exports__["default"] = ((lastProperties, properties) => {
-  const name = "useTransition";
-
-  const animations = Object.keys(properties).map(key => {
-    const property = properties[key];
-    const lastProperty = lastProperties[key];
-
-    return {
-      ...property,
-      from: lastProperty.value,
-      to: property.value,
-      property: key,
-      name: name,
-      startAt: typeof property.startAt === "number" ? property.startAt : 0,
-      endAt: typeof property.endAt === "number" ? property.endAt : 1,
-      easing: _easeOut_js__WEBPACK_IMPORTED_MODULE_0__["default"][property.easing] || _easeOut_js__WEBPACK_IMPORTED_MODULE_0__["default"].expo
-    };
-  });
-
-  return animations;
-});
+/* harmony default export */ __webpack_exports__["default"] = (objectApplyValues);
 
 
 /***/ }),
 /* 66 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return TransitionMediator; });
+/* harmony import */ var _easeOut__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67);
+/* harmony import */ var motion_ux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
+/* harmony import */ var motion_ux__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(motion_ux__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+class TransitionMediator {
+  constructor() {
+    this.duration = 0;
+    this.timeline = null;
+    this.shouldAnimate = true;
+    this.animatedProperties = null;
+    this.initialProperties = null;
+    this.lastAnimatedProperties = null;
+    this.node = null;
+
+    this.render = () => {};
+    this.onComplete = () => {};
+    this.configure = () => {};
+  }
+
+  setShouldAnimate(shouldAnimate) {
+    this.shouldAnimate = shouldAnimate;
+  }
+
+  setAnimatedProperties(animatedProperties) {
+    this.animatedProperties = animatedProperties;
+    this.transformAnimatedProperties(animatedProperties);
+  }
+
+  setInitialProperties(initialProperties) {
+    if (this.initialProperties != null && this.lastAnimatedProperties == null) {
+      this.transformAnimatedProperties(initialProperties);
+      this.initialProperties = initialProperties;
+      this.lastAnimatedProperties = initialProperties;
+    }
+  }
+
+  setOnCompleteCallback(onComplete) {
+    if (typeof onComplete === "function") {
+      this.onComplete = onComplete;
+    }
+  }
+
+  setConfigureCallback(configure) {
+    if (typeof configure === "function") {
+      this.configure = configure;
+    }
+  }
+
+  setNode(node) {
+    if (this.node !== node) {
+      this.node = node;
+
+      if (this.node != null) {
+        this.render(this.node, this.convertAnimatedPropertiesToValues());
+        this.lastAnimatedProperties = this.animatedProperties;
+      }
+    }
+  }
+
+  setRenderCallback(render) {
+    if (typeof render === "function") {
+      this.render = render;
+    }
+  }
+
+  setDuration(duration) {
+    if (typeof duration === "number") {
+      this.duration = duration;
+    }
+  }
+
+  updateAnimationProperties(animatedProperties) {
+    if (animatedProperties == null) {
+      this.resetTimeline();
+      this.lastAnimatedProperties = null;
+      return;
+    }
+
+    this.setAnimatedProperties(animatedProperties);
+
+    if (this.lastAnimatedProperties == null || !this.shouldAnimate) {
+      this.resetTimeline();
+      this.render(this.node, this.convertAnimatedPropertiesToValues());
+      this.lastAnimatedProperties = this.animatedProperties;
+      return;
+    }
+
+    if (this.needsTransition()) {
+      this.assertAnimatingTheSameProperties();
+
+      if (this.timeline == null) {
+        this.createNewTimeline();
+      } else {
+        this.createAdjustedTimeline();
+      }
+
+      this.configureTimeline();
+      this.timeline.play();
+      this.lastAnimatedProperties = this.animatedProperties;
+    }
+  }
+
+  needsTransition() {
+    return (
+      !this.isEqual(this.animatedProperties, this.lastAnimatedProperties) &&
+      this.lastAnimatedProperties != null
+    );
+  }
+
+  assertAnimatingTheSameProperties() {
+    const keysA = Object.keys(this.animatedProperties);
+    const keysB = Object.keys(this.lastAnimatedProperties);
+
+    keysA.sort();
+    keysB.sort();
+
+    const areTheSame = keysA.join("|") === keysB.join("|");
+
+    if (!areTheSame) {
+      throw new Error(
+        `Invalid Arguments: When transitioning, you need to animate all of the same properties, these have different property sets. From:${JSON.stringify(
+          this.lastAnimatedProperties
+        )}, To:${JSON.stringify(this.animatedProperties)}`
+      );
+    }
+  }
+
+  createNewTimeline() {
+    const animations = this.createAnimations();
+    this.timeline = new motion_ux__WEBPACK_IMPORTED_MODULE_1__["Timeline"]({ animations, duration: this.duration });
+  }
+
+  createAdjustedTimeline() {
+    const animations = this.createAdjustedAnimations();
+    this.resetTimeline();
+    this.timeline = new motion_ux__WEBPACK_IMPORTED_MODULE_1__["Timeline"]({ animations, duration: this.duration });
+  }
+
+  configureTimeline() {
+    if (typeof this.configure === "function") {
+      this.configure(this.timeline);
+    }
+
+    this.timeline.observe("RENDER", ({ animations }) => {
+      this.render(this.node, animations.useTransition);
+    });
+
+    this.timeline.observeTime(1, () => {
+      this.timeline.current = null;
+      if (typeof this.onComplete === "function") {
+        this.onComplete();
+      }
+    });
+  }
+
+  convertAnimatedPropertiesToValues() {
+    return Object.keys(this.animatedProperties).reduce((properties, key) => {
+      properties[key] = this.animatedProperties[key].value;
+      return properties;
+    }, {});
+  }
+
+  transformAnimatedProperties(animatedProperties) {
+    Object.keys(animatedProperties).forEach((key) => {
+      animatedProperties[key] = this.transformStyle(animatedProperties[key]);
+    });
+  }
+
+  transformStyle(value) {
+    let objectValue = value;
+
+    if (typeof value === "object" && value != null) {
+      objectValue = value;
+    } else {
+      objectValue = {
+        value: value,
+      };
+    }
+
+    objectValue.value = objectValue.value.toString();
+    return objectValue;
+  }
+
+  createAnimations() {
+    const lastProperties = this.lastAnimatedProperties;
+    const properties = this.animatedProperties;
+    const name = "useTransition";
+
+    const animations = Object.keys(properties).map((key) => {
+      const property = properties[key];
+      const lastProperty = lastProperties[key];
+
+      return {
+        ...property,
+        from: lastProperty.value,
+        to: property.value,
+        property: key,
+        name: name,
+        startAt: typeof property.startAt === "number" ? property.startAt : 0,
+        endAt: typeof property.endAt === "number" ? property.endAt : 1,
+        easing: _easeOut__WEBPACK_IMPORTED_MODULE_0__["default"][property.easing] || _easeOut__WEBPACK_IMPORTED_MODULE_0__["default"].expo,
+      };
+    });
+
+    return animations;
+  }
+
+  createAdjustedAnimations() {
+    const timeline = this.timeline;
+    const lastOptions = this.lastAnimatedProperties;
+    const newOptions = this.animatedProperties;
+    const name = "useTransition";
+    const currentValues = timeline.getCurrentValues()[name];
+    const shouldRedirect = timeline.progress !== 1;
+
+    const animations = Object.keys(newOptions).map((key) => {
+      const oldOption = lastOptions[key];
+      const option = newOptions[key];
+      const from = currentValues[key];
+      const controls = Array.isArray(option.controls)
+        ? option.controls.slice(0)
+        : [];
+
+      if (shouldRedirect) {
+        controls.unshift(oldOption.value);
+        controls.push(option.value);
+      }
+
+      const animation = {
+        ...option,
+        property: key,
+        name: name,
+        to: option.value,
+        from,
+        controls,
+        startAt: typeof option.startAt === "number" ? option.startAt : 0,
+        endAt: typeof option.endAt === "number" ? option.endAt : 1,
+        easing: _easeOut__WEBPACK_IMPORTED_MODULE_0__["default"][option.easing] || _easeOut__WEBPACK_IMPORTED_MODULE_0__["default"].expo,
+      };
+
+      return animation;
+    });
+
+    return animations;
+  }
+
+  isEqual(objectA, objectB) {
+    return JSON.stringify(objectA) === JSON.stringify(objectB);
+  }
+
+  resetTimeline() {
+    if (this.timeline != null) {
+      this.timeline.dispose();
+      this.timeline = null;
+    }
+  }
+
+  dispose() {
+    if (this.timeline != null) {
+      this.timeline.dispose();
+    }
+  }
+}
+
+
+/***/ }),
+/* 67 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8088,149 +8228,15 @@ const bezierCurveEasings = {
 
 
 /***/ }),
-/* 67 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _easeOut_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(66);
-
-
-/* harmony default export */ __webpack_exports__["default"] = ((timeline, lastOptions, newOptions) => {
-  const name = "useTransition";
-  const currentValues = timeline.getCurrentValues()[name];
-  const shouldRedirect = timeline.progress !== 1;
-
-  const animations = Object.keys(newOptions).map(key => {
-    const oldOption = lastOptions[key];
-    const option = newOptions[key];
-    const from = currentValues[key];
-    const controls = Array.isArray(option.controls)
-      ? option.controls.slice(0)
-      : [];
-
-    if (shouldRedirect) {
-      controls.unshift(oldOption.value);
-      controls.push(option.value);
-    }
-
-    const animation = {
-      ...option,
-      property: key,
-      name: name,
-      to: option.value,
-      from,
-      controls,
-      startAt: typeof option.startAt === "number" ? option.startAt : 0,
-      endAt: typeof option.endAt === "number" ? option.endAt : 1,
-      easing: _easeOut_js__WEBPACK_IMPORTED_MODULE_0__["default"][option.easing] || _easeOut_js__WEBPACK_IMPORTED_MODULE_0__["default"].expo
-    };
-
-    return animation;
-  });
-
-  return animations;
-});
-
-
-/***/ }),
 /* 68 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ((a, b) => {
-  return JSON.stringify(a) === JSON.stringify(b);
-});
-
-
-/***/ }),
-/* 69 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-const transformAnimatedProperties = animatedProperties => {
-  Object.keys(animatedProperties).forEach(key => {
-    animatedProperties[key] = transformStyle(animatedProperties[key]);
-  });
-};
-
-const transformStyle = value => {
-  let objectValue = value;
-
-  if (typeof value === "object" && value != null) {
-    objectValue = value;
-  } else {
-    objectValue = {
-      value: value
-    };
-  }
-
-  objectValue.value = objectValue.value.toString();
-  return objectValue;
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (transformAnimatedProperties);
-
-
-/***/ }),
-/* 70 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-const objectApplyValues = (obj, values) => {
-  if (obj != null) {
-    Object.keys(values).forEach(key => {
-      obj[key] = values[key];
-    });
-  }
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (objectApplyValues);
-
-
-/***/ }),
-/* 71 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-const assertAnimatingTheSameProperties = (
-  animatedPropertiesA,
-  animatedPropertiesB
-) => {
-  const keysA = Object.keys(animatedPropertiesA);
-  const keysB = Object.keys(animatedPropertiesB);
-
-  keysA.sort();
-  keysB.sort();
-
-  const areTheSame = keysA.join("|") === keysB.join("|");
-
-  if (!areTheSame) {
-    throw new Error(
-      `Invalid Arguments: When transitioning, you need to animate all of the same properties, these have different property sets. From:${JSON.stringify(
-        animatedPropertiesA
-      )}, To:${JSON.stringify(animatedPropertiesB)}`
-    );
-  }
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (assertAnimatingTheSameProperties);
-
-
-/***/ }),
-/* 72 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(60);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _useTransition_transformAnimatedProperties__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(69);
-/* harmony import */ var _useTransition_easeOut__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(66);
+/* harmony import */ var _transformAnimatedProperties__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(69);
+/* harmony import */ var _useTransition_easeOut__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(67);
 
 
 
@@ -8255,14 +8261,14 @@ const useNativeTransition = (
         }
 
         if (initialProperties != null) {
-          Object(_useTransition_transformAnimatedProperties__WEBPACK_IMPORTED_MODULE_1__["default"])(initialProperties);
+          Object(_transformAnimatedProperties__WEBPACK_IMPORTED_MODULE_1__["default"])(initialProperties);
 
           Object.keys(initialProperties).forEach(key => {
             const { value } = initialProperties[key];
             node.style[key] = value;
           });
         } else {
-          Object(_useTransition_transformAnimatedProperties__WEBPACK_IMPORTED_MODULE_1__["default"])(cssProperties);
+          Object(_transformAnimatedProperties__WEBPACK_IMPORTED_MODULE_1__["default"])(cssProperties);
 
           Object.keys(cssProperties).forEach(key => {
             const { value } = cssProperties[key];
@@ -8278,7 +8284,7 @@ const useNativeTransition = (
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     if (cssProperties != null && node != null) {
-      Object(_useTransition_transformAnimatedProperties__WEBPACK_IMPORTED_MODULE_1__["default"])(cssProperties);
+      Object(_transformAnimatedProperties__WEBPACK_IMPORTED_MODULE_1__["default"])(cssProperties);
 
       const transition = Object.keys(cssProperties)
         .map(property => {
@@ -8337,13 +8343,43 @@ const useNativeTransition = (
 
 
 /***/ }),
-/* 73 */
+/* 69 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(74);
-/* harmony import */ var _applyStyleValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(75);
+const transformAnimatedProperties = animatedProperties => {
+  Object.keys(animatedProperties).forEach(key => {
+    animatedProperties[key] = transformStyle(animatedProperties[key]);
+  });
+};
+
+const transformStyle = value => {
+  let objectValue = value;
+
+  if (typeof value === "object" && value != null) {
+    objectValue = value;
+  } else {
+    objectValue = {
+      value: value
+    };
+  }
+
+  objectValue.value = objectValue.value.toString();
+  return objectValue;
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (transformAnimatedProperties);
+
+
+/***/ }),
+/* 70 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(71);
+/* harmony import */ var _applyStyleValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(72);
 
 
 
@@ -8355,7 +8391,7 @@ const makeStyledTransition = (states, duration) => {
 
 
 /***/ }),
-/* 74 */
+/* 71 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8408,7 +8444,7 @@ const makeTransition = (states, duration, applyValues) => {
 
 
 /***/ }),
-/* 75 */
+/* 72 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8425,13 +8461,13 @@ const applyStyleValues = (element, values) => {
 
 
 /***/ }),
-/* 76 */
+/* 73 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(74);
-/* harmony import */ var _applyValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(77);
+/* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(71);
+/* harmony import */ var _applyValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(74);
 
 
 
@@ -8443,7 +8479,7 @@ const makePropertyTransition = (states, duration) => {
 
 
 /***/ }),
-/* 77 */
+/* 74 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8460,13 +8496,13 @@ const applyValues = (obj, values) => {
 
 
 /***/ }),
-/* 78 */
+/* 75 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(74);
-/* harmony import */ var _applyAttributeValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(79);
+/* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(71);
+/* harmony import */ var _applyAttributeValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(76);
 
 
 
@@ -8478,7 +8514,7 @@ const makeAttributeTransition = (states, duration) => {
 
 
 /***/ }),
-/* 79 */
+/* 76 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8495,12 +8531,12 @@ const applyAttributeValues = (obj, values) => {
 
 
 /***/ }),
-/* 80 */
+/* 77 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _useNativeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(72);
+/* harmony import */ var _useNativeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(68);
 
 
 const makeNativeTransition = (suppliedStates, duration) => {
