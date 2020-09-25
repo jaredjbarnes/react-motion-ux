@@ -288,6 +288,19 @@ declare module "react-motion-ux" {
           startAt: number;
           endAt: number;
           value: any;
+          controls?: any[];
+          easing?:
+            | "quad"
+            | "cubic"
+            | "quart"
+            | "quint"
+            | "sine"
+            | "expo"
+            | "circ"
+            | "elastic"
+            | "overshoot"
+            | "bounce"
+            | "linear";
         }
       | string
       | number;
