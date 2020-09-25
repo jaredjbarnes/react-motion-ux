@@ -7975,7 +7975,7 @@ class TransitionMediator {
       this.node = node;
 
       if (this.node != null) {
-        this.render(this.node, this.convertAnimatedPropertiesToValues());
+        this.safelyRender(this.convertAnimatedPropertiesToValues());
         this.lastAnimatedProperties = this.animatedProperties;
       }
     }
@@ -8004,7 +8004,7 @@ class TransitionMediator {
 
     if (this.lastAnimatedProperties == null || !this.shouldAnimate) {
       this.resetTimeline();
-      this.render(this.node, this.convertAnimatedPropertiesToValues());
+      this.safelyRender(this.convertAnimatedPropertiesToValues());
       this.lastAnimatedProperties = this.animatedProperties;
       return;
     }
@@ -8021,6 +8021,12 @@ class TransitionMediator {
       this.configureTimeline();
       this.timeline.play();
       this.lastAnimatedProperties = this.animatedProperties;
+    }
+  }
+
+  safelyRender(properties) {
+    if (this.node != null && typeof this.render === "function") {
+      this.render(this.node, properties);
     }
   }
 
@@ -8066,7 +8072,7 @@ class TransitionMediator {
     }
 
     this.timeline.observe("RENDER", ({ animations }) => {
-      this.render(this.node, animations.useTransition);
+      this.safelyRender(animations.useTransition);
     });
 
     this.timeline.observeTime(1, () => {
