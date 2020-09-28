@@ -321,6 +321,7 @@ declare module "react-motion-ux" {
     ref?: React.Ref<TElement>;
     animate?: boolean;
     onComplete?: () => void;
+    onArrival?: (state: string) => void;
     initialProperties?: TAnimatedProperties;
   };
 

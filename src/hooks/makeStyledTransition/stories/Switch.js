@@ -6,7 +6,7 @@ const rail = {
   backgroundColor: "rgba(200, 200, 200, 1)",
   position: "relative",
   width: "60px",
-  height: "30px"
+  height: "30px",
 };
 
 const handle = {
@@ -19,17 +19,17 @@ const handle = {
   position: "absolute",
   top: "0px",
   left: "0px",
-  boxShadow: "0px 3px 5px rgba(0,0,0,0.2)"
+  boxShadow: "0px 3px 5px rgba(0,0,0,0.2)",
 };
 
 const useRailStyles = makeStyledTransition(
   {
     on: {
-      backgroundColor: "rgba(0, 116, 217, 1)"
+      backgroundColor: "rgba(0, 116, 217, 1)",
     },
     off: {
-      backgroundColor: "rgba(200, 200, 200, 1)"
-    }
+      backgroundColor: "rgba(200, 200, 200, 1)",
+    },
   },
   400
 );
@@ -37,11 +37,11 @@ const useRailStyles = makeStyledTransition(
 const useHandleStyles = makeStyledTransition(
   {
     on: {
-      transform: "translate(100%, 0%)"
+      transform: "translate(100%, 0%)",
     },
     off: {
-      transform: "translate(0%, 0%)"
-    }
+      transform: "translate(0%, 0%)",
+    },
   },
   400
 );
@@ -54,14 +54,17 @@ const Switch = ({ defaultState, onChange } = {}) => {
   const handleRef = useHandleStyles(state, {
     onComplete: () => {
       console.log("Done");
-    }
+    },
+    onArrival: (stateName) => {
+      console.log(stateName);
+    },
   });
 
   useMemo(() => {
     setState(defaultState);
   }, [defaultState]);
 
-  const onClick = event => {
+  const onClick = (event) => {
     if (state === "on") {
       setState("off");
       if (typeof onChange === "function") {

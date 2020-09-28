@@ -8406,14 +8406,28 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const makeTransition = (states, duration, applyValues) => {
-  return (stateName, { props, ref, animate, onComplete, configure, duration: durationOverride } = {}) => {
-    duration = typeof durationOverride === "number" ? durationOverride : duration;
-    
+  return (
+    stateName,
+    {
+      props,
+      ref,
+      animate,
+      onComplete,
+      onArrival,
+      configure,
+      duration: durationOverride,
+    } = {}
+  ) => {
+    duration =
+      typeof durationOverride === "number" ? durationOverride : duration;
+
     if (stateName == null) {
       throw new Error(
         `Invalid Arguments: Cannot find '${stateName}' within defined states: ${Object.keys(
           states
-        ).join(", ")}, you may have forgotten to pass the state name in as an argument.`
+        ).join(
+          ", "
+        )}, you may have forgotten to pass the state name in as an argument.`
       );
     }
 
@@ -8429,19 +8443,31 @@ const makeTransition = (states, duration, applyValues) => {
     const initialProperties = map.initial || null;
 
     if (state == null) {
-      throw new Error(`Invalid Arguments: Cannot find '${stateName}' within defined states: ${Object.keys(
-        states
-      ).join(", ")}.`);
+      throw new Error(
+        `Invalid Arguments: Cannot find '${stateName}' within defined states: ${Object.keys(
+          states
+        ).join(", ")}.`
+      );
     }
+
+    const onCompleteWrapper = () => {
+      if (typeof onComplete === "function") {
+        onComplete();
+      }
+
+      if (typeof onArrival === "function") {
+        onArrival(stateName);
+      }
+    };
 
     return Object(_useTransition__WEBPACK_IMPORTED_MODULE_0__["default"])(state, {
       duration,
       applyValues,
       ref,
       animate,
-      onComplete,
+      onComplete: onCompleteWrapper,
       configure,
-      initialProperties
+      initialProperties,
     });
   };
 };
