@@ -8418,8 +8418,20 @@ const makeTransition = (states, duration, applyValues) => {
       duration: durationOverride,
     } = {}
   ) => {
-    duration =
-      typeof durationOverride === "number" ? durationOverride : duration;
+    let finalDuration = duration;
+
+    if (typeof finalDuration === "object" && finalDuration != null) {
+      finalDuration = duration[stateName];
+
+      if (typeof finalDuration !== "number") {
+        throw new Error(
+          `Couldn't find duration for state in the duration object. Expected something like this: {//...${stateName}:1000,//...}`
+        );
+      }
+    }
+
+    finalDuration =
+      typeof durationOverride === "number" ? durationOverride : finalDuration;
 
     if (stateName == null) {
       throw new Error(
@@ -8461,7 +8473,7 @@ const makeTransition = (states, duration, applyValues) => {
     };
 
     return Object(_useTransition__WEBPACK_IMPORTED_MODULE_0__["default"])(state, {
-      duration,
+      duration: finalDuration,
       applyValues,
       ref,
       animate,
