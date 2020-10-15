@@ -8076,7 +8076,7 @@ class TransitionMediator {
     });
 
     this.timeline.observeTime(1, () => {
-      this.timeline.current = null;
+      this.timeline = null;
       if (typeof this.onComplete === "function") {
         this.onComplete();
       }
