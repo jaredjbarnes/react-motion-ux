@@ -7,8 +7,10 @@ import makeAttributeTransition from "./hooks/makeAttributeTransition";
 import makeTransition from "./hooks/makeTransition";
 import makeNativeTransition from "./hooks/makeNativeTransition";
 import applyStyleValues from "./hooks/makeStyledTransition/applyStyleValues";
+import TransitionMediator from "./hooks/useTransition/TransitionMediator";
 
 export {
+  TransitionMediator,
   Timeline,
   easings,
   BezierCurve,
