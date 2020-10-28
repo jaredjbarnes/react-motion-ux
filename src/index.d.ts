@@ -343,6 +343,7 @@ declare module "react-motion-ux" {
 }
 
 export class TransitionMediator {
+  setShouldAnimate(shouldAnimate: boolean): void;
   setAnimatedProperties(animatedProperties: ComplexCSSProperties): void;
   setInitialProperties(initialProperties: ComplexCSSProperties): void;
   setOnCompleteCallback(onComplete: () => void): void;

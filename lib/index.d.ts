@@ -341,3 +341,18 @@ declare module "react-motion-ux" {
     >
   ) => React.Ref<TElement>;
 }
+
+export class TransitionMediator {
+  setShouldAnimate(shouldAnimate: boolean): void;
+  setAnimatedProperties(animatedProperties: ComplexCSSProperties): void;
+  setInitialProperties(initialProperties: ComplexCSSProperties): void;
+  setOnCompleteCallback(onComplete: () => void): void;
+  setConfigureCallback(configure: (timeline: Timeline) => void): void;
+  setNode(node: HTMLElement): void;
+  setRenderCallback(
+    render: (node: HTMLElement, values: KeyValue) => void
+  ): void;
+  setDuration(duration: number): void;
+  updateAnimationProperties(initialProperties: ComplexCSSProperties): void;
+  dispose(): void;
+}
