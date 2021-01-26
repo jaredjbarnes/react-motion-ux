@@ -1,5 +1,5 @@
 import easeOut from "./easeOut";
-import { Timeline } from "motion-ux";
+import { Timeline, BlendedEasing } from "motion-ux";
 
 export default class TransitionMediator {
   constructor() {
@@ -222,6 +222,11 @@ export default class TransitionMediator {
       const oldOption = lastOptions[key];
       const option = newOptions[key];
       const from = currentValues[key];
+      const easing = new BlendedEasing({
+        easingA: easeOut[oldOption.easing] || easeOut.expo,
+        easingB: easeOut[option.easing] || easeOut.expo,
+        offset: timeline.progress,
+      });
       const controls = Array.isArray(option.controls)
         ? option.controls.slice(0)
         : [];
@@ -240,7 +245,7 @@ export default class TransitionMediator {
         controls,
         startAt: typeof option.startAt === "number" ? option.startAt : 0,
         endAt: typeof option.endAt === "number" ? option.endAt : 1,
-        easing: easeOut[option.easing] || easeOut.expo,
+        easing: easing,
       };
 
       return animation;
