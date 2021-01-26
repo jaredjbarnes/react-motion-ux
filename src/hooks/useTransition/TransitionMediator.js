@@ -222,16 +222,19 @@ export default class TransitionMediator {
       const oldOption = lastOptions[key];
       const option = newOptions[key];
       const from = currentValues[key];
-      const easing = new BlendedEasing({
-        easingA: easeOut[oldOption.easing] || easeOut.expo,
-        easingB: easeOut[option.easing] || easeOut.expo,
-        offset: timeline.progress,
-      });
+      const easing = easeOut[option.easing];
+
       const controls = Array.isArray(option.controls)
         ? option.controls.slice(0)
         : [];
 
       if (shouldRedirect) {
+        new BlendedEasing({
+          easingA: easeOut[oldOption.easing] || easeOut.expo,
+          easingB: easeOut[option.easing] || easeOut.expo,
+          offset: timeline.progress,
+        });
+
         controls.unshift(oldOption.value);
         controls.push(option.value);
       }

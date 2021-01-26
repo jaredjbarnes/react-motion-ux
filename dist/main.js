@@ -115,31 +115,31 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BezierCurve", function() { return motion_ux__WEBPACK_IMPORTED_MODULE_0__["BezierCurve"]; });
 
-/* harmony import */ var _hooks_useTransition__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(59);
+/* harmony import */ var _hooks_useTransition__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(61);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "useTransition", function() { return _hooks_useTransition__WEBPACK_IMPORTED_MODULE_1__["default"]; });
 
-/* harmony import */ var _hooks_useNativeTransition__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(68);
+/* harmony import */ var _hooks_useNativeTransition__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(70);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "useNativeTransition", function() { return _hooks_useNativeTransition__WEBPACK_IMPORTED_MODULE_2__["default"]; });
 
-/* harmony import */ var _hooks_makeStyledTransition__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(70);
+/* harmony import */ var _hooks_makeStyledTransition__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(72);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "makeStyledTransition", function() { return _hooks_makeStyledTransition__WEBPACK_IMPORTED_MODULE_3__["default"]; });
 
-/* harmony import */ var _hooks_makePropertyTransition__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(73);
+/* harmony import */ var _hooks_makePropertyTransition__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(75);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "makePropertyTransition", function() { return _hooks_makePropertyTransition__WEBPACK_IMPORTED_MODULE_4__["default"]; });
 
-/* harmony import */ var _hooks_makeAttributeTransition__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(75);
+/* harmony import */ var _hooks_makeAttributeTransition__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(77);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "makeAttributeTransition", function() { return _hooks_makeAttributeTransition__WEBPACK_IMPORTED_MODULE_5__["default"]; });
 
-/* harmony import */ var _hooks_makeTransition__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(71);
+/* harmony import */ var _hooks_makeTransition__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(73);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "makeTransition", function() { return _hooks_makeTransition__WEBPACK_IMPORTED_MODULE_6__["default"]; });
 
-/* harmony import */ var _hooks_makeNativeTransition__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(77);
+/* harmony import */ var _hooks_makeNativeTransition__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(79);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "makeNativeTransition", function() { return _hooks_makeNativeTransition__WEBPACK_IMPORTED_MODULE_7__["default"]; });
 
-/* harmony import */ var _hooks_makeStyledTransition_applyStyleValues__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(72);
+/* harmony import */ var _hooks_makeStyledTransition_applyStyleValues__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(74);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "applyStyleValues", function() { return _hooks_makeStyledTransition_applyStyleValues__WEBPACK_IMPORTED_MODULE_8__["default"]; });
 
-/* harmony import */ var _hooks_useTransition_TransitionMediator__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(66);
+/* harmony import */ var _hooks_useTransition_TransitionMediator__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(68);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TransitionMediator", function() { return _hooks_useTransition_TransitionMediator__WEBPACK_IMPORTED_MODULE_9__["default"]; });
 
 
@@ -184,12 +184,28 @@ Object.defineProperty(exports, "BezierCurve", {
     return _BezierCurve.default;
   }
 });
+Object.defineProperty(exports, "BlendedEasing", {
+  enumerable: true,
+  get: function get() {
+    return _BlendedEasing.default;
+  }
+});
+Object.defineProperty(exports, "Easing", {
+  enumerable: true,
+  get: function get() {
+    return _Easing.default;
+  }
+});
 
 var _Timeline = _interopRequireDefault(__webpack_require__(3));
 
 var _easings = _interopRequireDefault(__webpack_require__(55));
 
 var _BezierCurve = _interopRequireDefault(__webpack_require__(14));
+
+var _BlendedEasing = _interopRequireDefault(__webpack_require__(60));
+
+var _Easing = _interopRequireDefault(__webpack_require__(56));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 //# sourceMappingURL=index.js.map
@@ -974,9 +990,9 @@ var _clarityPatternParser = __webpack_require__(20);
 
 var _TimelineOption = _interopRequireDefault(__webpack_require__(54));
 
-var _TreeNormalizer = _interopRequireDefault(__webpack_require__(56));
+var _TreeNormalizer = _interopRequireDefault(__webpack_require__(57));
 
-var _TreeUtility = _interopRequireDefault(__webpack_require__(58));
+var _TreeUtility = _interopRequireDefault(__webpack_require__(59));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1350,7 +1366,7 @@ function () {
 
       var relativeProgress = progress - this.options.startAt;
       var duration = this.options.endAt - this.options.startAt;
-      var progressWithEasing = this.options.easing(relativeProgress, 0, 1, duration);
+      var progressWithEasing = this.options.easing.valueAt(relativeProgress) * duration;
       var value = this.bezierCurve.valueAt(progressWithEasing);
       return value;
     }
@@ -1387,40 +1403,42 @@ function () {
     _classCallCheck(this, BezierCurve);
 
     this.points = points;
-    this.percentage = 0;
+    this.reducedPoints = new Array(points.length);
+    Object.freeze(this.points);
   }
 
   _createClass(BezierCurve, [{
-    key: "reduceToPoint",
-    value: function reduceToPoint(points) {
-      var _this = this;
+    key: "clone",
+    value: function clone() {
+      return new BezierCurve(this.points.slice());
+    }
+  }, {
+    key: "valueAt",
+    value: function valueAt(percentage) {
+      var points = this.points;
+      var reducedPoints = this.reducedPoints;
+      var length = points.length;
 
-      var reducedPoints = points.reduce(function (reducedPoints, point, index) {
-        if (index !== points.length - 1) {
-          var nextPoint = points[index + 1];
-          reducedPoints.push((nextPoint - point) * _this.percentage + point);
+      for (var x = 0; x < length; x++) {
+        reducedPoints[x] = points[x];
+      }
+
+      for (var _x = 0; _x < length; _x++) {
+        var innerLength = length - _x - 1;
+
+        for (var y = 0; y < innerLength; y++) {
+          var nextPoint = reducedPoints[y + 1];
+          var point = reducedPoints[y];
+          reducedPoints[y] = (nextPoint - point) * percentage + point;
         }
-
-        return reducedPoints;
-      }, []);
-
-      if (reducedPoints.length > 1) {
-        return this.reduceToPoint(reducedPoints);
       }
 
       return reducedPoints[0];
     }
   }, {
-    key: "valueAt",
-    value: function valueAt(percentage) {
-      this.percentage = percentage;
-      this.validatePoints();
-      return this.reduceToPoint(this.points);
-    }
-  }, {
     key: "validatePoints",
     value: function validatePoints() {
-      var _this2 = this;
+      var _this = this;
 
       if (this.points.length < 2) {
         throw new Error("Invalid Points: The points need to be at least two.");
@@ -1428,7 +1446,7 @@ function () {
 
       var controlPoints = this.points.slice(1, this.points.length - 2);
       controlPoints.forEach(function (point) {
-        return _this2.assertValidPoint(point);
+        return _this.assertValidPoint(point);
       });
     }
   }, {
@@ -4890,8 +4908,8 @@ function () {
         throw new Error("The \"endAt\" property must be a number between 0 and 1.");
       }
 
-      if (typeof this.easing !== "function") {
-        throw new Error("The \"easing\" property must be a function.");
+      if (this.easing == null || typeof this.easing.valueAt !== "function") {
+        throw new Error("The \"easing\" property must be an instance of Easing.");
       }
     }
   }]);
@@ -4913,158 +4931,40 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+var _Easing = _interopRequireDefault(__webpack_require__(56));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var easings = {
-  easeInQuad: function easeInQuad(t, b, c, d) {
-    return c * (t /= d) * t + b;
-  },
-  easeOutQuad: function easeOutQuad(t, b, c, d) {
-    return -c * (t /= d) * (t - 2) + b;
-  },
-  easeInOutQuad: function easeInOutQuad(t, b, c, d) {
-    if ((t /= d / 2) < 1) return c / 2 * t * t + b;
-    return -c / 2 * (--t * (t - 2) - 1) + b;
-  },
-  easeInCubic: function easeInCubic(t, b, c, d) {
-    return c * (t /= d) * t * t + b;
-  },
-  easeOutCubic: function easeOutCubic(t, b, c, d) {
-    return c * ((t = t / d - 1) * t * t + 1) + b;
-  },
-  easeInOutCubic: function easeInOutCubic(t, b, c, d) {
-    if ((t /= d / 2) < 1) return c / 2 * t * t * t + b;
-    return c / 2 * ((t -= 2) * t * t + 2) + b;
-  },
-  easeInQuart: function easeInQuart(t, b, c, d) {
-    return c * (t /= d) * t * t * t + b;
-  },
-  easeOutQuart: function easeOutQuart(t, b, c, d) {
-    return -c * ((t = t / d - 1) * t * t * t - 1) + b;
-  },
-  easeInOutQuart: function easeInOutQuart(t, b, c, d) {
-    if ((t /= d / 2) < 1) return c / 2 * t * t * t * t + b;
-    return -c / 2 * ((t -= 2) * t * t * t - 2) + b;
-  },
-  easeInQuint: function easeInQuint(t, b, c, d) {
-    return c * (t /= d) * t * t * t * t + b;
-  },
-  easeOutQuint: function easeOutQuint(t, b, c, d) {
-    return c * ((t = t / d - 1) * t * t * t * t + 1) + b;
-  },
-  easeInOutQuint: function easeInOutQuint(t, b, c, d) {
-    if ((t /= d / 2) < 1) return c / 2 * t * t * t * t * t + b;
-    return c / 2 * ((t -= 2) * t * t * t * t + 2) + b;
-  },
-  easeInSine: function easeInSine(t, b, c, d) {
-    return -c * Math.cos(t / d * (Math.PI / 2)) + c + b;
-  },
-  easeOutSine: function easeOutSine(t, b, c, d) {
-    return c * Math.sin(t / d * (Math.PI / 2)) + b;
-  },
-  easeInOutSine: function easeInOutSine(t, b, c, d) {
-    return -c / 2 * (Math.cos(Math.PI * t / d) - 1) + b;
-  },
-  easeInExpo: function easeInExpo(t, b, c, d) {
-    return t == 0 ? b : c * Math.pow(2, 10 * (t / d - 1)) + b;
-  },
-  easeOutExpo: function easeOutExpo(t, b, c, d) {
-    return t == d ? b + c : c * (-Math.pow(2, -10 * t / d) + 1) + b;
-  },
-  easeInOutExpo: function easeInOutExpo(t, b, c, d) {
-    if (t == 0) return b;
-    if (t == d) return b + c;
-    if ((t /= d / 2) < 1) return c / 2 * Math.pow(2, 10 * (t - 1)) + b;
-    return c / 2 * (-Math.pow(2, -10 * --t) + 2) + b;
-  },
-  easeInCirc: function easeInCirc(t, b, c, d) {
-    return -c * (Math.sqrt(1 - (t /= d) * t) - 1) + b;
-  },
-  easeOutCirc: function easeOutCirc(t, b, c, d) {
-    return c * Math.sqrt(1 - (t = t / d - 1) * t) + b;
-  },
-  easeInOutCirc: function easeInOutCirc(t, b, c, d) {
-    if ((t /= d / 2) < 1) return -c / 2 * (Math.sqrt(1 - t * t) - 1) + b;
-    return c / 2 * (Math.sqrt(1 - (t -= 2) * t) + 1) + b;
-  },
-  easeInElastic: function easeInElastic(t, b, c, d) {
-    var s = 1.70158;
-    var p = 0;
-    var a = c;
-    if (t == 0) return b;
-    if ((t /= d) == 1) return b + c;
-    if (!p) p = d * .3;
-
-    if (a < Math.abs(c)) {
-      a = c;
-      var s = p / 4;
-    } else var s = p / (2 * Math.PI) * Math.asin(c / a);
-
-    return -(a * Math.pow(2, 10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p)) + b;
-  },
-  easeOutElastic: function easeOutElastic(t, b, c, d) {
-    var s = 1.70158;
-    var p = 0;
-    var a = c;
-    if (t == 0) return b;
-    if ((t /= d) == 1) return b + c;
-    if (!p) p = d * .3;
-
-    if (a < Math.abs(c)) {
-      a = c;
-      var s = p / 4;
-    } else var s = p / (2 * Math.PI) * Math.asin(c / a);
-
-    return a * Math.pow(2, -10 * t) * Math.sin((t * d - s) * (2 * Math.PI) / p) + c + b;
-  },
-  easeInOutElastic: function easeInOutElastic(t, b, c, d) {
-    var s = 1.70158;
-    var p = 0;
-    var a = c;
-    if (t == 0) return b;
-    if ((t /= d / 2) == 2) return b + c;
-    if (!p) p = d * (.3 * 1.5);
-
-    if (a < Math.abs(c)) {
-      a = c;
-      var s = p / 4;
-    } else var s = p / (2 * Math.PI) * Math.asin(c / a);
-
-    if (t < 1) return -.5 * (a * Math.pow(2, 10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p)) + b;
-    return a * Math.pow(2, -10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p) * .5 + c + b;
-  },
-  easeInBack: function easeInBack(t, b, c, d, s) {
-    if (s == undefined) s = 1.70158;
-    return c * (t /= d) * t * ((s + 1) * t - s) + b;
-  },
-  easeOutBack: function easeOutBack(t, b, c, d, s) {
-    if (s == undefined) s = 1.70158;
-    return c * ((t = t / d - 1) * t * ((s + 1) * t + s) + 1) + b;
-  },
-  easeInOutBack: function easeInOutBack(t, b, c, d, s) {
-    if (s == undefined) s = 1.70158;
-    if ((t /= d / 2) < 1) return c / 2 * (t * t * (((s *= 1.525) + 1) * t - s)) + b;
-    return c / 2 * ((t -= 2) * t * (((s *= 1.525) + 1) * t + s) + 2) + b;
-  },
-  easeInBounce: function easeInBounce(t, b, c, d) {
-    return c - easings.easeOutBounce(d - t, 0, c, d) + b;
-  },
-  easeOutBounce: function easeOutBounce(t, b, c, d) {
-    if ((t /= d) < 1 / 2.75) {
-      return c * (7.5625 * t * t) + b;
-    } else if (t < 2 / 2.75) {
-      return c * (7.5625 * (t -= 1.5 / 2.75) * t + .75) + b;
-    } else if (t < 2.5 / 2.75) {
-      return c * (7.5625 * (t -= 2.25 / 2.75) * t + .9375) + b;
-    } else {
-      return c * (7.5625 * (t -= 2.625 / 2.75) * t + .984375) + b;
-    }
-  },
-  easeInOutBounce: function easeInOutBounce(t, b, c, d) {
-    if (t < d / 2) return easings.easeInBounce(t * 2, 0, c, d) * .5 + b;
-    return easings.easeOutBounce(t * 2 - d, 0, c, d) * .5 + c * .5 + b;
-  },
-  linear: function linear(t, b, c, d) {
-    return c * t / d + b;
-  }
+  easeInQuad: new _Easing.default([0, 0, 1]),
+  easeOutQuad: new _Easing.default([0, 1, 1]),
+  easeInOutQuad: new _Easing.default([0, 0, 1, 1]),
+  easeInCubic: new _Easing.default([0, 0, 0, 1]),
+  easeOutCubic: new _Easing.default([0, 1, 1, 1]),
+  easeInOutCubic: new _Easing.default([0, 0, 0, 1, 1, 1]),
+  easeInQuart: new _Easing.default([0, 0, 0, 0, 1]),
+  easeOutQuart: new _Easing.default([0, 1, 1, 1, 1]),
+  easeInOutQuart: new _Easing.default([0, 0, 0, 0, 1, 1, 1, 1]),
+  easeInQuint: new _Easing.default([0, 0, 0, 0, 0, 1]),
+  easeOutQuint: new _Easing.default([0, 1, 1, 1, 1, 1]),
+  easeInOutQuint: new _Easing.default([0, 0, 0, 0, 0, 1, 1, 1, 1, 1]),
+  easeInSine: new _Easing.default([0, 0, 1]),
+  easeOutSine: new _Easing.default([0, 1, 1]),
+  easeInOutSine: new _Easing.default([0, 0, 1, 1]),
+  easeInExpo: new _Easing.default([0, 0, 0, 0, 0, 0, 1]),
+  easeOutExpo: new _Easing.default([0, 1, 1, 1, 1, 1, 1]),
+  easeInOutExpo: new _Easing.default([0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1]),
+  easeInCirc: new _Easing.default([0, 0, 0, 0, 0.05, 0.15, 0.25, 0.35, 1]),
+  easeOutCirc: new _Easing.default([0, 0.65, 0.75, 0.85, 0.95, 1, 1, 1, 1]),
+  easeInOutCirc: new _Easing.default([0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1]),
+  easeInElastic: new _Easing.default([0, 0, 0, 0.15, -0.25, 0.25, -0.5, -0.5, 2, -1, -1, 1]),
+  easeOutElastic: new _Easing.default([0, 2, 2, -1, 1.5, 1.5, 0.75, 1.25, 0.85, 1, 1, 1]),
+  easeInOutElastic: new _Easing.default([0, 0, 0, 0, 0.5, -0.75, -2, 3, 1.75, 0.5, 1, 1, 1, 1]),
+  easeInBack: new _Easing.default([0, 0, -0.5, 1]),
+  easeOutBack: new _Easing.default([0, 1.5, 1, 1]),
+  easeInOutBack: new _Easing.default([0, 0, -0.5, 1.5, 1, 1]),
+  linear: new _Easing.default([0, 1])
 };
 var _default = easings;
 exports.default = _default;
@@ -5082,7 +4982,71 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _Visitor = _interopRequireDefault(__webpack_require__(57));
+var _BezierCurve2 = _interopRequireDefault(__webpack_require__(14));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var Easing =
+/*#__PURE__*/
+function (_BezierCurve) {
+  _inherits(Easing, _BezierCurve);
+
+  function Easing(points) {
+    _classCallCheck(this, Easing);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Easing).call(this, points));
+  }
+
+  _createClass(Easing, [{
+    key: "validatePoints",
+    value: function validatePoints() {
+      if (this.points[0] !== 0) {
+        throw new Error("The first point needs to be zero");
+      }
+
+      if (this.points[this.points.length - 1] !== 1) {
+        throw new Error("The last point needs to be one.");
+      }
+    }
+  }]);
+
+  return Easing;
+}(_BezierCurve2.default);
+
+exports.default = Easing;
+//# sourceMappingURL=Easing.js.map
+
+/***/ }),
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _Visitor = _interopRequireDefault(__webpack_require__(58));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5134,7 +5098,7 @@ exports.default = TreeNormalizer;
 //# sourceMappingURL=TreeNormalizer.js.map
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5212,7 +5176,7 @@ exports.default = Visitor;
 //# sourceMappingURL=Visitor.js.map
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5223,7 +5187,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _Visitor = _interopRequireDefault(__webpack_require__(57));
+var _Visitor = _interopRequireDefault(__webpack_require__(58));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5266,15 +5230,84 @@ exports.default = TreeUtility;
 //# sourceMappingURL=TreeUtility.js.map
 
 /***/ }),
-/* 59 */
+/* 60 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _BezierCurve = _interopRequireDefault(__webpack_require__(14));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var BlendedEasing =
+/*#__PURE__*/
+function () {
+  function BlendedEasing(options) {
+    _classCallCheck(this, BlendedEasing);
+
+    options = options || {};
+    this.easingA = options.easingA;
+    this.offset = options.offset;
+    this.to = options.easingB;
+    this.validateOptions();
+    var slope = this.getSlope();
+    this.from = new _BezierCurve.default([0, slope]);
+    this.easing = new _BezierCurve.default([0, 0, 1, 1, 1, 1, 1]);
+  }
+
+  _createClass(BlendedEasing, [{
+    key: "getSlope",
+    value: function getSlope() {
+      var deltaX = 0.0001;
+      var rise = this.easingA.valueAt(deltaX + this.offset) - this.easingA.valueAt(this.offset);
+      var run = deltaX;
+      return rise / run;
+    }
+  }, {
+    key: "valueAt",
+    value: function valueAt(percentage) {
+      var adjustedPercentage = this.easing.valueAt(percentage);
+      var toValue = this.to.valueAt(percentage);
+      var fromValue = this.from.valueAt(percentage);
+      return fromValue + (toValue - fromValue) * adjustedPercentage;
+    }
+  }, {
+    key: "validateOptions",
+    value: function validateOptions() {
+      if (typeof this.easingA.valueAt !== "function" || typeof this.to.valueAt !== "function") {
+        throw new Error("Both easingA and easingB need to have a valueAt function.");
+      }
+    }
+  }]);
+
+  return BlendedEasing;
+}();
+
+exports.default = BlendedEasing;
+//# sourceMappingURL=BlendedEasing.js.map
+
+/***/ }),
+/* 61 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(60);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(62);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _objectApplyValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(65);
-/* harmony import */ var _TransitionMediator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(66);
+/* harmony import */ var _objectApplyValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(67);
+/* harmony import */ var _TransitionMediator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(68);
 
 
 
@@ -5337,19 +5370,19 @@ const useTransition = (
 
 
 /***/ }),
-/* 60 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 if (false) {} else {
-  module.exports = __webpack_require__(61);
+  module.exports = __webpack_require__(63);
 }
 
 
 /***/ }),
-/* 61 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5370,8 +5403,8 @@ if (true) {
   (function() {
 'use strict';
 
-var _assign = __webpack_require__(62);
-var checkPropTypes = __webpack_require__(63);
+var _assign = __webpack_require__(64);
+var checkPropTypes = __webpack_require__(65);
 
 // TODO: this is special because it gets imported during build.
 
@@ -7676,7 +7709,7 @@ module.exports = react;
 
 
 /***/ }),
-/* 62 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7773,7 +7806,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 
 /***/ }),
-/* 63 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7789,7 +7822,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 var printWarning = function() {};
 
 if (true) {
-  var ReactPropTypesSecret = __webpack_require__(64);
+  var ReactPropTypesSecret = __webpack_require__(66);
   var loggedTypeFailures = {};
   var has = Function.call.bind(Object.prototype.hasOwnProperty);
 
@@ -7882,7 +7915,7 @@ module.exports = checkPropTypes;
 
 
 /***/ }),
-/* 64 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7901,7 +7934,7 @@ module.exports = ReactPropTypesSecret;
 
 
 /***/ }),
-/* 65 */
+/* 67 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7918,13 +7951,13 @@ const objectApplyValues = (obj, values) => {
 
 
 /***/ }),
-/* 66 */
+/* 68 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return TransitionMediator; });
-/* harmony import */ var _easeOut__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(67);
+/* harmony import */ var _easeOut__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(69);
 /* harmony import */ var motion_ux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 /* harmony import */ var motion_ux__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(motion_ux__WEBPACK_IMPORTED_MODULE_1__);
 
@@ -8151,11 +8184,19 @@ class TransitionMediator {
       const oldOption = lastOptions[key];
       const option = newOptions[key];
       const from = currentValues[key];
+      const easing = _easeOut__WEBPACK_IMPORTED_MODULE_0__["default"][option.easing];
+
       const controls = Array.isArray(option.controls)
         ? option.controls.slice(0)
         : [];
 
       if (shouldRedirect) {
+        new motion_ux__WEBPACK_IMPORTED_MODULE_1__["BlendedEasing"]({
+          easingA: _easeOut__WEBPACK_IMPORTED_MODULE_0__["default"][oldOption.easing] || _easeOut__WEBPACK_IMPORTED_MODULE_0__["default"].expo,
+          easingB: _easeOut__WEBPACK_IMPORTED_MODULE_0__["default"][option.easing] || _easeOut__WEBPACK_IMPORTED_MODULE_0__["default"].expo,
+          offset: timeline.progress,
+        });
+
         controls.unshift(oldOption.value);
         controls.push(option.value);
       }
@@ -8169,7 +8210,7 @@ class TransitionMediator {
         controls,
         startAt: typeof option.startAt === "number" ? option.startAt : 0,
         endAt: typeof option.endAt === "number" ? option.endAt : 1,
-        easing: _easeOut__WEBPACK_IMPORTED_MODULE_0__["default"][option.easing] || _easeOut__WEBPACK_IMPORTED_MODULE_0__["default"].expo,
+        easing: easing,
       };
 
       return animation;
@@ -8198,7 +8239,7 @@ class TransitionMediator {
 
 
 /***/ }),
-/* 67 */
+/* 69 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8238,15 +8279,15 @@ const bezierCurveEasings = {
 
 
 /***/ }),
-/* 68 */
+/* 70 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(60);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(62);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _transformAnimatedProperties__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(69);
-/* harmony import */ var _useTransition_easeOut__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(67);
+/* harmony import */ var _transformAnimatedProperties__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(71);
+/* harmony import */ var _useTransition_easeOut__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(69);
 
 
 
@@ -8353,7 +8394,7 @@ const useNativeTransition = (
 
 
 /***/ }),
-/* 69 */
+/* 71 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8383,13 +8424,13 @@ const transformStyle = value => {
 
 
 /***/ }),
-/* 70 */
+/* 72 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(71);
-/* harmony import */ var _applyStyleValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(72);
+/* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73);
+/* harmony import */ var _applyStyleValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(74);
 
 
 
@@ -8401,12 +8442,12 @@ const makeStyledTransition = (states, duration) => {
 
 
 /***/ }),
-/* 71 */
+/* 73 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _useTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(59);
+/* harmony import */ var _useTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(61);
 
 
 const makeTransition = (states, duration, applyValues) => {
@@ -8492,7 +8533,7 @@ const makeTransition = (states, duration, applyValues) => {
 
 
 /***/ }),
-/* 72 */
+/* 74 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8509,13 +8550,13 @@ const applyStyleValues = (element, values) => {
 
 
 /***/ }),
-/* 73 */
+/* 75 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(71);
-/* harmony import */ var _applyValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(74);
+/* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73);
+/* harmony import */ var _applyValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(76);
 
 
 
@@ -8527,7 +8568,7 @@ const makePropertyTransition = (states, duration) => {
 
 
 /***/ }),
-/* 74 */
+/* 76 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8544,13 +8585,13 @@ const applyValues = (obj, values) => {
 
 
 /***/ }),
-/* 75 */
+/* 77 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(71);
-/* harmony import */ var _applyAttributeValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(76);
+/* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73);
+/* harmony import */ var _applyAttributeValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(78);
 
 
 
@@ -8562,7 +8603,7 @@ const makeAttributeTransition = (states, duration) => {
 
 
 /***/ }),
-/* 76 */
+/* 78 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8579,12 +8620,12 @@ const applyAttributeValues = (obj, values) => {
 
 
 /***/ }),
-/* 77 */
+/* 79 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _useNativeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(68);
+/* harmony import */ var _useNativeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(70);
 
 
 const makeNativeTransition = (suppliedStates, duration) => {
