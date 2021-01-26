@@ -3,7 +3,7 @@
   "version": "0.4.25",
   "main": "lib/index.js",
   "dependencies": {
-    "motion-ux": "^3.0.3"
+    "motion-ux": "^3.0.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.0",
