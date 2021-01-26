@@ -10,7 +10,7 @@ export default {
   circ: easings.easeOutCirc,
   elastic: easings.easeOutElastic,
   overshoot: easings.easeOutBack,
-  bounce: easings.easeOutBounce,
+  bounce: easings.linear,
   linear: easings.linear
 };
 

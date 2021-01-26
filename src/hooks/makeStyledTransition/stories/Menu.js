@@ -2,22 +2,23 @@ import OptionButton from "./OptionButton";
 import Button from "./Button";
 import React, { useState, useRef } from "react";
 import makeStyledTransition from "../index";
+import { Easing } from "motion-ux";
 
 const wrapper = {
   display: "inline-block",
-  position: "relative"
+  position: "relative",
 };
 
 const menuContainer = {
   display: "block",
-  position: "relative"
+  position: "relative",
 };
 
 const option = {
   display: "block",
   position: "absolute",
   top: "0px",
-  left: "0px"
+  left: "0px",
 };
 
 const useOneOptionMotion = makeStyledTransition(
@@ -25,16 +26,17 @@ const useOneOptionMotion = makeStyledTransition(
     opened: {
       transform: {
         value: "translate(0px, 60px)",
-        controls: ["translate(0px, 0px)"]
+        controls: ["translate(0px, 0px)"],
+        easing: new Easing([0, 0, 1, 1, 1, 1, 1]),
       },
-      opacity: "1"
+      opacity: "1",
     },
     closed: {
       transform: "translate(0px, 0px)",
-      opacity: "0"
-    }
+      opacity: "0",
+    },
   },
-  400
+  300
 );
 
 const useTwoOptionMotion = makeStyledTransition(
@@ -42,20 +44,22 @@ const useTwoOptionMotion = makeStyledTransition(
     opened: {
       transform: {
         value: "translate(-60px, 30px)",
-        controls: ["translate(0px, 40px)"]
+        controls: ["translate(0px, 40px)"],
+        easing: new Easing([0, 0, 1, 1, 1, 1, 1]),
       },
-      opacity: "1"
+      opacity: "1",
     },
     closed: {
       transform: {
         value: "translate(0px, 0px)",
-        controls: ["translate(0px, 40px)"]
+        controls: ["translate(0px, 40px)"],
+        easing: new Easing([0, 0, 1, 1, 1, 1, 1]),
       },
 
-      opacity: "0"
-    }
+      opacity: "0",
+    },
   },
-  400
+  300
 );
 
 const useThreeOptionMotion = makeStyledTransition(
@@ -63,19 +67,21 @@ const useThreeOptionMotion = makeStyledTransition(
     opened: {
       transform: {
         value: "translate(60px, 30px)",
-        controls: ["translate(0px, 40px)"]
+        controls: ["translate(0px, 40px)"],
+        easing: new Easing([0, 0, 1, 1, 1, 1, 1]),
       },
-      opacity: "1"
+      opacity: "1",
     },
     closed: {
       transform: {
         value: "translate(0px, 0px)",
-        controls: ["translate(0px, 40px)"]
+        controls: ["translate(0px, 40px)"],
+        easing: new Easing([0, 0, 1, 1, 1, 1, 1]),
       },
-      opacity: "0"
-    }
+      opacity: "0",
+    },
   },
-  400
+  300
 );
 
 const Menu = React.forwardRef((props = {}, ref) => {

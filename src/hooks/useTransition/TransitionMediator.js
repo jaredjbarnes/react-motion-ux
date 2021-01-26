@@ -203,11 +203,24 @@ export default class TransitionMediator {
         name: name,
         startAt: typeof property.startAt === "number" ? property.startAt : 0,
         endAt: typeof property.endAt === "number" ? property.endAt : 1,
-        easing: easeOut[property.easing] || easeOut.expo,
+        easing: this.getEasing(property),
       };
     });
 
     return animations;
+  }
+
+  getEasing(property) {
+    if (typeof property.easing === "string") {
+      return easeOut[property.easing];
+    } else if (
+      property.easing != null &&
+      typeof property.easing.valueAt === "function"
+    ) {
+      return property.easing;
+    } else {
+      return easeOut.expo;
+    }
   }
 
   createAdjustedAnimations() {
@@ -230,8 +243,8 @@ export default class TransitionMediator {
 
       if (shouldRedirect) {
         new BlendedEasing({
-          easingA: easeOut[oldOption.easing] || easeOut.expo,
-          easingB: easeOut[option.easing] || easeOut.expo,
+          easingA: this.getEasing(oldOption),
+          easingB: this.getEasing(option),
           offset: timeline.progress,
         });
 

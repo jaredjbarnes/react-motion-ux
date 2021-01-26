@@ -26,7 +26,7 @@ const useAnimatedStyles = makeStyledTransition(
       boxShadow: "0px 3px 8px rgba(0, 116, 217, 0.5)",
     },
   },
-  600
+  300
 );
 
 const Button = React.forwardRef(

@@ -20,7 +20,7 @@ const useStyledMotion = makeStyledTransition(
       }
     }
   },
-  5000
+  3000
 );
 
 const FadeToNothing = () => {

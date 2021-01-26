@@ -115,6 +115,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BezierCurve", function() { return motion_ux__WEBPACK_IMPORTED_MODULE_0__["BezierCurve"]; });
 
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Easing", function() { return motion_ux__WEBPACK_IMPORTED_MODULE_0__["Easing"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BlendedEasing", function() { return motion_ux__WEBPACK_IMPORTED_MODULE_0__["BlendedEasing"]; });
+
 /* harmony import */ var _hooks_useTransition__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(61);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "useTransition", function() { return _hooks_useTransition__WEBPACK_IMPORTED_MODULE_1__["default"]; });
 
@@ -8165,11 +8169,24 @@ class TransitionMediator {
         name: name,
         startAt: typeof property.startAt === "number" ? property.startAt : 0,
         endAt: typeof property.endAt === "number" ? property.endAt : 1,
-        easing: _easeOut__WEBPACK_IMPORTED_MODULE_0__["default"][property.easing] || _easeOut__WEBPACK_IMPORTED_MODULE_0__["default"].expo,
+        easing: this.getEasing(property),
       };
     });
 
     return animations;
+  }
+
+  getEasing(property) {
+    if (typeof property.easing === "string") {
+      return _easeOut__WEBPACK_IMPORTED_MODULE_0__["default"][property.easing];
+    } else if (
+      property.easing != null &&
+      typeof property.easing.valueAt === "function"
+    ) {
+      return property.easing;
+    } else {
+      return _easeOut__WEBPACK_IMPORTED_MODULE_0__["default"].expo;
+    }
   }
 
   createAdjustedAnimations() {
@@ -8192,8 +8209,8 @@ class TransitionMediator {
 
       if (shouldRedirect) {
         new motion_ux__WEBPACK_IMPORTED_MODULE_1__["BlendedEasing"]({
-          easingA: _easeOut__WEBPACK_IMPORTED_MODULE_0__["default"][oldOption.easing] || _easeOut__WEBPACK_IMPORTED_MODULE_0__["default"].expo,
-          easingB: _easeOut__WEBPACK_IMPORTED_MODULE_0__["default"][option.easing] || _easeOut__WEBPACK_IMPORTED_MODULE_0__["default"].expo,
+          easingA: this.getEasing(oldOption),
+          easingB: this.getEasing(option),
           offset: timeline.progress,
         });
 
@@ -8259,7 +8276,7 @@ __webpack_require__.r(__webpack_exports__);
   circ: motion_ux__WEBPACK_IMPORTED_MODULE_0__["easings"].easeOutCirc,
   elastic: motion_ux__WEBPACK_IMPORTED_MODULE_0__["easings"].easeOutElastic,
   overshoot: motion_ux__WEBPACK_IMPORTED_MODULE_0__["easings"].easeOutBack,
-  bounce: motion_ux__WEBPACK_IMPORTED_MODULE_0__["easings"].easeOutBounce,
+  bounce: motion_ux__WEBPACK_IMPORTED_MODULE_0__["easings"].linear,
   linear: motion_ux__WEBPACK_IMPORTED_MODULE_0__["easings"].linear
 });
 
