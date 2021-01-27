@@ -53,7 +53,7 @@ export const Default = () => {
         return getRandomState();
       });
       setPositions(newPositions);
-    }, 500);
+    }, 1000);
 
     return () => {
       clearInterval(interval);
