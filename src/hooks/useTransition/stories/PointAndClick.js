@@ -6,7 +6,7 @@ const containerStyle = {
   top: "0",
   left: "0",
   right: "0",
-  bottom: "0"
+  bottom: "0",
 };
 
 const dotStyle = {
@@ -17,7 +17,7 @@ const dotStyle = {
   borderRadius: "50%",
   backgroundColor: "red",
   width: "50px",
-  height: "50px"
+  height: "50px",
 };
 
 const getRandomNumber = (min, max) => {
@@ -34,40 +34,52 @@ const createRandomColor = () => {
 
 const applyStyles = (element, values) => {
   if (element != null && element.style != null) {
-    Object.keys(values).forEach(key => {
+    Object.keys(values).forEach((key) => {
       element.style[key] = values[key];
     });
   }
 };
 
+function Ball({ x, y, backgroundColor }) {
+  const ref = useTransition(
+    {
+      transform: `translate(${x}px, ${y}px)`,
+      backgroundColor: backgroundColor,
+    },
+    {
+      duration: 3000,
+      applyValues: applyStyles,
+    }
+  );
+
+  return <div ref={ref} style={dotStyle}></div>;
+}
+
 const PointAndClick = () => {
   const containerRef = useRef(null);
 
-  const [state, setState] = useState({
-    transform: "translate(0px, 0px)",
-    backgroundColor: "rgba(255,0,0,1)"
-  });
+  const [state, setState] = useState(() => ({
+    x: 0,
+    y: 0,
+    backgroundColor: "rgba(255,0,0,1)",
+  }));
 
-  const ref = useTransition(state, {
-    duration: 5000,
-    applyValues: applyStyles
-  });
-
-  const onClick = event => {
+  const onClick = (event) => {
     const color = createRandomColor();
     const containerRect = containerRef.current.getBoundingClientRect();
     const x = event.pageX - containerRect.left;
     const y = event.pageY - containerRect.top;
 
     setState({
-      transform: `translate(${x}px,${y}px)`,
-      backgroundColor: color
+      x,
+      y,
+      backgroundColor: color,
     });
   };
 
   return (
     <div ref={containerRef} style={containerStyle} onClick={onClick}>
-      <div ref={ref} style={dotStyle}></div>
+      <Ball {...state} />
     </div>
   );
 };

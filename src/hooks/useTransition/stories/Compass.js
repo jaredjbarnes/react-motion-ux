@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef } from "react";
+import React, { useState, useMemo } from "react";
 import useTransition from "../index";
 import clone from "../../clone";
 import { Easing } from "motion-ux";
@@ -58,7 +58,7 @@ const Compass = ({ position: defaultPosition, animate }) => {
   }, [defaultPosition]);
 
   const ref = useTransition(clone(placement), {
-    duration: 2000,
+    duration: 5000,
     applyValues: applyStyleValues,
     animate,
   });

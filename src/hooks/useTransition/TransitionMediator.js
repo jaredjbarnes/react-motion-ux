@@ -235,14 +235,14 @@ export default class TransitionMediator {
       const oldOption = lastOptions[key];
       const option = newOptions[key];
       const from = currentValues[key];
-      const easing = easeOut[option.easing];
+      let easing = easeOut[option.easing];
 
       const controls = Array.isArray(option.controls)
         ? option.controls.slice(0)
         : [];
 
       if (shouldRedirect) {
-        new BlendedEasing({
+        easing = new BlendedEasing({
           easingA: this.getEasing(oldOption),
           easingB: this.getEasing(option),
           offset: timeline.progress,
