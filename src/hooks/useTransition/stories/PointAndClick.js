@@ -57,6 +57,7 @@ function Ball({ x, y, backgroundColor }) {
 
 const PointAndClick = () => {
   const containerRef = useRef(null);
+  const timeoutRef = useRef(0);
 
   const [state, setState] = useState(() => ({
     x: 0,
@@ -70,15 +71,19 @@ const PointAndClick = () => {
     const x = event.pageX - containerRect.left;
     const y = event.pageY - containerRect.top;
 
-    setState({
-      x,
-      y,
-      backgroundColor: color,
-    });
+    clearTimeout(timeoutRef.current);
+
+    setTimeout(() => {
+      setState({
+        x,
+        y,
+        backgroundColor: color,
+      });
+    }, 100);
   };
 
   return (
-    <div ref={containerRef} style={containerStyle} onClick={onClick}>
+    <div ref={containerRef} style={containerStyle} onMouseMove={onClick}>
       <Ball {...state} />
     </div>
   );

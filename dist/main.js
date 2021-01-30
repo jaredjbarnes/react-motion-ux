@@ -119,31 +119,31 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BlendedEasing", function() { return motion_ux__WEBPACK_IMPORTED_MODULE_0__["BlendedEasing"]; });
 
-/* harmony import */ var _hooks_useTransition__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(61);
+/* harmony import */ var _hooks_useTransition__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(93);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "useTransition", function() { return _hooks_useTransition__WEBPACK_IMPORTED_MODULE_1__["default"]; });
 
-/* harmony import */ var _hooks_useNativeTransition__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(70);
+/* harmony import */ var _hooks_useNativeTransition__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(102);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "useNativeTransition", function() { return _hooks_useNativeTransition__WEBPACK_IMPORTED_MODULE_2__["default"]; });
 
-/* harmony import */ var _hooks_makeStyledTransition__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(72);
+/* harmony import */ var _hooks_makeStyledTransition__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(104);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "makeStyledTransition", function() { return _hooks_makeStyledTransition__WEBPACK_IMPORTED_MODULE_3__["default"]; });
 
-/* harmony import */ var _hooks_makePropertyTransition__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(75);
+/* harmony import */ var _hooks_makePropertyTransition__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(107);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "makePropertyTransition", function() { return _hooks_makePropertyTransition__WEBPACK_IMPORTED_MODULE_4__["default"]; });
 
-/* harmony import */ var _hooks_makeAttributeTransition__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(77);
+/* harmony import */ var _hooks_makeAttributeTransition__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(109);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "makeAttributeTransition", function() { return _hooks_makeAttributeTransition__WEBPACK_IMPORTED_MODULE_5__["default"]; });
 
-/* harmony import */ var _hooks_makeTransition__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(73);
+/* harmony import */ var _hooks_makeTransition__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(105);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "makeTransition", function() { return _hooks_makeTransition__WEBPACK_IMPORTED_MODULE_6__["default"]; });
 
-/* harmony import */ var _hooks_makeNativeTransition__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(79);
+/* harmony import */ var _hooks_makeNativeTransition__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(111);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "makeNativeTransition", function() { return _hooks_makeNativeTransition__WEBPACK_IMPORTED_MODULE_7__["default"]; });
 
-/* harmony import */ var _hooks_makeStyledTransition_applyStyleValues__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(74);
+/* harmony import */ var _hooks_makeStyledTransition_applyStyleValues__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(106);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "applyStyleValues", function() { return _hooks_makeStyledTransition_applyStyleValues__WEBPACK_IMPORTED_MODULE_8__["default"]; });
 
-/* harmony import */ var _hooks_useTransition_TransitionMediator__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(68);
+/* harmony import */ var _hooks_useTransition_TransitionMediator__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(100);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TransitionMediator", function() { return _hooks_useTransition_TransitionMediator__WEBPACK_IMPORTED_MODULE_9__["default"]; });
 
 
@@ -207,9 +207,9 @@ var _easings = _interopRequireDefault(__webpack_require__(55));
 
 var _BezierCurve = _interopRequireDefault(__webpack_require__(14));
 
-var _BlendedEasing = _interopRequireDefault(__webpack_require__(60));
+var _BlendedEasing = _interopRequireDefault(__webpack_require__(91));
 
-var _Easing = _interopRequireDefault(__webpack_require__(56));
+var _Easing = _interopRequireDefault(__webpack_require__(92));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 //# sourceMappingURL=index.js.map
@@ -994,9 +994,9 @@ var _clarityPatternParser = __webpack_require__(20);
 
 var _TimelineOption = _interopRequireDefault(__webpack_require__(54));
 
-var _TreeNormalizer = _interopRequireDefault(__webpack_require__(57));
+var _TreeNormalizer = _interopRequireDefault(__webpack_require__(88));
 
-var _TreeUtility = _interopRequireDefault(__webpack_require__(59));
+var _TreeUtility = _interopRequireDefault(__webpack_require__(90));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4936,39 +4936,102 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _Easing = _interopRequireDefault(__webpack_require__(56));
+var _EaseInQuad = _interopRequireDefault(__webpack_require__(56));
+
+var _EaseOutQuad = _interopRequireDefault(__webpack_require__(58));
+
+var _EaseInOutQuad = _interopRequireDefault(__webpack_require__(59));
+
+var _EaseInElastic = _interopRequireDefault(__webpack_require__(60));
+
+var _EaseInOutElastic = _interopRequireDefault(__webpack_require__(61));
+
+var _EaseOutElastic = _interopRequireDefault(__webpack_require__(62));
+
+var _EaseInOutBack = _interopRequireDefault(__webpack_require__(63));
+
+var _EaseInOutBounce = _interopRequireDefault(__webpack_require__(64));
+
+var _EaseInBounce = _interopRequireDefault(__webpack_require__(65));
+
+var _EaseOutBounce = _interopRequireDefault(__webpack_require__(66));
+
+var _EaseInCubic = _interopRequireDefault(__webpack_require__(67));
+
+var _EaseOutCubic = _interopRequireDefault(__webpack_require__(68));
+
+var _EaseInOutCubic = _interopRequireDefault(__webpack_require__(69));
+
+var _EaseInQuart = _interopRequireDefault(__webpack_require__(70));
+
+var _EaseOutQuart = _interopRequireDefault(__webpack_require__(71));
+
+var _EaseInOutQuart = _interopRequireDefault(__webpack_require__(72));
+
+var _EaseInQuint = _interopRequireDefault(__webpack_require__(73));
+
+var _EaseOutQuint = _interopRequireDefault(__webpack_require__(74));
+
+var _EaseInOutQuint = _interopRequireDefault(__webpack_require__(75));
+
+var _EaseInSine = _interopRequireDefault(__webpack_require__(76));
+
+var _EaseOutSine = _interopRequireDefault(__webpack_require__(77));
+
+var _EaseInOutSine = _interopRequireDefault(__webpack_require__(78));
+
+var _EaseInExpo = _interopRequireDefault(__webpack_require__(79));
+
+var _EaseOutExpo = _interopRequireDefault(__webpack_require__(80));
+
+var _EaseInOutExpo = _interopRequireDefault(__webpack_require__(81));
+
+var _EaseInCirc = _interopRequireDefault(__webpack_require__(82));
+
+var _EaseOutCirc = _interopRequireDefault(__webpack_require__(83));
+
+var _EaseInOutCirc = _interopRequireDefault(__webpack_require__(84));
+
+var _EaseInBack = _interopRequireDefault(__webpack_require__(85));
+
+var _EaseOutBack = _interopRequireDefault(__webpack_require__(86));
+
+var _EaseLinear = _interopRequireDefault(__webpack_require__(87));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var easings = {
-  easeInQuad: new _Easing.default([0, 0, 1]),
-  easeOutQuad: new _Easing.default([0, 1, 1]),
-  easeInOutQuad: new _Easing.default([0, 0, 1, 1]),
-  easeInCubic: new _Easing.default([0, 0, 0, 1]),
-  easeOutCubic: new _Easing.default([0, 1, 1, 1]),
-  easeInOutCubic: new _Easing.default([0, 0, 0, 1, 1, 1]),
-  easeInQuart: new _Easing.default([0, 0, 0, 0, 1]),
-  easeOutQuart: new _Easing.default([0, 1, 1, 1, 1]),
-  easeInOutQuart: new _Easing.default([0, 0, 0, 0, 1, 1, 1, 1]),
-  easeInQuint: new _Easing.default([0, 0, 0, 0, 0, 1]),
-  easeOutQuint: new _Easing.default([0, 1, 1, 1, 1, 1]),
-  easeInOutQuint: new _Easing.default([0, 0, 0, 0, 0, 1, 1, 1, 1, 1]),
-  easeInSine: new _Easing.default([0, 0, 1]),
-  easeOutSine: new _Easing.default([0, 1, 1]),
-  easeInOutSine: new _Easing.default([0, 0, 1, 1]),
-  easeInExpo: new _Easing.default([0, 0, 0, 0, 0, 0, 1]),
-  easeOutExpo: new _Easing.default([0, 1, 1, 1, 1, 1, 1]),
-  easeInOutExpo: new _Easing.default([0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1]),
-  easeInCirc: new _Easing.default([0, 0, 0, 0, 0.05, 0.15, 0.25, 0.35, 1]),
-  easeOutCirc: new _Easing.default([0, 0.65, 0.75, 0.85, 0.95, 1, 1, 1, 1]),
-  easeInOutCirc: new _Easing.default([0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1]),
-  easeInElastic: new _Easing.default([0, 0, 0, 0.15, -0.25, 0.25, -0.5, -0.5, 2, -1, -1, 1]),
-  easeOutElastic: new _Easing.default([0, 2, 2, -1, 1.5, 1.5, 0.75, 1.25, 0.85, 1, 1, 1]),
-  easeInOutElastic: new _Easing.default([0, 0, 0, 0, 0.5, -0.75, -2, 3, 1.75, 0.5, 1, 1, 1, 1]),
-  easeInBack: new _Easing.default([0, 0, -0.5, 1]),
-  easeOutBack: new _Easing.default([0, 1.5, 1, 1]),
-  easeInOutBack: new _Easing.default([0, 0, -0.5, 1.5, 1, 1]),
-  linear: new _Easing.default([0, 1])
+  easeInQuad: new _EaseInQuad.default(),
+  easeOutQuad: new _EaseOutQuad.default(),
+  easeInOutQuad: new _EaseInOutQuad.default(),
+  easeInCubic: new _EaseInCubic.default(),
+  easeOutCubic: new _EaseOutCubic.default(),
+  easeInOutCubic: new _EaseInOutCubic.default(),
+  easeInQuart: new _EaseInQuart.default(),
+  easeOutQuart: new _EaseOutQuart.default(),
+  easeInOutQuart: new _EaseInOutQuart.default(),
+  easeInQuint: new _EaseInQuint.default(),
+  easeOutQuint: new _EaseOutQuint.default(),
+  easeInOutQuint: new _EaseInOutQuint.default(),
+  easeInSine: new _EaseInSine.default(),
+  easeOutSine: new _EaseOutSine.default(),
+  easeInOutSine: new _EaseInOutSine.default(),
+  easeInExpo: new _EaseInExpo.default(),
+  easeOutExpo: new _EaseOutExpo.default(),
+  easeInOutExpo: new _EaseInOutExpo.default(),
+  easeInCirc: new _EaseInCirc.default(),
+  easeOutCirc: new _EaseOutCirc.default(),
+  easeInOutCirc: new _EaseInOutCirc.default(),
+  easeInElastic: new _EaseInElastic.default(),
+  easeOutElastic: new _EaseOutElastic.default(),
+  easeInOutElastic: new _EaseInOutElastic.default(),
+  easeInBack: new _EaseInBack.default(),
+  easeOutBack: new _EaseOutBack.default(),
+  easeInOutBack: new _EaseInOutBack.default(),
+  easeInBounce: new _EaseInBounce.default(),
+  easeOutBounce: new _EaseOutBounce.default(),
+  easeInOutBounce: new _EaseInOutBounce.default(),
+  linear: new _EaseLinear.default()
 };
 var _default = easings;
 exports.default = _default;
@@ -4986,17 +5049,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _BezierCurve2 = _interopRequireDefault(__webpack_require__(14));
+var _FunctionEasing2 = _interopRequireDefault(__webpack_require__(57));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
@@ -5008,35 +5067,26 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var Easing =
+var EaseInQuad =
 /*#__PURE__*/
-function (_BezierCurve) {
-  _inherits(Easing, _BezierCurve);
+function (_FunctionEasing) {
+  _inherits(EaseInQuad, _FunctionEasing);
 
-  function Easing(points) {
-    _classCallCheck(this, Easing);
+  function EaseInQuad() {
+    _classCallCheck(this, EaseInQuad);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Easing).call(this, points));
+    var func = function func(percentage) {
+      return percentage * percentage;
+    };
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(EaseInQuad).call(this, func));
   }
 
-  _createClass(Easing, [{
-    key: "validatePoints",
-    value: function validatePoints() {
-      if (this.points[0] !== 0) {
-        throw new Error("The first point needs to be zero");
-      }
+  return EaseInQuad;
+}(_FunctionEasing2.default);
 
-      if (this.points[this.points.length - 1] !== 1) {
-        throw new Error("The last point needs to be one.");
-      }
-    }
-  }]);
-
-  return Easing;
-}(_BezierCurve2.default);
-
-exports.default = Easing;
-//# sourceMappingURL=Easing.js.map
+exports.default = EaseInQuad;
+//# sourceMappingURL=EaseInQuad.js.map
 
 /***/ }),
 /* 57 */
@@ -5050,7 +5100,1664 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _Visitor = _interopRequireDefault(__webpack_require__(58));
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var FunctionEasing =
+/*#__PURE__*/
+function () {
+  function FunctionEasing(func) {
+    _classCallCheck(this, FunctionEasing);
+
+    this.func = func;
+    this.validateFunction();
+  }
+
+  _createClass(FunctionEasing, [{
+    key: "valueAt",
+    value: function valueAt(percentage) {
+      return this.func(percentage);
+    }
+  }, {
+    key: "validateFunction",
+    value: function validateFunction() {
+      if (typeof this.func !== "function") {
+        throw new Error("Function easing needs a function to work properly.");
+      }
+    }
+  }]);
+
+  return FunctionEasing;
+}();
+
+exports.default = FunctionEasing;
+//# sourceMappingURL=FunctionEasing.js.map
+
+/***/ }),
+/* 58 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _FunctionEasing2 = _interopRequireDefault(__webpack_require__(57));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var EaseOutQuad =
+/*#__PURE__*/
+function (_FunctionEasing) {
+  _inherits(EaseOutQuad, _FunctionEasing);
+
+  function EaseOutQuad() {
+    _classCallCheck(this, EaseOutQuad);
+
+    var func = function func(percentage) {
+      return -percentage * (percentage - 2);
+    };
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(EaseOutQuad).call(this, func));
+  }
+
+  return EaseOutQuad;
+}(_FunctionEasing2.default);
+
+exports.default = EaseOutQuad;
+//# sourceMappingURL=EaseOutQuad.js.map
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _FunctionEasing2 = _interopRequireDefault(__webpack_require__(57));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var EaseInOutQuad =
+/*#__PURE__*/
+function (_FunctionEasing) {
+  _inherits(EaseInOutQuad, _FunctionEasing);
+
+  function EaseInOutQuad() {
+    _classCallCheck(this, EaseInOutQuad);
+
+    var func = function func(percentage) {
+      if ((percentage /= 1 / 2) < 1) return 1 / 2 * percentage * percentage;
+      return -1 / 2 * (--percentage * (percentage - 2) - 1);
+    };
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(EaseInOutQuad).call(this, func));
+  }
+
+  return EaseInOutQuad;
+}(_FunctionEasing2.default);
+
+exports.default = EaseInOutQuad;
+//# sourceMappingURL=EaseInOutQuad.js.map
+
+/***/ }),
+/* 60 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _FunctionEasing2 = _interopRequireDefault(__webpack_require__(57));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var EaseInElastic =
+/*#__PURE__*/
+function (_FunctionEasing) {
+  _inherits(EaseInElastic, _FunctionEasing);
+
+  function EaseInElastic(tension) {
+    var _this;
+
+    _classCallCheck(this, EaseInElastic);
+
+    var func = function func(percentage) {
+      var p = 0.3 / _this.tension;
+      var s = p / 4;
+      var a = 1;
+      if (percentage <= 0) return 0;
+      if (percentage >= 1) return 1;
+      return -(a * Math.pow(2, 10 * (percentage -= 1)) * Math.sin((percentage - s) * (2 * Math.PI) / p));
+    };
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(EaseInElastic).call(this, func));
+    _this.tension = tension === "number" ? tension : 1;
+    return _this;
+  }
+
+  return EaseInElastic;
+}(_FunctionEasing2.default);
+
+exports.default = EaseInElastic;
+//# sourceMappingURL=EaseInElastic.js.map
+
+/***/ }),
+/* 61 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _FunctionEasing2 = _interopRequireDefault(__webpack_require__(57));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var EaseInOutElastic =
+/*#__PURE__*/
+function (_FunctionEasing) {
+  _inherits(EaseInOutElastic, _FunctionEasing);
+
+  function EaseInOutElastic(tension) {
+    var _this;
+
+    _classCallCheck(this, EaseInOutElastic);
+
+    var func = function func(t) {
+      var b = 0;
+      var c = 1;
+      var d = 1;
+      var s = 1.70158;
+      var p = 0;
+      var a = c;
+      if (t == 0) return b;
+      if ((t /= d / 2) == 2) return b + c;
+      if (!p) p = d * (0.3 / _this.tension);
+
+      if (a < Math.abs(c)) {
+        a = c;
+        var s = p / 4;
+      } else var s = p / (2 * Math.PI) * Math.asin(c / a);
+
+      if (t < 1) return -0.5 * (a * Math.pow(2, 10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p)) + b;
+      return a * Math.pow(2, -10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p) * 0.5 + c + b;
+    };
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(EaseInOutElastic).call(this, func));
+    _this.tension = tension === "number" ? tension : 1;
+    return _this;
+  }
+
+  return EaseInOutElastic;
+}(_FunctionEasing2.default);
+
+exports.default = EaseInOutElastic;
+//# sourceMappingURL=EaseInOutElastic.js.map
+
+/***/ }),
+/* 62 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _FunctionEasing2 = _interopRequireDefault(__webpack_require__(57));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var EaseOutElastic =
+/*#__PURE__*/
+function (_FunctionEasing) {
+  _inherits(EaseOutElastic, _FunctionEasing);
+
+  function EaseOutElastic(tension) {
+    var _this;
+
+    _classCallCheck(this, EaseOutElastic);
+
+    var func = function func(percentage) {
+      var p = 0.3 / _this.tension;
+      var s = p / 4;
+      var a = 1;
+      if (percentage <= 0) return 0;
+      if (percentage >= 1) return 1;
+      return a * Math.pow(2, -10 * percentage) * Math.sin((percentage - s) * (2 * Math.PI) / p) + 1;
+    };
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(EaseOutElastic).call(this, func));
+    _this.tension = tension === "number" ? tension : 1;
+    return _this;
+  }
+
+  return EaseOutElastic;
+}(_FunctionEasing2.default);
+
+exports.default = EaseOutElastic;
+//# sourceMappingURL=EaseOutElastic.js.map
+
+/***/ }),
+/* 63 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _FunctionEasing2 = _interopRequireDefault(__webpack_require__(57));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var EaseInOutBack =
+/*#__PURE__*/
+function (_FunctionEasing) {
+  _inherits(EaseInOutBack, _FunctionEasing);
+
+  function EaseInOutBack() {
+    _classCallCheck(this, EaseInOutBack);
+
+    var func = function func(percentage) {
+      var s = 1.70158 * 1.525;
+
+      if ((percentage /= 1 / 2) < 1) {
+        return 1 / 2 * (percentage * percentage * ((s + 1) * percentage - s));
+      }
+
+      return 1 / 2 * ((percentage -= 2) * percentage * ((s + 1) * percentage + s) + 2);
+    };
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(EaseInOutBack).call(this, func));
+  }
+
+  return EaseInOutBack;
+}(_FunctionEasing2.default);
+
+exports.default = EaseInOutBack;
+//# sourceMappingURL=EaseInOutBack.js.map
+
+/***/ }),
+/* 64 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _FunctionEasing2 = _interopRequireDefault(__webpack_require__(57));
+
+var _EaseInBounce = _interopRequireDefault(__webpack_require__(65));
+
+var _EaseOutBounce = _interopRequireDefault(__webpack_require__(66));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var easeInBounce = new _EaseInBounce.default();
+var easeOutBounce = new _EaseOutBounce.default();
+
+var EaseInOutBounce =
+/*#__PURE__*/
+function (_FunctionEasing) {
+  _inherits(EaseInOutBounce, _FunctionEasing);
+
+  function EaseInOutBounce() {
+    _classCallCheck(this, EaseInOutBounce);
+
+    var func = function func(percentage) {
+      if (percentage < 0.5) {
+        return easeInBounce.valueAt(percentage * 2) * 0.5;
+      } else {
+        return easeOutBounce.valueAt(percentage * 2 - 1) * 0.5 + 0.5;
+      }
+    };
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(EaseInOutBounce).call(this, func));
+  }
+
+  return EaseInOutBounce;
+}(_FunctionEasing2.default);
+
+exports.default = EaseInOutBounce;
+//# sourceMappingURL=EaseInOutBounce.js.map
+
+/***/ }),
+/* 65 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _FunctionEasing2 = _interopRequireDefault(__webpack_require__(57));
+
+var _EaseOutBounce = _interopRequireDefault(__webpack_require__(66));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var easeOutBounce = new _EaseOutBounce.default();
+
+var EaseInBounce =
+/*#__PURE__*/
+function (_FunctionEasing) {
+  _inherits(EaseInBounce, _FunctionEasing);
+
+  function EaseInBounce() {
+    _classCallCheck(this, EaseInBounce);
+
+    var func = function func(percentage) {
+      return 1 - easeOutBounce.valueAt(1 - percentage);
+    };
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(EaseInBounce).call(this, func));
+  }
+
+  return EaseInBounce;
+}(_FunctionEasing2.default);
+
+exports.default = EaseInBounce;
+//# sourceMappingURL=EaseInBounce.js.map
+
+/***/ }),
+/* 66 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _FunctionEasing2 = _interopRequireDefault(__webpack_require__(57));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var EaseOutBounce =
+/*#__PURE__*/
+function (_FunctionEasing) {
+  _inherits(EaseOutBounce, _FunctionEasing);
+
+  function EaseOutBounce() {
+    _classCallCheck(this, EaseOutBounce);
+
+    var func = function func(percentage) {
+      var t = percentage;
+
+      if ((t /= 1) < 1 / 2.75) {
+        return 7.5625 * t * t;
+      } else if (t < 2 / 2.75) {
+        return 7.5625 * (t -= 1.5 / 2.75) * t + 0.75;
+      } else if (t < 2.5 / 2.75) {
+        return 7.5625 * (t -= 2.25 / 2.75) * t + 0.9375;
+      } else {
+        return 7.5625 * (t -= 2.625 / 2.75) * t + 0.984375;
+      }
+    };
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(EaseOutBounce).call(this, func));
+  }
+
+  return EaseOutBounce;
+}(_FunctionEasing2.default);
+
+exports.default = EaseOutBounce;
+//# sourceMappingURL=EaseOutBounce.js.map
+
+/***/ }),
+/* 67 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _FunctionEasing2 = _interopRequireDefault(__webpack_require__(57));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var EaseInCubic =
+/*#__PURE__*/
+function (_FunctionEasing) {
+  _inherits(EaseInCubic, _FunctionEasing);
+
+  function EaseInCubic() {
+    _classCallCheck(this, EaseInCubic);
+
+    var func = function func(percentage) {
+      return 1 * (percentage /= 1) * percentage * percentage;
+    };
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(EaseInCubic).call(this, func));
+  }
+
+  return EaseInCubic;
+}(_FunctionEasing2.default);
+
+exports.default = EaseInCubic;
+//# sourceMappingURL=EaseInCubic.js.map
+
+/***/ }),
+/* 68 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _FunctionEasing2 = _interopRequireDefault(__webpack_require__(57));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var EaseOutCubic =
+/*#__PURE__*/
+function (_FunctionEasing) {
+  _inherits(EaseOutCubic, _FunctionEasing);
+
+  function EaseOutCubic() {
+    _classCallCheck(this, EaseOutCubic);
+
+    var func = function func(percentage) {
+      return 1 * ((percentage = percentage / 1 - 1) * percentage * percentage + 1);
+    };
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(EaseOutCubic).call(this, func));
+  }
+
+  return EaseOutCubic;
+}(_FunctionEasing2.default);
+
+exports.default = EaseOutCubic;
+//# sourceMappingURL=EaseOutCubic.js.map
+
+/***/ }),
+/* 69 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _FunctionEasing2 = _interopRequireDefault(__webpack_require__(57));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var EaseInOutCubic =
+/*#__PURE__*/
+function (_FunctionEasing) {
+  _inherits(EaseInOutCubic, _FunctionEasing);
+
+  function EaseInOutCubic() {
+    _classCallCheck(this, EaseInOutCubic);
+
+    var func = function func(percentage) {
+      if ((percentage /= 1 / 2) < 1) return 1 / 2 * percentage * percentage * percentage;
+      return 1 / 2 * ((percentage -= 2) * percentage * percentage + 2);
+    };
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(EaseInOutCubic).call(this, func));
+  }
+
+  return EaseInOutCubic;
+}(_FunctionEasing2.default);
+
+exports.default = EaseInOutCubic;
+//# sourceMappingURL=EaseInOutCubic.js.map
+
+/***/ }),
+/* 70 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _FunctionEasing2 = _interopRequireDefault(__webpack_require__(57));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var EaseInQuart =
+/*#__PURE__*/
+function (_FunctionEasing) {
+  _inherits(EaseInQuart, _FunctionEasing);
+
+  function EaseInQuart() {
+    _classCallCheck(this, EaseInQuart);
+
+    var func = function func(percentage) {
+      return 1 * (percentage /= 1) * percentage * percentage * percentage;
+    };
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(EaseInQuart).call(this, func));
+  }
+
+  return EaseInQuart;
+}(_FunctionEasing2.default);
+
+exports.default = EaseInQuart;
+//# sourceMappingURL=EaseInQuart.js.map
+
+/***/ }),
+/* 71 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _FunctionEasing2 = _interopRequireDefault(__webpack_require__(57));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var EaseOutQuart =
+/*#__PURE__*/
+function (_FunctionEasing) {
+  _inherits(EaseOutQuart, _FunctionEasing);
+
+  function EaseOutQuart() {
+    _classCallCheck(this, EaseOutQuart);
+
+    var func = function func(percentage) {
+      return -1 * ((percentage = percentage / 1 - 1) * percentage * percentage * percentage - 1);
+    };
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(EaseOutQuart).call(this, func));
+  }
+
+  return EaseOutQuart;
+}(_FunctionEasing2.default);
+
+exports.default = EaseOutQuart;
+//# sourceMappingURL=EaseOutQuart.js.map
+
+/***/ }),
+/* 72 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _FunctionEasing2 = _interopRequireDefault(__webpack_require__(57));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var EaseInOutQuart =
+/*#__PURE__*/
+function (_FunctionEasing) {
+  _inherits(EaseInOutQuart, _FunctionEasing);
+
+  function EaseInOutQuart() {
+    _classCallCheck(this, EaseInOutQuart);
+
+    var func = function func(percentage) {
+      if ((percentage /= 1 / 2) < 1) return 1 / 2 * percentage * percentage * percentage * percentage;
+      return -1 / 2 * ((percentage -= 2) * percentage * percentage * percentage - 2);
+    };
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(EaseInOutQuart).call(this, func));
+  }
+
+  return EaseInOutQuart;
+}(_FunctionEasing2.default);
+
+exports.default = EaseInOutQuart;
+//# sourceMappingURL=EaseInOutQuart.js.map
+
+/***/ }),
+/* 73 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _FunctionEasing2 = _interopRequireDefault(__webpack_require__(57));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var EaseInQuint =
+/*#__PURE__*/
+function (_FunctionEasing) {
+  _inherits(EaseInQuint, _FunctionEasing);
+
+  function EaseInQuint() {
+    _classCallCheck(this, EaseInQuint);
+
+    var func = function func(percentage) {
+      return 1 * (percentage /= 1) * percentage * percentage * percentage * percentage;
+    };
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(EaseInQuint).call(this, func));
+  }
+
+  return EaseInQuint;
+}(_FunctionEasing2.default);
+
+exports.default = EaseInQuint;
+//# sourceMappingURL=EaseInQuint.js.map
+
+/***/ }),
+/* 74 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _FunctionEasing2 = _interopRequireDefault(__webpack_require__(57));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var EaseOutQuint =
+/*#__PURE__*/
+function (_FunctionEasing) {
+  _inherits(EaseOutQuint, _FunctionEasing);
+
+  function EaseOutQuint() {
+    _classCallCheck(this, EaseOutQuint);
+
+    var func = function func(percentage) {
+      return 1 * ((percentage = percentage / 1 - 1) * percentage * percentage * percentage * percentage + 1);
+    };
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(EaseOutQuint).call(this, func));
+  }
+
+  return EaseOutQuint;
+}(_FunctionEasing2.default);
+
+exports.default = EaseOutQuint;
+//# sourceMappingURL=EaseOutQuint.js.map
+
+/***/ }),
+/* 75 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _FunctionEasing2 = _interopRequireDefault(__webpack_require__(57));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var EaseInOutQuint =
+/*#__PURE__*/
+function (_FunctionEasing) {
+  _inherits(EaseInOutQuint, _FunctionEasing);
+
+  function EaseInOutQuint() {
+    _classCallCheck(this, EaseInOutQuint);
+
+    var func = function func(percentage) {
+      if ((percentage /= 1 / 2) < 1) return 1 / 2 * percentage * percentage * percentage * percentage * percentage;
+      return 1 / 2 * ((percentage -= 2) * percentage * percentage * percentage * percentage + 2);
+    };
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(EaseInOutQuint).call(this, func));
+  }
+
+  return EaseInOutQuint;
+}(_FunctionEasing2.default);
+
+exports.default = EaseInOutQuint;
+//# sourceMappingURL=EaseInOutQuint.js.map
+
+/***/ }),
+/* 76 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _FunctionEasing2 = _interopRequireDefault(__webpack_require__(57));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var EaseInSine =
+/*#__PURE__*/
+function (_FunctionEasing) {
+  _inherits(EaseInSine, _FunctionEasing);
+
+  function EaseInSine() {
+    _classCallCheck(this, EaseInSine);
+
+    var func = function func(percentage) {
+      return -Math.cos(percentage * (Math.PI / 2)) + 1;
+    };
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(EaseInSine).call(this, func));
+  }
+
+  return EaseInSine;
+}(_FunctionEasing2.default);
+
+exports.default = EaseInSine;
+//# sourceMappingURL=EaseInSine.js.map
+
+/***/ }),
+/* 77 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _FunctionEasing2 = _interopRequireDefault(__webpack_require__(57));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var EaseOutSine =
+/*#__PURE__*/
+function (_FunctionEasing) {
+  _inherits(EaseOutSine, _FunctionEasing);
+
+  function EaseOutSine() {
+    _classCallCheck(this, EaseOutSine);
+
+    var func = function func(percentage) {
+      return 1 * Math.sin(percentage / 1 * (Math.PI / 2));
+    };
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(EaseOutSine).call(this, func));
+  }
+
+  return EaseOutSine;
+}(_FunctionEasing2.default);
+
+exports.default = EaseOutSine;
+//# sourceMappingURL=EaseOutSine.js.map
+
+/***/ }),
+/* 78 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _FunctionEasing2 = _interopRequireDefault(__webpack_require__(57));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var EaseInOutSine =
+/*#__PURE__*/
+function (_FunctionEasing) {
+  _inherits(EaseInOutSine, _FunctionEasing);
+
+  function EaseInOutSine() {
+    _classCallCheck(this, EaseInOutSine);
+
+    var func = function func(percentage) {
+      return -1 / 2 * (Math.cos(Math.PI * percentage / 1) - 1);
+    };
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(EaseInOutSine).call(this, func));
+  }
+
+  return EaseInOutSine;
+}(_FunctionEasing2.default);
+
+exports.default = EaseInOutSine;
+//# sourceMappingURL=EaseInOutSine.js.map
+
+/***/ }),
+/* 79 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _FunctionEasing2 = _interopRequireDefault(__webpack_require__(57));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var EaseInExpo =
+/*#__PURE__*/
+function (_FunctionEasing) {
+  _inherits(EaseInExpo, _FunctionEasing);
+
+  function EaseInExpo() {
+    _classCallCheck(this, EaseInExpo);
+
+    var func = function func(percentage) {
+      return percentage == 0 ? 0 : 1 * Math.pow(2, 10 * (percentage / 1 - 1));
+    };
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(EaseInExpo).call(this, func));
+  }
+
+  return EaseInExpo;
+}(_FunctionEasing2.default);
+
+exports.default = EaseInExpo;
+//# sourceMappingURL=EaseInExpo.js.map
+
+/***/ }),
+/* 80 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _FunctionEasing2 = _interopRequireDefault(__webpack_require__(57));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var EaseOutExpo =
+/*#__PURE__*/
+function (_FunctionEasing) {
+  _inherits(EaseOutExpo, _FunctionEasing);
+
+  function EaseOutExpo() {
+    _classCallCheck(this, EaseOutExpo);
+
+    var func = function func(percentage) {
+      return percentage == 1 ? 1 : 1 * (-Math.pow(2, -10 * percentage / 1) + 1);
+    };
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(EaseOutExpo).call(this, func));
+  }
+
+  return EaseOutExpo;
+}(_FunctionEasing2.default);
+
+exports.default = EaseOutExpo;
+//# sourceMappingURL=EaseOutExpo.js.map
+
+/***/ }),
+/* 81 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _FunctionEasing2 = _interopRequireDefault(__webpack_require__(57));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var EaseInOutExpo =
+/*#__PURE__*/
+function (_FunctionEasing) {
+  _inherits(EaseInOutExpo, _FunctionEasing);
+
+  function EaseInOutExpo() {
+    _classCallCheck(this, EaseInOutExpo);
+
+    var func = function func(percentage) {
+      if (percentage == 0) return 0;
+      if (percentage == 1) return 1;
+      if ((percentage /= 1 / 2) < 1) return 1 / 2 * Math.pow(2, 10 * (percentage - 1));
+      return 1 / 2 * (-Math.pow(2, -10 * --percentage) + 2);
+    };
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(EaseInOutExpo).call(this, func));
+  }
+
+  return EaseInOutExpo;
+}(_FunctionEasing2.default);
+
+exports.default = EaseInOutExpo;
+//# sourceMappingURL=EaseInOutExpo.js.map
+
+/***/ }),
+/* 82 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _FunctionEasing2 = _interopRequireDefault(__webpack_require__(57));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var EaseInCirc =
+/*#__PURE__*/
+function (_FunctionEasing) {
+  _inherits(EaseInCirc, _FunctionEasing);
+
+  function EaseInCirc() {
+    _classCallCheck(this, EaseInCirc);
+
+    var func = function func(percentage) {
+      return -1 * (Math.sqrt(1 - (percentage /= 1) * percentage) - 1);
+    };
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(EaseInCirc).call(this, func));
+  }
+
+  return EaseInCirc;
+}(_FunctionEasing2.default);
+
+exports.default = EaseInCirc;
+//# sourceMappingURL=EaseInCirc.js.map
+
+/***/ }),
+/* 83 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _FunctionEasing2 = _interopRequireDefault(__webpack_require__(57));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var EaseOutCirc =
+/*#__PURE__*/
+function (_FunctionEasing) {
+  _inherits(EaseOutCirc, _FunctionEasing);
+
+  function EaseOutCirc() {
+    _classCallCheck(this, EaseOutCirc);
+
+    var func = function func(percentage) {
+      return 1 * Math.sqrt(1 - (percentage = percentage / 1 - 1) * percentage);
+    };
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(EaseOutCirc).call(this, func));
+  }
+
+  return EaseOutCirc;
+}(_FunctionEasing2.default);
+
+exports.default = EaseOutCirc;
+//# sourceMappingURL=EaseOutCirc.js.map
+
+/***/ }),
+/* 84 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _FunctionEasing2 = _interopRequireDefault(__webpack_require__(57));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var EaseInOutCirc =
+/*#__PURE__*/
+function (_FunctionEasing) {
+  _inherits(EaseInOutCirc, _FunctionEasing);
+
+  function EaseInOutCirc() {
+    _classCallCheck(this, EaseInOutCirc);
+
+    var func = function func(percentage) {
+      if ((percentage /= 1 / 2) < 1) return -1 / 2 * (Math.sqrt(1 - percentage * percentage) - 1);
+      return 1 / 2 * (Math.sqrt(1 - (percentage -= 2) * percentage) + 1);
+    };
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(EaseInOutCirc).call(this, func));
+  }
+
+  return EaseInOutCirc;
+}(_FunctionEasing2.default);
+
+exports.default = EaseInOutCirc;
+//# sourceMappingURL=EaseInOutCirc.js.map
+
+/***/ }),
+/* 85 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _FunctionEasing2 = _interopRequireDefault(__webpack_require__(57));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var EaseInBack =
+/*#__PURE__*/
+function (_FunctionEasing) {
+  _inherits(EaseInBack, _FunctionEasing);
+
+  function EaseInBack() {
+    _classCallCheck(this, EaseInBack);
+
+    var func = function func(percentage) {
+      var s = 1.70158;
+      return 1 * (percentage /= 1) * percentage * ((s + 1) * percentage - s);
+    };
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(EaseInBack).call(this, func));
+  }
+
+  return EaseInBack;
+}(_FunctionEasing2.default);
+
+exports.default = EaseInBack;
+//# sourceMappingURL=EaseInBack.js.map
+
+/***/ }),
+/* 86 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _FunctionEasing2 = _interopRequireDefault(__webpack_require__(57));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var EaseOutBack =
+/*#__PURE__*/
+function (_FunctionEasing) {
+  _inherits(EaseOutBack, _FunctionEasing);
+
+  function EaseOutBack() {
+    _classCallCheck(this, EaseOutBack);
+
+    var func = function func(percentage) {
+      var s = 1.70158;
+      return 1 * ((percentage = percentage / 1 - 1) * percentage * ((s + 1) * percentage + s) + 1);
+    };
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(EaseOutBack).call(this, func));
+  }
+
+  return EaseOutBack;
+}(_FunctionEasing2.default);
+
+exports.default = EaseOutBack;
+//# sourceMappingURL=EaseOutBack.js.map
+
+/***/ }),
+/* 87 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _FunctionEasing2 = _interopRequireDefault(__webpack_require__(57));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var EaseLinear =
+/*#__PURE__*/
+function (_FunctionEasing) {
+  _inherits(EaseLinear, _FunctionEasing);
+
+  function EaseLinear() {
+    _classCallCheck(this, EaseLinear);
+
+    var func = function func(percentage) {
+      return percentage;
+    };
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(EaseLinear).call(this, func));
+  }
+
+  return EaseLinear;
+}(_FunctionEasing2.default);
+
+exports.default = EaseLinear;
+//# sourceMappingURL=EaseLinear.js.map
+
+/***/ }),
+/* 88 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _Visitor = _interopRequireDefault(__webpack_require__(89));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5102,7 +6809,7 @@ exports.default = TreeNormalizer;
 //# sourceMappingURL=TreeNormalizer.js.map
 
 /***/ }),
-/* 58 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5180,7 +6887,7 @@ exports.default = Visitor;
 //# sourceMappingURL=Visitor.js.map
 
 /***/ }),
-/* 59 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5191,7 +6898,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _Visitor = _interopRequireDefault(__webpack_require__(58));
+var _Visitor = _interopRequireDefault(__webpack_require__(89));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5234,7 +6941,7 @@ exports.default = TreeUtility;
 //# sourceMappingURL=TreeUtility.js.map
 
 /***/ }),
-/* 60 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5268,14 +6975,22 @@ function () {
     this.validateOptions();
     var slope = this.getSlope();
     this.from = new _BezierCurve.default([0, slope]);
-    this.easing = new _BezierCurve.default([0, 0, 1, 1, 1, 1, 1]);
-  }
+    this.easing = new _BezierCurve.default([0, 1, 1, 1, 1, 1, 1, 1]);
+  } // Use differential calculas to get slope.
+
 
   _createClass(BlendedEasing, [{
     key: "getSlope",
     value: function getSlope() {
-      var deltaX = 0.0001;
-      var rise = this.easingA.valueAt(deltaX + this.offset) - this.easingA.valueAt(this.offset);
+      var deltaX = 0.01;
+      var rise;
+
+      if (this.offset < 1) {
+        rise = this.easingA.valueAt(deltaX + this.offset) - this.easingA.valueAt(this.offset);
+      } else {
+        rise = this.easingA.valueAt(1) - this.easingA.valueAt(1 - deltaX);
+      }
+
       var run = deltaX;
       return rise / run;
     }
@@ -5303,15 +7018,79 @@ exports.default = BlendedEasing;
 //# sourceMappingURL=BlendedEasing.js.map
 
 /***/ }),
-/* 61 */
+/* 92 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _BezierCurve2 = _interopRequireDefault(__webpack_require__(14));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var Easing =
+/*#__PURE__*/
+function (_BezierCurve) {
+  _inherits(Easing, _BezierCurve);
+
+  function Easing(points) {
+    _classCallCheck(this, Easing);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Easing).call(this, points));
+  }
+
+  _createClass(Easing, [{
+    key: "validatePoints",
+    value: function validatePoints() {
+      if (this.points[0] !== 0) {
+        throw new Error("The first point needs to be zero");
+      }
+
+      if (this.points[this.points.length - 1] !== 1) {
+        throw new Error("The last point needs to be one.");
+      }
+    }
+  }]);
+
+  return Easing;
+}(_BezierCurve2.default);
+
+exports.default = Easing;
+//# sourceMappingURL=Easing.js.map
+
+/***/ }),
+/* 93 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(62);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(94);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _objectApplyValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(67);
-/* harmony import */ var _TransitionMediator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(68);
+/* harmony import */ var _objectApplyValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(99);
+/* harmony import */ var _TransitionMediator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(100);
 
 
 
@@ -5374,19 +7153,19 @@ const useTransition = (
 
 
 /***/ }),
-/* 62 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 if (false) {} else {
-  module.exports = __webpack_require__(63);
+  module.exports = __webpack_require__(95);
 }
 
 
 /***/ }),
-/* 63 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5407,8 +7186,8 @@ if (true) {
   (function() {
 'use strict';
 
-var _assign = __webpack_require__(64);
-var checkPropTypes = __webpack_require__(65);
+var _assign = __webpack_require__(96);
+var checkPropTypes = __webpack_require__(97);
 
 // TODO: this is special because it gets imported during build.
 
@@ -7713,7 +9492,7 @@ module.exports = react;
 
 
 /***/ }),
-/* 64 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7810,7 +9589,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 
 /***/ }),
-/* 65 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7826,7 +9605,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 var printWarning = function() {};
 
 if (true) {
-  var ReactPropTypesSecret = __webpack_require__(66);
+  var ReactPropTypesSecret = __webpack_require__(98);
   var loggedTypeFailures = {};
   var has = Function.call.bind(Object.prototype.hasOwnProperty);
 
@@ -7919,7 +9698,7 @@ module.exports = checkPropTypes;
 
 
 /***/ }),
-/* 66 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7938,7 +9717,7 @@ module.exports = ReactPropTypesSecret;
 
 
 /***/ }),
-/* 67 */
+/* 99 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7955,13 +9734,13 @@ const objectApplyValues = (obj, values) => {
 
 
 /***/ }),
-/* 68 */
+/* 100 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return TransitionMediator; });
-/* harmony import */ var _easeOut__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(69);
+/* harmony import */ var _easeOut__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(101);
 /* harmony import */ var motion_ux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 /* harmony import */ var motion_ux__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(motion_ux__WEBPACK_IMPORTED_MODULE_1__);
 
@@ -8201,14 +9980,14 @@ class TransitionMediator {
       const oldOption = lastOptions[key];
       const option = newOptions[key];
       const from = currentValues[key];
-      const easing = _easeOut__WEBPACK_IMPORTED_MODULE_0__["default"][option.easing];
+      let easing = _easeOut__WEBPACK_IMPORTED_MODULE_0__["default"][option.easing];
 
       const controls = Array.isArray(option.controls)
         ? option.controls.slice(0)
         : [];
 
       if (shouldRedirect) {
-        new motion_ux__WEBPACK_IMPORTED_MODULE_1__["BlendedEasing"]({
+        easing = new motion_ux__WEBPACK_IMPORTED_MODULE_1__["BlendedEasing"]({
           easingA: this.getEasing(oldOption),
           easingB: this.getEasing(option),
           offset: timeline.progress,
@@ -8256,7 +10035,7 @@ class TransitionMediator {
 
 
 /***/ }),
-/* 69 */
+/* 101 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8296,15 +10075,15 @@ const bezierCurveEasings = {
 
 
 /***/ }),
-/* 70 */
+/* 102 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(62);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(94);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _transformAnimatedProperties__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(71);
-/* harmony import */ var _useTransition_easeOut__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(69);
+/* harmony import */ var _transformAnimatedProperties__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(103);
+/* harmony import */ var _useTransition_easeOut__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(101);
 
 
 
@@ -8411,7 +10190,7 @@ const useNativeTransition = (
 
 
 /***/ }),
-/* 71 */
+/* 103 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8441,13 +10220,13 @@ const transformStyle = value => {
 
 
 /***/ }),
-/* 72 */
+/* 104 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73);
-/* harmony import */ var _applyStyleValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(74);
+/* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(105);
+/* harmony import */ var _applyStyleValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(106);
 
 
 
@@ -8459,12 +10238,12 @@ const makeStyledTransition = (states, duration) => {
 
 
 /***/ }),
-/* 73 */
+/* 105 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _useTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(61);
+/* harmony import */ var _useTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(93);
 
 
 const makeTransition = (states, duration, applyValues) => {
@@ -8550,7 +10329,7 @@ const makeTransition = (states, duration, applyValues) => {
 
 
 /***/ }),
-/* 74 */
+/* 106 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8567,13 +10346,13 @@ const applyStyleValues = (element, values) => {
 
 
 /***/ }),
-/* 75 */
+/* 107 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73);
-/* harmony import */ var _applyValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(76);
+/* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(105);
+/* harmony import */ var _applyValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(108);
 
 
 
@@ -8585,7 +10364,7 @@ const makePropertyTransition = (states, duration) => {
 
 
 /***/ }),
-/* 76 */
+/* 108 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8602,13 +10381,13 @@ const applyValues = (obj, values) => {
 
 
 /***/ }),
-/* 77 */
+/* 109 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(73);
-/* harmony import */ var _applyAttributeValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(78);
+/* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(105);
+/* harmony import */ var _applyAttributeValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(110);
 
 
 
@@ -8620,7 +10399,7 @@ const makeAttributeTransition = (states, duration) => {
 
 
 /***/ }),
-/* 78 */
+/* 110 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8637,12 +10416,12 @@ const applyAttributeValues = (obj, values) => {
 
 
 /***/ }),
-/* 79 */
+/* 111 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _useNativeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(70);
+/* harmony import */ var _useNativeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(102);
 
 
 const makeNativeTransition = (suppliedStates, duration) => {
