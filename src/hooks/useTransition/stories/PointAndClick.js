@@ -1,3 +1,4 @@
+import { Easing, easings } from "motion-ux";
 import React, { useState, useRef } from "react";
 import useTransition from "../index";
 
@@ -43,7 +44,10 @@ const applyStyles = (element, values) => {
 function Ball({ x, y, backgroundColor }) {
   const ref = useTransition(
     {
-      transform: `translate(${x}px, ${y}px)`,
+      transform: {
+        value: `translate(${x}px, ${y}px)`,
+        easing: easings.easeOutExpo,
+      },
       backgroundColor: backgroundColor,
     },
     {
@@ -72,7 +76,6 @@ const PointAndClick = () => {
     const y = event.pageY - containerRect.top;
 
     clearTimeout(timeoutRef.current);
-
     setTimeout(() => {
       setState({
         x,
