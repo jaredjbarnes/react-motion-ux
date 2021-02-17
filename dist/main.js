@@ -122,31 +122,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _hooks_useTransition__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(93);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "useTransition", function() { return _hooks_useTransition__WEBPACK_IMPORTED_MODULE_1__["default"]; });
 
-/* harmony import */ var _hooks_useNativeTransition__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(102);
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "useNativeTransition", function() { return _hooks_useNativeTransition__WEBPACK_IMPORTED_MODULE_2__["default"]; });
+/* harmony import */ var _hooks_makeStyledTransition__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(102);
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "makeStyledTransition", function() { return _hooks_makeStyledTransition__WEBPACK_IMPORTED_MODULE_2__["default"]; });
 
-/* harmony import */ var _hooks_makeStyledTransition__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(104);
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "makeStyledTransition", function() { return _hooks_makeStyledTransition__WEBPACK_IMPORTED_MODULE_3__["default"]; });
+/* harmony import */ var _hooks_makePropertyTransition__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(105);
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "makePropertyTransition", function() { return _hooks_makePropertyTransition__WEBPACK_IMPORTED_MODULE_3__["default"]; });
 
-/* harmony import */ var _hooks_makePropertyTransition__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(107);
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "makePropertyTransition", function() { return _hooks_makePropertyTransition__WEBPACK_IMPORTED_MODULE_4__["default"]; });
+/* harmony import */ var _hooks_makeAttributeTransition__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(107);
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "makeAttributeTransition", function() { return _hooks_makeAttributeTransition__WEBPACK_IMPORTED_MODULE_4__["default"]; });
 
-/* harmony import */ var _hooks_makeAttributeTransition__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(109);
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "makeAttributeTransition", function() { return _hooks_makeAttributeTransition__WEBPACK_IMPORTED_MODULE_5__["default"]; });
+/* harmony import */ var _hooks_makeTransition__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(103);
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "makeTransition", function() { return _hooks_makeTransition__WEBPACK_IMPORTED_MODULE_5__["default"]; });
 
-/* harmony import */ var _hooks_makeTransition__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(105);
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "makeTransition", function() { return _hooks_makeTransition__WEBPACK_IMPORTED_MODULE_6__["default"]; });
+/* harmony import */ var _hooks_makeStyledTransition_applyStyleValues__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(104);
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "applyStyleValues", function() { return _hooks_makeStyledTransition_applyStyleValues__WEBPACK_IMPORTED_MODULE_6__["default"]; });
 
-/* harmony import */ var _hooks_makeNativeTransition__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(111);
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "makeNativeTransition", function() { return _hooks_makeNativeTransition__WEBPACK_IMPORTED_MODULE_7__["default"]; });
-
-/* harmony import */ var _hooks_makeStyledTransition_applyStyleValues__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(106);
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "applyStyleValues", function() { return _hooks_makeStyledTransition_applyStyleValues__WEBPACK_IMPORTED_MODULE_8__["default"]; });
-
-/* harmony import */ var _hooks_useTransition_TransitionMediator__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(100);
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TransitionMediator", function() { return _hooks_useTransition_TransitionMediator__WEBPACK_IMPORTED_MODULE_9__["default"]; });
-
-
+/* harmony import */ var _hooks_useTransition_TransitionMediator__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(100);
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TransitionMediator", function() { return _hooks_useTransition_TransitionMediator__WEBPACK_IMPORTED_MODULE_7__["default"]; });
 
 
 
@@ -6954,6 +6946,8 @@ exports.default = void 0;
 
 var _BezierCurve = _interopRequireDefault(__webpack_require__(14));
 
+var _Easing = _interopRequireDefault(__webpack_require__(92));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -6969,13 +6963,14 @@ function () {
     _classCallCheck(this, BlendedEasing);
 
     options = options || {};
-    this.easingA = options.easingA;
+    this.fromEasing = options.from;
     this.offset = options.offset;
-    this.to = options.easingB;
+    this.toEasing = options.to;
+    this.transitionDuration = typeof options.transitionDuration === "number" ? options.transitionDuration : 0.25;
     this.validateOptions();
-    var slope = this.getSlope();
-    this.from = new _BezierCurve.default([0, slope]);
-    this.easing = new _BezierCurve.default([0, 1, 1, 1, 1, 1, 1, 1]);
+    this.slope = this.getSlope();
+    this.continuedSlopeEasing = new _BezierCurve.default([0, this.slope]);
+    this.easing = new _Easing.default([0, 0, 0, 1, 1, 1, 1, 1]);
   } // Use differential calculas to get slope.
 
 
@@ -6986,27 +6981,46 @@ function () {
       var rise;
 
       if (this.offset < 1) {
-        rise = this.easingA.valueAt(deltaX + this.offset) - this.easingA.valueAt(this.offset);
+        rise = this.fromEasing.valueAt(deltaX + this.offset) - this.fromEasing.valueAt(this.offset);
       } else {
-        rise = this.easingA.valueAt(1) - this.easingA.valueAt(1 - deltaX);
+        rise = this.fromEasing.valueAt(1) - this.fromEasing.valueAt(1 - deltaX);
       }
 
       var run = deltaX;
       return rise / run;
     }
   }, {
+    key: "getFromValue",
+    value: function getFromValue(percentage) {
+      var fromPercentage = this.offset + percentage;
+      var fromValue; // Get the value from the easing until it finishes then use the slope easing.
+
+      if (fromPercentage <= 1) {
+        fromValue = this.fromEasing.valueAt(fromPercentage) - this.fromEasing.valueAt(this.offset);
+      } else {
+        fromValue = this.continuedSlopeEasing.valueAt(fromPercentage - 1) + this.fromEasing.valueAt(1) - this.fromEasing.valueAt(this.offset);
+      }
+
+      return fromValue;
+    }
+  }, {
     key: "valueAt",
     value: function valueAt(percentage) {
-      var adjustedPercentage = this.easing.valueAt(percentage);
-      var toValue = this.to.valueAt(percentage);
-      var fromValue = this.from.valueAt(percentage);
-      return fromValue + (toValue - fromValue) * adjustedPercentage;
+      var adjustedPercentage = this.easing.valueAt(percentage / this.transitionDuration);
+      var toValue = this.toEasing.valueAt(percentage);
+      var fromValue = this.getFromValue(percentage);
+
+      if (percentage < this.transitionDuration) {
+        return fromValue + (toValue - fromValue) * adjustedPercentage;
+      } else {
+        return toValue;
+      }
     }
   }, {
     key: "validateOptions",
     value: function validateOptions() {
-      if (typeof this.easingA.valueAt !== "function" || typeof this.to.valueAt !== "function") {
-        throw new Error("Both easingA and easingB need to have a valueAt function.");
+      if (typeof this.fromEasing.valueAt !== "function" || typeof this.toEasing.valueAt !== "function") {
+        throw new Error("Both fromEasing and toEasing need to have a valueAt function.");
       }
     }
   }]);
@@ -9988,8 +10002,8 @@ class TransitionMediator {
 
       if (shouldRedirect) {
         easing = new motion_ux__WEBPACK_IMPORTED_MODULE_1__["BlendedEasing"]({
-          easingA: this.getEasing(oldOption),
-          easingB: this.getEasing(option),
+          from: this.getEasing(oldOption),
+          to: this.getEasing(option),
           offset: timeline.progress,
         });
 
@@ -10080,153 +10094,8 @@ const bezierCurveEasings = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(94);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _transformAnimatedProperties__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(103);
-/* harmony import */ var _useTransition_easeOut__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(101);
-
-
-
-
-const useNativeTransition = (
-  cssProperties,
-  { duration: defaultDuration = 0, ref, onComplete, initialProperties = null }
-) => {
-  const [node, setNode] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null);
-
-  const callbackRef = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(
-    node => {
-      if (node != null) {
-        if (typeof ref === "function") {
-          ref(node);
-        } else if (
-          typeof ref === "object" &&
-          ref != null &&
-          ref.hasOwnProperty("current")
-        ) {
-          ref.current = node;
-        }
-
-        if (initialProperties != null) {
-          Object(_transformAnimatedProperties__WEBPACK_IMPORTED_MODULE_1__["default"])(initialProperties);
-
-          Object.keys(initialProperties).forEach(key => {
-            const { value } = initialProperties[key];
-            node.style[key] = value;
-          });
-        } else {
-          Object(_transformAnimatedProperties__WEBPACK_IMPORTED_MODULE_1__["default"])(cssProperties);
-
-          Object.keys(cssProperties).forEach(key => {
-            const { value } = cssProperties[key];
-            node.style[key] = value;
-          });
-        }
-
-        setNode(node);
-      }
-    },
-    [ref, initialProperties, cssProperties]
-  );
-
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
-    if (cssProperties != null && node != null) {
-      Object(_transformAnimatedProperties__WEBPACK_IMPORTED_MODULE_1__["default"])(cssProperties);
-
-      const transition = Object.keys(cssProperties)
-        .map(property => {
-          let {
-            duration: durationOverride,
-            easing: easingName,
-            startAt = 0,
-            endAt = 1
-          } = cssProperties[property];
-
-          let delay;
-          let easing =
-            _useTransition_easeOut__WEBPACK_IMPORTED_MODULE_2__["bezierCurveEasings"][easingName] != null
-              ? _useTransition_easeOut__WEBPACK_IMPORTED_MODULE_2__["bezierCurveEasings"][easingName]
-              : _useTransition_easeOut__WEBPACK_IMPORTED_MODULE_2__["bezierCurveEasings"].expo;
-          let duration =
-            typeof durationOverride === "number"
-              ? durationOverride
-              : defaultDuration;
-
-          startAt = typeof startAt === "number" ? startAt : 0;
-          endAt = typeof endAt === "number" ? endAt : 0;
-
-          const originalDuration = duration;
-          duration = (endAt - startAt) * originalDuration;
-          delay = `${startAt * originalDuration}`;
-
-          return `${property} ${duration}ms ${easing} ${delay}ms`;
-        })
-        .join(", ");
-
-      node.style.transition = transition;
-
-      Object.keys(cssProperties).forEach(key => {
-        const { value } = cssProperties[key];
-        node.style[key] = value;
-      });
-    }
-  }, [initialProperties, cssProperties, defaultDuration, node]);
-
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
-    if (node != null) {
-      if (typeof onComplete === "function") {
-        node.addEventListener("transitionend", onComplete);
-      }
-      return () => {
-        node.removeEventListener("transitionend", onComplete);
-      };
-    }
-  }, [node, onComplete]);
-
-  return callbackRef;
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (useNativeTransition);
-
-
-/***/ }),
-/* 103 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-const transformAnimatedProperties = animatedProperties => {
-  Object.keys(animatedProperties).forEach(key => {
-    animatedProperties[key] = transformStyle(animatedProperties[key]);
-  });
-};
-
-const transformStyle = value => {
-  let objectValue = value;
-
-  if (typeof value === "object" && value != null) {
-    objectValue = value;
-  } else {
-    objectValue = {
-      value: value
-    };
-  }
-
-  objectValue.value = objectValue.value.toString();
-  return objectValue;
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (transformAnimatedProperties);
-
-
-/***/ }),
-/* 104 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(105);
-/* harmony import */ var _applyStyleValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(106);
+/* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(103);
+/* harmony import */ var _applyStyleValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(104);
 
 
 
@@ -10238,12 +10107,15 @@ const makeStyledTransition = (states, duration) => {
 
 
 /***/ }),
-/* 105 */
+/* 103 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _useTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(93);
+/* harmony import */ var motion_ux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var motion_ux__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(motion_ux__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _useTransition__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(93);
+
 
 
 const makeTransition = (states, duration, applyValues) => {
@@ -10313,7 +10185,7 @@ const makeTransition = (states, duration, applyValues) => {
       }
     };
 
-    return Object(_useTransition__WEBPACK_IMPORTED_MODULE_0__["default"])(state, {
+    return Object(_useTransition__WEBPACK_IMPORTED_MODULE_1__["default"])(state, {
       duration: finalDuration,
       applyValues,
       ref,
@@ -10327,9 +10199,8 @@ const makeTransition = (states, duration, applyValues) => {
 
 /* harmony default export */ __webpack_exports__["default"] = (makeTransition);
 
-
 /***/ }),
-/* 106 */
+/* 104 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10346,13 +10217,13 @@ const applyStyleValues = (element, values) => {
 
 
 /***/ }),
-/* 107 */
+/* 105 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(105);
-/* harmony import */ var _applyValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(108);
+/* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(103);
+/* harmony import */ var _applyValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(106);
 
 
 
@@ -10364,7 +10235,7 @@ const makePropertyTransition = (states, duration) => {
 
 
 /***/ }),
-/* 108 */
+/* 106 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10381,13 +10252,13 @@ const applyValues = (obj, values) => {
 
 
 /***/ }),
-/* 109 */
+/* 107 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(105);
-/* harmony import */ var _applyAttributeValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(110);
+/* harmony import */ var _makeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(103);
+/* harmony import */ var _applyAttributeValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(108);
 
 
 
@@ -10399,7 +10270,7 @@ const makeAttributeTransition = (states, duration) => {
 
 
 /***/ }),
-/* 110 */
+/* 108 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10413,52 +10284,6 @@ const applyAttributeValues = (obj, values) => {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (applyAttributeValues);
-
-
-/***/ }),
-/* 111 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _useNativeTransition__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(102);
-
-
-const makeNativeTransition = (suppliedStates, duration) => {
-  return (name, { props, ...rest } = {}) => {
-    let states;
-
-    if (typeof suppliedStates === "function") {
-      states = suppliedStates(props);
-    } else {
-      states = suppliedStates;
-    }
-
-    const stateNames = Object.keys(states).join(", ");
-    const initialProperties = states.initial;
-    const cssProperties = states[name];
-
-    if (cssProperties == null) {
-      throw new Error(
-        `Invalid Arguments: Cannot find '${name}' within defined states: ${stateNames}.`
-      );
-    }
-
-    if (name == null) {
-      throw new Error(
-        `Invalid Arguments: Cannot find '${name}' within defined states: ${stateNames}, you may have forgotten to pass the state name in as an argument.`
-      );
-    }
-
-    return Object(_useNativeTransition__WEBPACK_IMPORTED_MODULE_0__["default"])(cssProperties, {
-      duration,
-      initialProperties,
-      ...rest
-    });
-  };
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (makeNativeTransition);
 
 
 /***/ })

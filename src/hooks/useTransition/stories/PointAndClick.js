@@ -46,7 +46,6 @@ function Ball({ x, y, backgroundColor }) {
     {
       transform: {
         value: `translate(${x}px, ${y}px)`,
-        easing: easings.easeOutExpo,
       },
       backgroundColor: backgroundColor,
     },

@@ -243,8 +243,8 @@ export default class TransitionMediator {
 
       if (shouldRedirect) {
         easing = new BlendedEasing({
-          easingA: this.getEasing(oldOption),
-          easingB: this.getEasing(option),
+          from: this.getEasing(oldOption),
+          to: this.getEasing(option),
           offset: timeline.progress,
         });
 

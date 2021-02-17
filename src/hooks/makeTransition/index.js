@@ -1,3 +1,4 @@
+import { easings } from "motion-ux";
 import useTransition from "../useTransition";
 
 const makeTransition = (states, duration, applyValues) => {
