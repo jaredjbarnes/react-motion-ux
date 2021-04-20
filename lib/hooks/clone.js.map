@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../src/hooks/clone.js"],"names":["obj","JSON","parse","stringify"],"mappings":";;;;;;;eAAe,kBAAAA,GAAG,EAAI;AACpB,SAAOC,IAAI,CAACC,KAAL,CAAWD,IAAI,CAACE,SAAL,CAAeH,GAAf,CAAX,CAAP;AACD,C","sourcesContent":["export default obj => {\n  return JSON.parse(JSON.stringify(obj));\n};\n"],"file":"clone.js"}

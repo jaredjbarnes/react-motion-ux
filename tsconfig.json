@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "target": "es6",
+    "module": "esnext",
+    "lib": ["DOM", "ES2019"],
+    "strict": true,
+    "sourceMap": true,
+    "declaration": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "declarationDir": "./dist",
+    "outDir": "./dist",
+    "typeRoots": ["node_modules/@types"]
+  },
+  "exclude": ["node_modules"],
+  "files": ["./src/index.ts"]
+}

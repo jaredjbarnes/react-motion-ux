@@ -1,38 +1,55 @@
 {
   "name": "react-motion-ux",
   "version": "1.0.3",
-  "main": "lib/index.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.esm.js",
+  "browser": "./dist/index.browser.js",
+  "types": "./dist/index.d.ts",
   "dependencies": {
-    "motion-ux": "^3.0.9"
+    "motion-ux": "^5.1.5"
   },
   "devDependencies": {
-    "@babel/cli": "^7.7.0",
-    "@babel/core": "^7.7.2",
-    "@babel/plugin-transform-react-jsx": "^7.7.4",
-    "@babel/preset-env": "^7.7.1",
-    "@material-ui/core": "^4.7.2",
-    "@material-ui/icons": "^4.5.1",
-    "@storybook/addon-actions": "^5.3.13",
-    "@storybook/addon-links": "^5.3.13",
-    "@storybook/addons": "^5.3.13",
-    "@storybook/preset-create-react-app": "^1.5.2",
-    "@storybook/react": "^5.3.13",
-    "@types/react": "^16.9.23",
-    "@types/react-dom": "^16.9.5",
-    "fs-extra": "^7.0.1",
+    "@storybook/addon-actions": "^6.2.8",
+    "@storybook/addon-essentials": "^6.2.8",
+    "@storybook/addon-links": "^6.2.8",
+    "@storybook/node-logger": "^6.2.8",
+    "@storybook/preset-create-react-app": "^3.1.7",
+    "@storybook/react": "^6.2.8",
+    "@types/jest": "^26.0.20",
+    "jest": "^26.6.3",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-scripts": "3.2.0",
-    "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10"
+    "rollup": "^2.41.2",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-typescript2": "^0.30.0",
+    "ts-jest": "^26.5.3",
+    "tslib": "^2.1.0",
+    "typescript": "^4.2.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaredjbarnes/react-motion-ux.git"
   },
   "scripts": {
-    "storybook": "start-storybook -p 9009",
-    "build": "npx babel src --out-dir lib --source-maps && npx webpack --mode=none --config webpack.config.js && build-storybook -c .storybook -o docs/storybook && npx copyfiles -f src/index.d.ts lib",
+    "build": "rollup -c -m",
+    "test": "jest",
+    "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "overrides": [
+      {
+        "files": [
+          "**/*.stories.*"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": "off"
+        }
+      }
+    ]
   },
   "browserslist": {
     "production": [
