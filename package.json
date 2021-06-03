@@ -1,7 +1,9 @@
 {
   "name": "react-motion-ux",
-  "version": "0.4.22",
-  "main": "lib/index.js",
+  "version": "0.4.23",
+  "main": "./dist/index.js",
+  "module": "./dist/index.esm.js",
+  "browser": "./dist/index.browser.js",
   "dependencies": {
     "motion-ux": "^2.1.5"
   },
@@ -24,12 +26,17 @@
     "react-dom": "^16.12.0",
     "react-scripts": "3.2.0",
     "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10"
+    "webpack-cli": "^3.3.10",
+    "rollup": "^2.41.2",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-typescript2": "^0.30.0"
   },
   "scripts": {
     "storybook": "start-storybook -p 9009",
     "build": "npx babel src --out-dir lib --source-maps && npx webpack --mode=none --config webpack.config.js && build-storybook -c .storybook -o docs/storybook && npx copyfiles -f src/index.d.ts lib",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "build-rollup": "rollup -c -m"
   },
   "eslintConfig": {
     "extends": "react-app"
