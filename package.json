@@ -1,12 +1,12 @@
 {
   "name": "react-motion-ux",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "main": "./dist/index.js",
   "module": "./dist/index.esm.js",
   "browser": "./dist/index.browser.js",
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "motion-ux": "^5.1.5"
+    "motion-ux": "^5.2.0"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^6.2.8",

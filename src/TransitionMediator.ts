@@ -1,31 +1,34 @@
-import {
-  Player,
-  Animation,
-  IAnimationKeyframes,
-  IAnimationKeyframeValue,
-} from "motion-ux";
+import { Player, Animation, IAnimationKeyframeValue } from "motion-ux";
 import { EasingFunction } from "motion-ux/dist/easings";
 
 interface ITransitionState {
   [key: string]: IAnimationKeyframeValue;
 }
 
+const defaultOnComplete = () => {};
+
 export class TransitionMediator {
   private currentStateName: string;
   private currentAnimation: Animation;
   private player: Player;
   private element: HTMLElement | null;
+  private onComplete = defaultOnComplete;
 
-  constructor(keyframes: IAnimationKeyframes) {
-    const stateName = "initial";
-    const animation = Animation.fromKeyframes(stateName, keyframes);
+  constructor(from: ITransitionState, to: ITransitionState) {
+    const stateName = "$__initial__";
+    const animation = Animation.fromKeyframes(stateName, { from, to });
     this.currentStateName = stateName;
     this.currentAnimation = animation;
-    this.player = new Player(this.currentAnimation, { render: this.render });
 
     // These need to remember their context to work correctly, so we bind them.
     this.render = this.render.bind(this);
     this.setElement = this.setElement.bind(this);
+
+    this.player = new Player(this.currentAnimation, { render: this.render });
+    this.player.play();
+    this.player.observeTime(1, () => {
+      this.onComplete();
+    });
   }
 
   render(animation: Animation) {
@@ -48,32 +51,19 @@ export class TransitionMediator {
     transitionDuration: number,
     transitionEasing: EasingFunction
   ) {
+    // If its a different state then transition.
     if (this.currentStateName !== name) {
-      const currentPositions = this.player.animation.getCurrentValues()[
-        this.currentStateName
-      ];
+      this.currentAnimation = Animation.fromKeyframes(name, {
+        from: state,
+        to: state,
+      });
 
-      if (this.player.state === Player.states.STOPPED) {
-        this.currentAnimation = Animation.fromKeyframes(name, {
-          from: currentPositions,
-          to: state,
-        });
-
-        this.player.animation = this.currentAnimation;
-        this.player.seek(0);
-      } else {
-        this.currentAnimation = Animation.fromKeyframes(name, {
-          from: state,
-          to: state,
-        });
-
-        this.player.transitionToAnimation(
-          this.currentAnimation,
-          duration,
-          transitionDuration,
-          transitionEasing
-        );
-      }
+      this.player.transitionToAnimation(
+        this.currentAnimation,
+        duration,
+        transitionDuration,
+        transitionEasing
+      );
 
       this.player.play();
     }
@@ -81,5 +71,13 @@ export class TransitionMediator {
 
   setElement(element: HTMLElement) {
     this.element = element;
+  }
+
+  setOnComplete(onComplete: () => void) {
+    this.onComplete = onComplete;
+  }
+
+  dispose() {
+    this.player.dispose();
   }
 }
