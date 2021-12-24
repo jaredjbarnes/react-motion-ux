@@ -5729,10 +5729,10 @@ cjs-module-lexer@^0.6.0:
   resolved "https://registry.yarnpkg.com/cjs-module-lexer/-/cjs-module-lexer-0.6.0.tgz#4186fcca0eae175970aee870b9fe2d6cf8d5655f"
   integrity sha512-uc2Vix1frTfnuzxxu1Hp4ktSvM3QaI4oXl4ZUqL1wjTu/BGki9TrCWoqLTg/drR1KwAEarXuRFCG2Svr1GxPFw==
 
-clarity-pattern-parser@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/clarity-pattern-parser/-/clarity-pattern-parser-3.0.0.tgz#b29ff3cdd856588667fcf27f91eeadbd8807e1e8"
-  integrity sha512-JDISs+NZwA+T/CzQn6rgzEh2BhZgbC42pW2mTN+smCKQurYlxrYyqPW3Mn2Wa/hpqxMoqiyQat9Erpfooxig0g==
+clarity-pattern-parser@3.0.8:
+  version "3.0.8"
+  resolved "https://registry.yarnpkg.com/clarity-pattern-parser/-/clarity-pattern-parser-3.0.8.tgz#2e1426230d81ae4984b60690bd8875eab3051ba2"
+  integrity sha512-zcfi3+SmZfri1ULSb1Nn77DnQKTAhGqfPoV5diaYipIlsFuBm9ePlMgU9PryWGeWzZToVZ5q1k2NUiuOudiEJQ==
 
 class-utils@^0.3.5:
   version "0.3.6"
@@ -11639,12 +11639,12 @@ mkdirp@^0.5.3:
   dependencies:
     minimist "^1.2.5"
 
-motion-ux@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/motion-ux/-/motion-ux-5.2.0.tgz#8e47226012070104501e7f7dcea321e87518bc3c"
-  integrity sha512-7UgFD/b9qfwNQ6GleqepYkU/QUldZug2d6dXdzRLD931lFazKy7lFRRwK3B8Ilc7b2u9Ke7NLnleJ1amEY4aBA==
+motion-ux@6.0.2:
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/motion-ux/-/motion-ux-6.0.2.tgz#4225552a5eb7e3f6b73c1fefca145338c0ee5486"
+  integrity sha512-xufVl1FdTO3Uf68JFJ9ARbnPAn0k9NXDsqSOXDL78KPUZ6D4ep5UqH62QG1m59zzJJpgOVtu272SMo5xmEnWkA==
   dependencies:
-    clarity-pattern-parser "3.0.0"
+    clarity-pattern-parser "3.0.8"
 
 move-concurrently@^1.0.1:
   version "1.0.1"

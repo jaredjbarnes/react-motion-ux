@@ -6,7 +6,7 @@
   "browser": "./dist/index.browser.js",
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "motion-ux": "^5.2.0"
+    "motion-ux": "6.0.2"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^6.2.8",
